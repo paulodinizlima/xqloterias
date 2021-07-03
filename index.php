@@ -77,9 +77,125 @@
     <div class="main">
       
       <div class="left">
-          left
+          <!-- left -->
+          <div class="title_left">
+
+            Últimos Resultados
+
+          </div>  
+
+          <div class="content_left">
+
+            <!-- Megasena -->
+            <a href="loterias/megasena">
+              <div class="title_loteria_left tmegasena">            
+                <h5><span class="icone"><img src="img/icon_megasena.png" width="20"></span> Megasena
+                  <span class="concurso_left">2154</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                03/07/2021 
+              </div>
+            </a> 
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">
+              <h5><span class="icone"><img src="img/icon_lotofacil.png" width="20"></span> Lotofácil
+                <span class="concurso_left">2154</span></h5>
+              </div>
+            
+              <div class="content_loteria_left">
+                03/07/2021
+              </div> 
+            </a>
+
+            <!-- Quina -->  
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">
+              <h5><span class="icone"><img src="img/icon_quina.png" width="20"></span> Quina
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021
+              </div>  
+            </a>
+
+            <!-- Lotomania -->
+            <a href="loterias/lotomania">
+              <div class="title_loteria_left tlotomania">
+              <h5><span class="icone"><img src="img/icon_lotomania.png" width="20"></span> Lotomania
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021
+              </div> 
+            </a>
+
+            <!-- Timemania -->
+            <a href="loterias/timemania">
+              <div class="title_loteria_left ttimemania">
+              <h5><span class="icone"><img src="img/icon_timemania.png" width="20"></span> Timemania
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021
+              </div>  
+            </a>
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">
+              <h5><span class="icone"><img src="img/icon_duplasena.png" width="20"></span>  Dupla Sena
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021 
+              </div>  
+            </a>
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/diadesorte">
+              <div class="title_loteria_left tdiadesorte">
+              <h5><span class="icone"><img src="img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021 
+              </div>  
+            </a>
+
+            <!-- Super Sete -->
+            <a href="loterias/supersete">
+              <div class="title_loteria_left tsupersete">
+              <h5><span class="icone"><img src="img/icon_supersete.png" width="20"></span> Super Sete
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021 
+              </div>  
+            </a>
+
+            <!-- Federal -->
+            <a href="loterias/federal">
+              <div class="title_loteria_left tfederal">
+              <h5><span class="icone"><img src="img/icon_federal.png" width="20"></span> Federal
+                <span class="concurso_left">2154</span></h5>
+              </div>
+              <div class="content_loteria_left">
+                03/07/2021 
+              </div> 
+            </a> 
+
+            <!-- ---- -->          
+          </div>  
+          
+          <div class="left_ads">
+            <img src="img/ads01.png">
+          </div>
 
       </div>
+      
       <div class="right">
           right
 

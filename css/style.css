@@ -8,8 +8,13 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
   margin:0; padding:0; border:0; background:transparent;
-  /*vertical-align: baseline;*/
+  
 }
+
+a:hover {
+  text-decoration: none;
+}
+
 html, body {
   height: 100%;
 }
@@ -57,7 +62,7 @@ html, body {
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
- 
+  height: 100%;
 }
 
 header {
@@ -124,20 +129,22 @@ input#control-nav {
   margin-top: 10px;
   padding: 10px 10px;
   width: 100%;
-  /*border: 3px solid red;*/
+  border: 3px solid rgb(38, 0, 255);
   position: relative;
   color: black;
   z-index: 3;
-  height: 80%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .main {
   width: 70%;
   margin: 0 auto;
-  /*border: 1px solid #ccc;*/
+  border: 1px solid rgb(155, 27, 27);
   height: 100%;
   position: relative;
   box-shadow: 0px 0px 9px rgba(0,0,0,0.4);
+  border-radius: 10px;
 
 }
 
@@ -148,40 +155,58 @@ input#control-nav {
   padding: 5px 10px;
 }
 
-.tmegasena {
-  background-color: #00A600;
+.tmegasena {  
+  background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20,167,51)50%, rgb(255, 255, 255) 100%);
+  border: 1px solid rgb(20, 167, 51, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tlotofacil {
-  background-color: #981AA0;
+  background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
+  border: 1px solid rgb(133, 20, 167, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tquina {
-  background-color: #341FA0;
+  background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
+  border: 1px solid rgb(54, 20, 167, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tlotomania {
-  background-color: #F4710C;
+  background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
+  border: 1px solid rgb(190, 107, 12, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .ttimemania {
-  background-color: #D0B220;
+  background: linear-gradient(90deg, rgb(167, 165, 20) 0%,  rgb(167, 165, 20)50%,rgb(255, 254, 198) 100%);
+  border: 1px solid rgb(167, 165, 20, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tduplasena {
-  background-color: #A61029;
+  background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
+  border: 1px solid rgb(167, 49, 20, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tdiadesorte {
-  background-color: #AFA32C;
+  background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
+  border: 1px solid rgb(145, 125, 17, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tsupersete {
-  background-color: #A8CF45;
+  background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
+  border: 1px solid rgb(152, 167, 20, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .tfederal {
-  background-color: #012F60;
+  background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
+  border: 1px solid rgb(16, 42, 128, 1);
+  border-radius: 10px 0 10px 0;
 }
 
 .left {
@@ -189,10 +214,81 @@ input#control-nav {
   width: 20%;
   /*border: 1px solid blue;*/
   float: left;
-  height: 100%;
+  height: auto;
   background-color: #eee;
   padding: 5px;
+  border-radius: 5px;
 }
+
+.title_left {
+  background-color: #A8CF45;
+  padding: 5px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.content_left {
+  padding: 2px 5px;
+}
+
+.title_loteria_left { 
+  padding: 5px 0 0 5px;
+  margin-top: 5px;
+}
+
+.title_loteria_left.tmegasena :hover, .content_loteria_left :hover {
+  color: rgb(3, 85, 21) !important;
+}
+.title_loteria_left.tlotofacil :hover {
+  color: rgb(67, 15, 110) !important;
+}
+.title_loteria_left.tquina :hover {
+  color: rgb(29, 6, 83) !important;
+}
+.title_loteria_left.tlotomania :hover {
+  color: rgb(112, 77, 0) !important;
+}
+.title_loteria_left.ttimemania :hover {
+  color: rgb(128, 149, 4) !important;
+}
+.title_loteria_left.tduplasena :hover {
+  color: rgb(121, 4, 4) !important;
+}
+.title_loteria_left.tdiadesorte :hover {
+  color: rgb(93, 102, 7) !important;
+}
+.title_loteria_left.tsupersete :hover {
+  color: rgb(51, 98, 13) !important;
+}
+.title_loteria_left.tfederal :hover {
+  color: rgb(8, 11, 61) !important;
+}
+
+.title_loteria_left h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.title_loteria_left img {
+  padding-bottom: 5px;
+}
+
+
+
+.content_loteria_left {
+  background-color: rgb(209, 226, 213);
+  padding-left: 30px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: small;
+}
+
+.left_ads img {
+  padding-top: 10px;
+  width: 100%;
+}
+
 
 .right {
   position: relative;
