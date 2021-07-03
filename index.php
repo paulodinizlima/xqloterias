@@ -187,30 +187,29 @@
               </div> 
             </a> 
 
-            <!-- ---- -->          
-          </div>  
+          </div>  <!-- end content_left -->
           
           <div class="left_ads">
             <img src="img/ads01.png">
-          </div>
+          </div> <!-- end left_ads -->
 
-      </div>
+      </div> <!-- end left -->
       
       <div class="right">
           right
 
-      </div>
+      </div> <!-- end right -->
 
-    </div>
+    </div> <!-- end main -->
 
-  </div>
+  </div> <!-- end containermain -->
 
   <div class="containerfooter">
     <div class="footer">
       footer
-    </div>
+    </div> <!-- end footer -->
 
-  </div>
+  </div> <!-- end containerfooter -->
 
 
 

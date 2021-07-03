@@ -77,27 +77,143 @@
     <div class="main">
       <div class="tloterias tlotofacil">
 
-        <h6><strong>Lotofácil - Resultado, Ganhadores e Prêmios</strong></h6>
-        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Lotofácil nos sorteios que são realizados na segunda, terça, quarta, quinta, sexta e sábado a partir das 20 horas online.</span>
+        <h6><strong>LOTOFÁCIL - Resultados, prêmios e cidades dos ganhadores.</strong></h6>
+        <span class="font14">Confira o resultado, ganhadores e prêmios da Lotofácil. Os sorteios são realizados na segunda, terça, 
+        quarta, quinta, sexta e sábado a partir das 20 horas.</span>
 
-      </div>
+      </div> <!-- end tloterias tlotofacil -->
 
       <div class="left">
-          left
+        <div class="title_left">
+          Resultados Anteriores
+        </div> <!-- end title_left -->
 
-      </div>
+        <div class="content_left">
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">            
+                <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
+                  <span class="concurso_left">2270</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                01/07/2021
+              </div>
+            </a> 
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">            
+                <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
+                  <span class="concurso_left">2269</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                30/06/2021
+              </div>
+            </a> 
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">            
+                <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
+                  <span class="concurso_left">2268</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                29/06/2021
+              </div>
+            </a> 
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">            
+                <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
+                  <span class="concurso_left">2267</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                28/06/2021
+              </div>
+            </a> 
+
+            <!-- Lotofácil -->
+            <a href="loterias/lotofacil">
+              <div class="title_loteria_left tlotofacil">            
+                <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
+                  <span class="concurso_left">2266</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                27/06/2021
+              </div>
+            </a> 
+
+        </div> <!-- end content_left -->
+
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+
+
+      </div> <!-- end left -->
+
       <div class="right">
+
+        
           
           <div class="top_right">
-              top right
+            <h5><strong>Resultado da Lotofácil 2271, de 02/07/2021.</strong></h5>
+          </div> <!-- end top_right -->
 
-          </div>
+          <div class="right_l">
 
-      </div>
+            <div class="cardnumbers">
+              
+              <?php 
+                for ($i=1; $i <= 25 ;$i++) {
+                  echo "<div class='cardnumber'>" ;
+                    echo $i;
+                  echo "</div>";
+                  if($i < 26 && $i % 5 == 0) echo "<br><br>";
+                }
 
-    </div>
+              ?>
 
-  </div>
+            </div> <!-- end cardnumbers -->
+
+          </div> <!-- end right_l -->
+
+          <div class="right_r">
+            <div class="resultnumbers">
+
+              <?php
+                for ($i=1; $i <= 15; $i++) { 
+                  echo "<div class='resultnumber tlotofacil'>";
+                    echo $i; //echo $number[$i];
+                  echo "</div>";
+                  //if($i < 26 && $i % 5 == 0) echo "<br><br>";
+                }
+
+              ?>
+
+            </div> <!-- end resultnumbers -->
+          
+          </div> <!-- end right_r -->
+
+
+      </div> <!-- end right -->
+
+    </div> <!-- end main -->
+
+  </div> <!-- end containermain -->
 
   <div class="containerfooter">
     <div class="footer">

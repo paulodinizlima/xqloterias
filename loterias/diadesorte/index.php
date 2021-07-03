@@ -78,7 +78,8 @@
       <div class="tloterias tdiadesorte">
 
         <h6><strong>Dia de Sorte - Resultado, Ganhadores e Prêmios</strong></h6>
-        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Dia de Sorte nos sorteios que são realizados na terça-feira, quinta-feira e sábado a partir das 20 horas online.</span>
+        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Dia de Sorte nos sorteios que são realizados na 
+        terça-feira, quinta-feira e sábado a partir das 20 horas online.</span>
 
       </div>
 
@@ -89,7 +90,11 @@
       <div class="right">
           
           <div class="top_right">
-              top right
+          Confira o resultado do Dia da Sorte, veja os últimos sorteios da Dia da Sorte e as dezenas sorteadas em cada concurso, 
+          bem como valor do prêmio e quantidade de ganhadores de cada faixa de premiação. Na Dia da Sorte são sorteadas sete dezenas
+          dentre as 31 disponíveis e ganha um prêmio o apostador que acerta 4, 5, 6 ou as sete dezenas sorteadas. Também é feito o 
+          sorteio de um mês do ano, dentre os 12 meses disponíveis. Os sorteios acontecem nas terças, quintas e aos sábados. Veja 
+          abaixo os últimos resultados do Dia de Sorte.
 
           </div>
 

@@ -89,7 +89,10 @@
       <div class="right">
           
           <div class="top_right">
-              top right
+          Confira os últimos resultados da Lotofácil. Veja os últimos sorteios da Lotofácil e os números sorteados em cada concurso, 
+            bem como valor do prêmio e quantidade de ganhadores de cada faixa de premiação. Na Lotofácil são sorteadas 15 dezenas dentre 
+            as 25 disponíveis e ganha um prêmio o apostador que acerta 11, 12, 13, 14 ou as 15 dezenas sorteadas. Os sorteios acontecem 
+            nas segundas, quartas e nas sextas-feiras. Veja abaixo os últimos resultados da Lotofácil.
 
           </div>
 
