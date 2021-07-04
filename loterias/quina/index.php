@@ -77,30 +77,141 @@
     <div class="main">
       <div class="tloterias tquina">
 
-        <h6><strong>Quina - Resultado, Ganhadores e Prêmios</strong></h6>
-        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Quina nos sorteios que são realizados na segunda, terça, quarta, quinta, sexta e sábado a partir das 20 horas online.</span>
+        <h6><strong>QUINA - Resultados, prêmios e cidades dos ganhadores.</strong></h6>
+        <span class="font14">Confira o resultado, ganhadores e prêmios da Quina. Os sorteios são realizados na segunda, terça, 
+        quarta, quinta, sexta e sábado a partir das 20 horas.</span>
 
-      </div>
+      </div> <!-- end tloterias tquina -->
 
       <div class="left">
-          left
+        <div class="title_left">
+          Resultados Anteriores
+        </div> <!-- end title_left -->
 
-      </div>
-      <div class="right">
+        <div class="content_left">
+
+            <!-- Quina -->
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">            
+                <h5><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina
+                  <span class="concurso_left">2270</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                01/07/2021
+              </div>
+            </a> 
+
+            <!-- Quina -->
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">            
+                <h5><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina
+                  <span class="concurso_left">2269</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                30/06/2021
+              </div>
+            </a> 
+
+            <!-- Quina -->
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">            
+                <h5><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina
+                  <span class="concurso_left">2268</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                29/06/2021
+              </div>
+            </a> 
+
+            <!-- Quina -->
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">            
+                <h5><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina
+                  <span class="concurso_left">2267</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                28/06/2021
+              </div>
+            </a> 
+
+            <!-- Quina -->
+            <a href="loterias/quina">
+              <div class="title_loteria_left tquina">            
+                <h5><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina
+                  <span class="concurso_left">2266</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                27/06/2021
+              </div>
+            </a> 
+
+        </div> <!-- end content_left -->
+
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+
+
+      </div> <!-- end left -->
+
+      <div class="right">        
           
           <div class="top_right">
-          Confira os últimos resultados da Lotofácil. Veja os últimos sorteios da Lotofácil e os números sorteados em cada concurso, 
-            bem como valor do prêmio e quantidade de ganhadores de cada faixa de premiação. Na Lotofácil são sorteadas 15 dezenas dentre 
-            as 25 disponíveis e ganha um prêmio o apostador que acerta 11, 12, 13, 14 ou as 15 dezenas sorteadas. Os sorteios acontecem 
-            nas segundas, quartas e nas sextas-feiras. Veja abaixo os últimos resultados da Lotofácil.
+            <h5><strong>Resultado da Quina 2271, de 02/07/2021.</strong></h5>
+          </div> <!-- end top_right -->
 
-          </div>
+          <div class="right_lquina">
 
-      </div>
+            <div class="cardnumbers_quina">
+              
+              <?php 
+                for ($j = 1; $j <= 80; $j++) {
+                  echo "<div class='cardnumber'>" ;
+                    echo $j;
+                  echo "</div>";
+                  if($j < 80 && $j % 10 == 0) echo "<br><br>";
+                }
 
-    </div>
+              ?>
 
-  </div>
+            </div> <!-- end cardnumbers -->
+
+          </div> <!-- end right_l -->
+
+          <div class="right_rquina">
+            <div class="resultnumbers">
+
+              <?php
+                for ($i=1; $i <= 5; $i++) { 
+                  echo "<div class='resultnumber tquina'>";
+                    echo $i; //echo $number[$i];
+                  echo "</div>";
+                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                }
+
+              ?>
+
+            </div> <!-- end resultnumbers -->
+          
+          </div> <!-- end right_r -->
+
+
+      </div> <!-- end right -->
+
+    </div> <!-- end main -->
+
+  </div> <!-- end containermain -->
 
   <div class="containerfooter">
     <div class="footer">

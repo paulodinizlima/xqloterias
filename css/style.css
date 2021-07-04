@@ -427,6 +427,87 @@ input#control-nav {
 
 /*--------*/
 
+
+/*QUINA*/
+
+.right_lquina {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rquina {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_quina {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+
+/*--------*/
+
+
+/*LOTOMANIA*/
+
+.right_llotomania {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rlotomania {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_lotomania {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+
+/*--------*/
+
+
+/*TIMEMANIA*/
+
+.right_ltimemania {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rtimemania {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_timemania {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+
+/*--------*/
+
 .cardnumber {
     position: relative;
     border: 1px solid #ccc;
@@ -694,6 +775,54 @@ input#control-nav {
         width: 183px !important;
     }
     /*-------*/
+    /*QUINA*/
+    .right_lquina {
+        float: left !important;
+        width: 25% !important;
+    }
+    .right_rquina {
+        float: right !important;
+        width: 75% !important;
+    }
+    .cardnumbers_quina {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 183px !important;
+    }
+    /*-------*/
+    /*LOTOMANIA*/
+    .right_llotomania {
+        float: left !important;
+        width: 25% !important;
+    }
+    .right_rlotomania {
+        float: right !important;
+        width: 75% !important;
+    }
+    .cardnumbers_lotomania {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 183px !important;
+    }
+    /*-------*/
+    /*TIMEMANIA*/
+    .right_ltimemania {
+        float: left !important;
+        width: 25% !important;
+    }
+    .right_rtimemania {
+        float: right !important;
+        width: 75% !important;
+    }
+    .cardnumbers_timemania {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 183px !important;
+    }
+    /*-------*/
     .cardnumber {
         width: 30px !important;
         float: left !important;
@@ -802,6 +931,78 @@ input#control-nav {
         margin: 0 auto !important;
     }
     /*---------*/
+    /*QUINA*/
+    .right_lquina {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rquina {
+        float: none !important;
+        width: 80% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_quina {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 300px !important;
+        width: 310px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*LOTOMANIA*/
+    .right_llotomania {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rlotomania {
+        float: none !important;
+        width: 80% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_lotomania {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 300px !important;
+        width: 310px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*TIMEMANIA*/
+    .right_ltimemania {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rtimemania {
+        float: none !important;
+        width: 80% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_timemania {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 300px !important;
+        width: 310px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
     .cardnumber {
         width: 28px !important;
         height: 30px !important;
@@ -868,6 +1069,75 @@ input#control-nav {
         border: none;
     }
     .cardnumbers_megasena {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 280px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*QUINA*/
+    .right_lquina {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rquina {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_quina {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 280px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*LOTOMANIA*/
+    .right_llotomania {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rlotomania {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_lotomania {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 280px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*TIMEMANIA*/
+    .right_ltimemania {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rtimemania {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_timemania {
         margin: 1px !important;
         padding: 4px !important;
         height: 280px !important;
