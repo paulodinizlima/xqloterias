@@ -173,9 +173,9 @@
             <h5><strong>Resultado da Lotofácil 2271, de 02/07/2021.</strong></h5>
           </div> <!-- end top_right -->
 
-          <div class="right_l">
+          <div class="right_llotofacil">
 
-            <div class="cardnumbers">
+            <div class="cardnumbers_lotofacil">
               
               <?php 
                 for ($i=1; $i <= 25 ;$i++) {
@@ -191,7 +191,7 @@
 
           </div> <!-- end right_l -->
 
-          <div class="right_r">
+          <div class="right_rlotofacil">
             <div class="resultnumbers">
 
               <?php

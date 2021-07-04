@@ -198,7 +198,7 @@ input#control-nav {
 }
 
 .main {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     /*border: 1px solid rgb(155, 27, 27);*/
     height: 100%;
@@ -373,28 +373,59 @@ input#control-nav {
 
 /* #####--- CARD NUMBERS ---##### */
 
-.right_l {
+
+/*LOTOFÁCIL*/
+
+.right_llotofacil {
     float: left;
     width: 25%;
     margin-top: 10px;
     /*border: 1px solid #aaa;*/
 }
 
-.right_r {
+.right_rlotofacil {
     float: right;
     width: 75%;
     margin-top: 10px;
     /*border: 1px solid #aaa;*/
 }
 
-.cardnumbers {
-    position: relative;
-    margin: 10px;
-    /*border: 1px solid #aaa;*/
-    padding: 5px;
-    height: 235px;
-    width: 183px;
+.cardnumbers_lotofacil {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 183px !important;
 }
+
+
+/*--------*/
+
+
+/*MEGASENA*/
+
+.right_lmegasena {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rmegasena {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_megasena {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+
+/*--------*/
 
 .cardnumber {
     position: relative;
@@ -631,20 +662,38 @@ input#control-nav {
         padding-top: 80px;
     }
     /* #####--- CARD NUMBERS ---##### */
-    .right_l {
+    /*LOTOFÁCIL*/
+    .right_llotofacil {
         float: left !important;
         width: 25% !important;
     }
-    .right_r {
+    .right_rlotofacil {
         float: right !important;
         width: 75% !important;
     }
-    .cardnumbers {
+    .cardnumbers_lotofacil {
         margin: 10px!important;
         padding: 5px!important;
         height: 235px!important;
         width: 183px !important;
     }
+    /*-------*/
+    /*MEGASENA*/
+    .right_lmegasena {
+        float: left !important;
+        width: 25% !important;
+    }
+    .right_rmegasena {
+        float: right !important;
+        width: 75% !important;
+    }
+    .cardnumbers_megasena {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 183px !important;
+    }
+    /*-------*/
     .cardnumber {
         width: 30px !important;
         float: left !important;
@@ -711,45 +760,147 @@ input#control-nav {
         margin: 0;
     }
     /* #####--- CARD NUMBERS ---##### */
-    .right_l {
+    /*LOTOFÁCIL*/
+    .right_llotofacil {
         float: left !important;
         width: 50% !important;
-        border: 1px solid #aaa;
+        /*border: 1px solid #aaa;*/
     }
-    .right_r {
-        float: right !important;
+    .right_rlotofacil {
+        float: center !important;
         width: 50% !important;
-        border: 1px solid #aaa;
+        /*border: 1px solid #aaa;*/
     }
-    .cardnumbers {
+    .cardnumbers_lotofacil {
         margin: 2px !important;
         padding: 4px !important;
         height: 235px !important;
         width: 183px !important;
     }
+    /*-------*/
+    /*MEGASENA*/
+    .right_lmegasena {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rmegasena {
+        float: none !important;
+        width: 80% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_megasena {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 300px !important;
+        width: 310px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
     .cardnumber {
-        width: 30px !important;
+        width: 28px !important;
+        height: 30px !important;
         float: left !important;
         text-align: center;
-        margin: 2px !important;
+        margin: 0 1px 23px 1px !important;
+        padding: 2px 0 0 0;
     }
     .resultnumbers {
         float: left !important;
-        position: relative !important;
+        margin-left: 5px !important;
+        margin-top: 0 !important;
+        margin: 0 auto !important;
+        /*border: 1px solid #ccc;*/
     }
     .resultnumber {
-        float: center !important;
-        position: relative !important;
+        float: left !important;
         font-size: 20px !important;
         font-weight: 600 !important;
-        margin: 4px !important;
-        padding: 8px !important;
+        margin: 2px !important;
+        padding: 7px !important;
         box-shadow: 2px 1px 5px #580c5d !important;
         border-radius: 50px !important;
-        min-width: 50px !important;
-        max-width: 50px !important;
+        min-width: 48px !important;
+        max-width: 48px !important;
         text-align: center !important;
     }
 }
 
-@media screen and (max-width: 740px) {}
+@media screen and (max-width: 320px) {
+    /* #####--- CARD NUMBERS ---##### */
+    /*LOTOFÁCIL*/
+    .right_llotofacil {
+        float: left !important;
+        width: 43% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .right_rlotofacil {
+        float: center !important;
+        width: 57% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_lotofacil {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 235px !important;
+        width: 183px !important;
+    }
+    /*------*/
+    /*MEGASENA*/
+    .right_lmegasena {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rmegasena {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_megasena {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 280px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    .cardnumber {
+        width: 20px !important;
+        float: left !important;
+        text-align: center;
+        margin: 2px !important;
+        font-size: 12px !important;
+    }
+    .resultnumbers {
+        position: relative !important;
+        margin-left: 5px !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        margin-top: 0;
+    }
+    .resultnumber {
+        float: left !important;
+        position: relative !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        margin: 4px !important;
+        padding: 5px !important;
+        box-shadow: 2px 1px 5px #580c5d !important;
+        border-radius: 50px !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
+        text-align: center !important;
+    }
+}
