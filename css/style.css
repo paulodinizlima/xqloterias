@@ -124,7 +124,6 @@ body {
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
-    height: 100%;
 }
 
 header {
@@ -193,15 +192,19 @@ input#control-nav {
     position: relative;
     color: black;
     z-index: 3;
-    height: 100%;
+    height: auto;
+    /*min-height: 100%;*/
+    overflow: hidden;
     border-radius: 10px;
 }
 
 .main {
     width: 80%;
     margin: 0 auto;
-    /*border: 1px solid rgb(155, 27, 27);*/
-    height: 100%;
+    /*border: 3px solid rgb(155, 27, 27);*/
+    height: auto;
+    /*min-height: 100%;*/
+    overflow: hidden;
     position: relative;
     box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
@@ -505,12 +508,83 @@ input#control-nav {
     width: 350px !important;
 }
 
+.right_timecoracao {
+    float: left;
+    /*border: 1px solid #aaa;*/
+    display: block;
+    margin: 10px;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
 
 /*--------*/
 
+
+/*DUPLASENA*/
+
+.right_lduplasena {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rduplasena {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_duplasena {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+
+/*--------*/
+
+
+/*DIA DE SORTE*/
+
+.right_ldiadesorte {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.right_rdiadesorte {
+    float: right;
+    width: 50%;
+    margin-top: 10px;
+    /*border: 1px solid #aaa;*/
+}
+
+.cardnumbers_diadesorte {
+    margin: 10px!important;
+    padding: 5px!important;
+    height: 235px!important;
+    width: 350px !important;
+}
+
+.right_diadesorte {
+    float: left;
+    /*border: 1px solid #aaa;*/
+    display: block;
+    margin: 10px;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
 .cardnumber {
     position: relative;
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
     width: 30px;
     float: left;
     text-align: center;
@@ -762,65 +836,97 @@ input#control-nav {
     /*MEGASENA*/
     .right_lmegasena {
         float: left !important;
-        width: 25% !important;
+        width: 65% !important;
     }
     .right_rmegasena {
         float: right !important;
-        width: 75% !important;
+        width: 35% !important;
     }
     .cardnumbers_megasena {
         margin: 10px!important;
         padding: 5px!important;
         height: 235px!important;
-        width: 183px !important;
+        width: 350px !important;
     }
     /*-------*/
     /*QUINA*/
     .right_lquina {
         float: left !important;
-        width: 25% !important;
+        width: 65% !important;
     }
     .right_rquina {
         float: right !important;
-        width: 75% !important;
+        width: 35% !important;
     }
     .cardnumbers_quina {
         margin: 10px!important;
         padding: 5px!important;
         height: 235px!important;
-        width: 183px !important;
+        width: 350px !important;
     }
     /*-------*/
     /*LOTOMANIA*/
     .right_llotomania {
         float: left !important;
-        width: 25% !important;
+        width: 65% !important;
     }
     .right_rlotomania {
         float: right !important;
-        width: 75% !important;
+        width: 35% !important;
     }
     .cardnumbers_lotomania {
         margin: 10px!important;
         padding: 5px!important;
         height: 235px!important;
-        width: 183px !important;
+        width: 350px !important;
     }
     /*-------*/
     /*TIMEMANIA*/
     .right_ltimemania {
         float: left !important;
-        width: 25% !important;
+        width: 65% !important;
     }
     .right_rtimemania {
         float: right !important;
-        width: 75% !important;
+        width: 35% !important;
     }
     .cardnumbers_timemania {
         margin: 10px!important;
         padding: 5px!important;
         height: 235px!important;
-        width: 183px !important;
+        width: 350px !important;
+    }
+    /*-------*/
+    /*DUPLASENA*/
+    .right_lduplasena {
+        float: left !important;
+        width: 65% !important;
+    }
+    .right_rduplasena {
+        float: right !important;
+        width: 35% !important;
+    }
+    .cardnumbers_duplasena {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    /*-------*/
+    /*DIA DE SORTE*/
+    .right_ldiadesorte {
+        float: left !important;
+        width: 65% !important;
+    }
+    .right_rdiadesorte {
+        float: right !important;
+        width: 35% !important;
+    }
+    .cardnumbers_diadesorte {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
     }
     /*-------*/
     .cardnumber {
@@ -917,7 +1023,7 @@ input#control-nav {
     }
     .right_rmegasena {
         float: none !important;
-        width: 80% !important;
+        width: 85% !important;
         /*border: 1px solid #aaa;*/
         border: none;
         margin: 0 auto !important;
@@ -1003,6 +1109,54 @@ input#control-nav {
         margin: 0 auto !important;
     }
     /*---------*/
+    /*DUPLASENA*/
+    .right_lduplasena {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rduplasena {
+        float: none !important;
+        width: 85% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_duplasena {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 300px !important;
+        width: 310px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*DIA DE SORTE*/
+    .right_ldiadesorte {
+        float: none !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rdiadesorte {
+        float: none !important;
+        width: 80% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        margin: 0 auto !important;
+    }
+    .cardnumbers_diadesorte {
+        margin: 1px !important;
+        padding: 2px !important;
+        height: 200px !important;
+        width: 320px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
     .cardnumber {
         width: 28px !important;
         height: 30px !important;
@@ -1022,12 +1176,12 @@ input#control-nav {
         float: left !important;
         font-size: 20px !important;
         font-weight: 600 !important;
-        margin: 2px !important;
+        margin: 1px !important;
         padding: 7px !important;
         box-shadow: 2px 1px 5px #580c5d !important;
         border-radius: 50px !important;
-        min-width: 48px !important;
-        max-width: 48px !important;
+        min-width: 46px !important;
+        max-width: 46px !important;
         text-align: center !important;
     }
 }
@@ -1146,6 +1300,52 @@ input#control-nav {
         margin: 0 auto !important;
     }
     /*---------*/
+    /*DUPLASENA*/
+    .right_lduplasena {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rduplasena {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_duplasena {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 280px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
+    /*DIA DE SORTE*/
+    .right_ldiadesorte {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+        position: relative;
+    }
+    .right_rdiadesorte {
+        float: right !important;
+        width: 100% !important;
+        /*border: 1px solid #aaa;*/
+        border: none;
+    }
+    .cardnumbers_diadesorte {
+        margin: 1px !important;
+        padding: 4px !important;
+        height: 200px !important;
+        width: 260px !important;
+        /*border: 1px solid #ccc;*/
+        margin: 0 auto !important;
+    }
+    /*---------*/
     .cardnumber {
         width: 20px !important;
         float: left !important;
@@ -1155,7 +1355,7 @@ input#control-nav {
     }
     .resultnumbers {
         position: relative !important;
-        margin-left: 5px !important;
+        margin-left: 2px !important;
         margin-right: 0 !important;
         padding-right: 0 !important;
         margin-top: 0;
@@ -1165,7 +1365,7 @@ input#control-nav {
         position: relative !important;
         font-size: 18px !important;
         font-weight: 600 !important;
-        margin: 4px !important;
+        margin: 2px !important;
         padding: 5px !important;
         box-shadow: 2px 1px 5px #580c5d !important;
         border-radius: 50px !important;

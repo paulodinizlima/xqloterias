@@ -77,32 +77,144 @@
     <div class="main">
       <div class="tloterias tdiadesorte">
 
-        <h6><strong>Dia de Sorte - Resultado, Ganhadores e Prêmios</strong></h6>
-        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Dia de Sorte nos sorteios que são realizados na 
-        terça-feira, quinta-feira e sábado a partir das 20 horas online.</span>
+        <h6><strong>DIA DE SORTE - Resultados, prêmios e cidades dos ganhadores.</strong></h6>
+        <span class="font14">Confira o resultado, ganhadores e prêmios do Dia de Sorte. Os sorteios são realizados na segunda, terça, 
+        quarta, quinta, sexta e sábado a partir das 20 horas.</span>
 
-      </div>
+      </div> <!-- end tloterias tdiadesorte -->
 
       <div class="left">
-          left
+        <div class="title_left">
+          Resultados Anteriores
+        </div> <!-- end title_left -->
 
-      </div>
-      <div class="right">
+        <div class="content_left">
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/diadesorte">
+              <div class="title_loteria_left tdiadesorte">            
+                <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                  <span class="concurso_left">2270</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                01/07/2021
+              </div>
+            </a> 
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/icon_diadesorte">
+              <div class="title_loteria_left tdiadesorte">            
+                <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                  <span class="concurso_left">2269</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                30/06/2021
+              </div>
+            </a> 
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/icon_diadesorte">
+              <div class="title_loteria_left tdiadesorte">            
+                <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                  <span class="concurso_left">2268</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                29/06/2021
+              </div>
+            </a> 
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/icon_diadesorte">
+              <div class="title_loteria_left tdiadesorte">            
+                <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                  <span class="concurso_left">2267</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                28/06/2021
+              </div>
+            </a> 
+
+            <!-- Dia de Sorte -->
+            <a href="loterias/icon_diadesorte">
+              <div class="title_loteria_left tdiadesorte">            
+                <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
+                  <span class="concurso_left">2266</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                27/06/2021
+              </div>
+            </a> 
+
+        </div> <!-- end content_left -->
+
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+
+
+      </div> <!-- end left -->
+
+      <div class="right">        
           
           <div class="top_right">
-          Confira o resultado do Dia da Sorte, veja os últimos sorteios da Dia da Sorte e as dezenas sorteadas em cada concurso, 
-          bem como valor do prêmio e quantidade de ganhadores de cada faixa de premiação. Na Dia da Sorte são sorteadas sete dezenas
-          dentre as 31 disponíveis e ganha um prêmio o apostador que acerta 4, 5, 6 ou as sete dezenas sorteadas. Também é feito o 
-          sorteio de um mês do ano, dentre os 12 meses disponíveis. Os sorteios acontecem nas terças, quintas e aos sábados. Veja 
-          abaixo os últimos resultados do Dia de Sorte.
+            <h5><strong>Resultado do Dia de Sorte 2271, de 02/07/2021.</strong></h5>
+          </div> <!-- end top_right -->
 
-          </div>
+          <div class="right_ldiadesorte">
 
-      </div>
+            <div class="cardnumbers_diadesorte">
+              
+              <?php 
+                for ($j = 1; $j <= 31; $j++) {
+                  echo "<div class='cardnumber'>" ;
+                    echo $j;
+                  echo "</div>";
+                  if($j < 80 && $j % 10 == 0) echo "<br><br>";
+                }
 
-    </div>
+              ?>
 
-  </div>
+            </div> <!-- end cardnumbers -->
+
+          </div> <!-- end right_l -->
+
+          <div class="right_rdiadesorte">
+            <div class="resultnumbers">
+
+            <?php
+                for ($i=1; $i <= 7; $i++) { 
+                  echo "<div class='resultnumber tdiadesorte'>";
+                    echo $i; //echo $number[$i];
+                  echo "</div>";
+                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                }
+
+              ?>
+
+            </div> <!-- end resultnumbers -->
+          
+          </div> <!-- end right_rdiadesorte -->
+
+          <div class="right_diadesorte">
+            Dia de Sorte
+          </div> <!-- end right_diadesorte
+
+      </div> <!-- end right -->
+
+    </div> <!-- end main -->
+
+  </div> <!-- end containermain -->
 
   <div class="containerfooter">
     <div class="footer">

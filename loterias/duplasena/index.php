@@ -77,30 +77,172 @@
     <div class="main">
       <div class="tloterias tduplasena">
 
-        <h6><strong>Dupla Sena - Resultado, Ganhadores e Prêmios</strong></h6>
-        <span class="font14">Confira hoje o resultado, ganhadores e prêmios da Dupla Sena nos sorteios que são realizados na terça-feira, quinta-feira e sábado a partir das 20 horas online.</span>
+        <h6><strong>DUPLA SENA - Resultados, prêmios e cidades dos ganhadores.</strong></h6>
+        <span class="font14">Confira o resultado, ganhadores e prêmios da Dupla Sena. Os sorteios são realizados na segunda, terça, 
+        quarta, quinta, sexta e sábado a partir das 20 horas.</span>
 
-      </div>
+      </div> <!-- end tloterias tduplasena -->
 
       <div class="left">
-          left
+        <div class="title_left">
+          Resultados Anteriores
+        </div> <!-- end title_left -->
 
-      </div>
-      <div class="right">
+        <div class="content_left">
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">            
+                <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
+                  <span class="concurso_left">2270</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                01/07/2021
+              </div>
+            </a> 
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">            
+                <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
+                  <span class="concurso_left">2269</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                30/06/2021
+              </div>
+            </a> 
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">            
+                <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
+                  <span class="concurso_left">2268</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                29/06/2021
+              </div>
+            </a> 
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">            
+                <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
+                  <span class="concurso_left">2267</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                28/06/2021
+              </div>
+            </a> 
+
+            <!-- Dupla Sena -->
+            <a href="loterias/duplasena">
+              <div class="title_loteria_left tduplasena">            
+                <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
+                  <span class="concurso_left">2266</span></h5>
+              </div>    
+                   
+              <div class="content_loteria_left">
+                27/06/2021
+              </div>
+            </a> 
+
+        </div> <!-- end content_left -->
+
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+        <div class="left_ads">
+          <img src="../../img/ads01.png">
+        </div> <!-- end left_ads -->
+
+
+      </div> <!-- end left -->
+
+      <div class="right">        
           
           <div class="top_right">
-          Confira os últimos resultados da Lotofácil. Veja os últimos sorteios da Lotofácil e os números sorteados em cada concurso, 
-            bem como valor do prêmio e quantidade de ganhadores de cada faixa de premiação. Na Lotofácil são sorteadas 15 dezenas dentre 
-            as 25 disponíveis e ganha um prêmio o apostador que acerta 11, 12, 13, 14 ou as 15 dezenas sorteadas. Os sorteios acontecem 
-            nas segundas, quartas e nas sextas-feiras. Veja abaixo os últimos resultados da Lotofácil.
+            <h5><strong>Resultado da Dupla Sena 2271, de 02/07/2021.</strong></h5>
+          </div> <!-- end top_right -->
 
-          </div>
+          <div class="right_lduplasena">
+          1º Sorteio
+            <div class="cardnumbers_duplasena">
+            
+              <?php 
+                for ($j = 1; $j <= 50; $j++) {
+                  echo "<div class='cardnumber'>" ;
+                    echo $j;
+                  echo "</div>";
+                  if($j < 50 && $j % 10 == 0) echo "<br><br>";
+                }
 
-      </div>
+              ?>
 
-    </div>
+            </div> <!-- end cardnumbers -->
+            2º Sorteio
+            <div class="cardnumbers_duplasena">
+              
+              <?php 
+                for ($j = 1; $j <= 50; $j++) {
+                  echo "<div class='cardnumber'>" ;
+                    echo $j;
+                  echo "</div>";
+                  if($j < 50 && $j % 10 == 0) echo "<br><br>";
+                }
 
-  </div>
+              ?>
+
+            </div> <!-- end cardnumbers_duplasena -->
+
+          </div> <!-- end right_lduplasena -->
+          
+
+          <div class="right_rduplasena">
+            <div class="resultnumbers">
+
+              <?php
+                for ($i=1; $i <= 6; $i++) { 
+                  echo "<div class='resultnumber tduplasena'>";
+                    echo $i; //echo $number[$i];
+                  echo "</div>";
+                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                }
+
+              ?>
+
+            </div> <!-- end resultnumbers -->
+          
+          </div> <!-- end right_rduplasena-->
+          <div class="right_rduplasena">
+            <div class="resultnumbers">
+
+              <?php
+                for ($i=1; $i <= 6; $i++) { 
+                  echo "<div class='resultnumber tduplasena'>";
+                    echo $i; //echo $number[$i];
+                  echo "</div>";
+                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                }
+
+              ?>
+
+            </div> <!-- end resultnumbers -->
+          
+          </div> <!-- end right_rduplasena-->
+
+
+      </div> <!-- end right -->
+
+    </div> <!-- end main -->
+
+  </div> <!-- end containermain -->
 
   <div class="containerfooter">
     <div class="footer">

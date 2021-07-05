@@ -204,8 +204,11 @@
 
             </div> <!-- end resultnumbers -->
           
-          </div> <!-- end right_r -->
+          </div> <!-- end right_rtimemania -->
 
+          <div class="right_timecoracao">
+            Time do Coração
+          </div> <!-- end right_timecoracao
 
       </div> <!-- end right -->
 
