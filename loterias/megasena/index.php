@@ -208,6 +208,8 @@
 
               ?>
 
+
+
             </div> <!-- end resultnumbers -->
           
           </div> <!-- end right_r -->
@@ -216,21 +218,52 @@
       </div> <!-- end right -->
       <div class="right_middle">
 
-          Right bottom
+          <div class="tbl_premiacao">
 
+                <div class="acertos col-md-2 col-sm-2 col-3">
+                  <div class="title_acertos">Faixa</div>
+                  <ul class="faixa_premiacao">
+                    <li>Sena</li>
+                    <li>Quina</li>
+                    <li>Quadra</li>
+                  </ul>
+                </div> <!-- end acertos col-md2 -->
+                <div class="valorpremio col-md-5 col-sm-5 col-5">
+                <div class="title_acertos">Prêmio</div>
+                  <ul class="premiacao">
+                    <li>R$ 2.500.000,00</li>
+                    <li>R$ 50.000,00</li>
+                    <li>R$ 1.000,00</li>
+                  </ul>  
+                </div> <!-- end valorpremio col-md3 -->
+                <div class="ganhadores col-md-3 col-sm-3 col-4">
+                <div class="title_acertos">Ganhadores</div>
+                  <ul class="ganhadores">
+                    <li>1</li>
+                    <li>10</li>
+                    <li>1200</li>
+                  </ul>  
+                </div> <!-- end ganhadores col-md2 -->
+                <div class="cidades col-12">
+                <div class="title_cidades">Cidade dos ganhadores com 6 pontos</div>
+                  <ul class="cidades">
+                    <li>Presidente Epitácio - SP / </li>
+                    <li>Salvador - BA / </li>
+                    <li>São Paulo - SP</li>
+                  </ul>
+                </div> <!-- end cidades col-md5 -->
+
+          </div> <!-- end tbl_premiacao -->      
 
       </div> <!-- end right_middle -->
-
+      <div class="right_lowmiddle_info col-12">
+        Próximo Sorteio: 08/07/2021 - Prêmio Estimado: R$ 20.000.000,00
+      </div> <!-- end right_lowmiddle_info -->          
     </div> <!-- end main -->
 
   </div> <!-- end containermain -->
 
-  <div class="containerfooter">
-    <div class="footer">
-      footer
-    </div>
-
-  </div>
+  
 
 
 
