@@ -193,7 +193,7 @@
             <div class="resultnumbers">
 
               <?php
-                for ($i=1; $i <= 10; $i++) { 
+                for ($i=1; $i <= 7; $i++) { 
                   echo "<div class='resultnumber ttimemania'>";
                     echo $i; //echo $number[$i];
                   echo "</div>";

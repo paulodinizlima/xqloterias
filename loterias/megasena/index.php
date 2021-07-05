@@ -158,9 +158,8 @@
         <div class="left_ads">
           <img src="../../img/ads01.png">
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
+       
+      
 
 
       </div> <!-- end left -->
@@ -176,10 +175,17 @@
             <div class="cardnumbers_megasena">
               
               <?php 
+                
                 for ($j = 1; $j <= 60; $j++) {
-                  echo "<div class='cardnumber'>" ;
+                  if($j == 0){
+                    echo "<div class='cardnumber_sel'>" ;
                     echo $j;
-                  echo "</div>";
+                    echo "</div>";
+                  } else {
+                    echo "<div class='cardnumber'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } 
                   if($j < 60 && $j % 10 == 0) echo "<br><br>";
                 }
 
@@ -208,6 +214,12 @@
 
 
       </div> <!-- end right -->
+      <div class="right_middle">
+
+          Right bottom
+
+
+      </div> <!-- end right_middle -->
 
     </div> <!-- end main -->
 

@@ -1,1376 +1,1522 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-font,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-
-/* lists */
-
-.list-full,
-.list-full li,
-.list-auto,
-.list-auto li {
-    width: 100%;
-    float: left;
-    display: block;
-    position: relative;
-}
-
-.list-auto,
-.list-auto li {
-    width: auto;
-    height: 60px;
-}
-
-
-/* floats */
-
-.float-l {
-    float: left;
-}
-
-.float-r {
-    float: right;
-}
-
-
-/* FONTES */
-
-.font12 {
-    font-size: 12px;
-}
-
-.font14 {
-    font-size: 14px;
-}
-
-.font16 {
-    font-size: 16px;
-}
-
-body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
-}
-
-header {
-    min-height: 80px;
-    position: relative;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: #036358;
-    z-index: 2;
-}
-
-header h1 {
-    padding: 10px 0 10px 10px;
-}
-
-header h1 a {
-    color: #fff;
-}
-
-header ul {
-    padding: 20px 10px 0 0;
-}
-
-header li {
-    border-left: 1px solid #282923;
-}
-
-header li:first-child {
-    border: none;
-}
-
-header li:last-child {
-    padding-right: 20px;
-}
-
-header li a {
-    height: 100%;
-    display: block;
-    padding: 0 10px;
-    color: #fff;
-    font-size: 16px;
-    line-height: 40px;
-    text-decoration: none;
-    -webkit-transition: all 200ms ease;
-    transition: all 200ms ease;
-}
-
-header li a:hover {
-    color: white;
-    text-decoration: none;
-}
-
-input#control-nav {
-    visibility: hidden;
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
-}
-
-.containermain {
-    margin-top: 10px;
-    padding: 10px 10px;
-    width: 100%;
-    /*border: 3px solid rgb(38, 0, 255);*/
-    position: relative;
-    color: black;
-    z-index: 3;
-    height: auto;
-    /*min-height: 100%;*/
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.main {
-    width: 80%;
-    margin: 0 auto;
-    /*border: 3px solid rgb(155, 27, 27);*/
-    height: auto;
-    /*min-height: 100%;*/
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-}
-
-.tloterias {
-    height: auto;
-    width: 100%;
-    color: white;
-    padding: 5px 10px;
-}
-
-.tmegasena {
-    background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
-    border: 1px solid rgb(20, 167, 51, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tlotofacil {
-    background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
-    border: 1px solid rgb(133, 20, 167, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tquina {
-    background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
-    border: 1px solid rgb(54, 20, 167, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tlotomania {
-    background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
-    border: 1px solid rgb(190, 107, 12, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.ttimemania {
-    background: linear-gradient(90deg, rgb(167, 165, 20) 0%, rgb(167, 165, 20)50%, rgb(255, 254, 198) 100%);
-    border: 1px solid rgb(167, 165, 20, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tduplasena {
-    background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
-    border: 1px solid rgb(167, 49, 20, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tdiadesorte {
-    background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
-    border: 1px solid rgb(145, 125, 17, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tsupersete {
-    background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
-    border: 1px solid rgb(152, 167, 20, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.tfederal {
-    background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
-    border: 1px solid rgb(16, 42, 128, 1);
-    border-radius: 10px 0 10px 0;
-}
-
-.left {
-    position: relative;
-    width: 20%;
-    /*border: 1px solid blue;*/
-    float: left;
-    height: auto;
-    background-color: #eee;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.title_left {
-    background-color: #A8CF45;
-    padding: 5px;
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.content_left {
-    padding: 2px 5px;
-}
-
-.title_loteria_left {
-    padding: 5px 0 0 5px;
-    margin-top: 5px;
-}
-
-.title_loteria_left.tmegasena :hover,
-.content_loteria_left :hover {
-    color: rgb(3, 85, 21) !important;
-}
-
-.title_loteria_left.tlotofacil :hover {
-    color: rgb(67, 15, 110) !important;
-}
-
-.title_loteria_left.tquina :hover {
-    color: rgb(29, 6, 83) !important;
-}
-
-.title_loteria_left.tlotomania :hover {
-    color: rgb(112, 77, 0) !important;
-}
-
-.title_loteria_left.ttimemania :hover {
-    color: rgb(128, 149, 4) !important;
-}
-
-.title_loteria_left.tduplasena :hover {
-    color: rgb(121, 4, 4) !important;
-}
-
-.title_loteria_left.tdiadesorte :hover {
-    color: rgb(93, 102, 7) !important;
-}
-
-.title_loteria_left.tsupersete :hover {
-    color: rgb(51, 98, 13) !important;
-}
-
-.title_loteria_left.tfederal :hover {
-    color: rgb(8, 11, 61) !important;
-}
-
-.title_loteria_left h5 {
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-}
-
-.title_loteria_left img {
-    padding-bottom: 5px;
-}
-
-.content_loteria_left {
-    background-color: rgb(209, 226, 213);
-    padding-left: 30px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: small;
-}
-
-.left_ads img {
-    padding-top: 10px;
-    width: 100%;
-}
-
-.right {
-    position: relative;
-    width: 80%;
-    /*border:  1px solid grey;*/
-    float: right;
-    height: 100%;
-    padding: 5px;
-}
-
-.top_right {
-    padding: 5px 15px 0 10px;
-    text-align: justify;
-    font-size: small;
-}
-
-
-/* #####--- CARD NUMBERS ---##### */
-
-
-/*LOTOFÁCIL*/
-
-.right_llotofacil {
-    float: left;
-    width: 25%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rlotofacil {
-    float: right;
-    width: 75%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_lotofacil {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 183px !important;
-}
-
-
-/*--------*/
-
-
-/*MEGASENA*/
-
-.right_lmegasena {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rmegasena {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_megasena {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-
-/*--------*/
-
-
-/*QUINA*/
-
-.right_lquina {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rquina {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_quina {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-
-/*--------*/
-
-
-/*LOTOMANIA*/
-
-.right_llotomania {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rlotomania {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_lotomania {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-
-/*--------*/
-
-
-/*TIMEMANIA*/
-
-.right_ltimemania {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rtimemania {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_timemania {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-.right_timecoracao {
-    float: left;
-    /*border: 1px solid #aaa;*/
-    display: block;
-    margin: 10px;
-    padding: 15px;
-    font-size: 20px;
-    text-align: center;
-}
-
-
-/*--------*/
-
-
-/*DUPLASENA*/
-
-.right_lduplasena {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rduplasena {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_duplasena {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-
-/*--------*/
-
-
-/*DIA DE SORTE*/
-
-.right_ldiadesorte {
-    float: left;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.right_rdiadesorte {
-    float: right;
-    width: 50%;
-    margin-top: 10px;
-    /*border: 1px solid #aaa;*/
-}
-
-.cardnumbers_diadesorte {
-    margin: 10px!important;
-    padding: 5px!important;
-    height: 235px!important;
-    width: 350px !important;
-}
-
-.right_diadesorte {
-    float: left;
-    /*border: 1px solid #aaa;*/
-    display: block;
-    margin: 10px;
-    padding: 15px;
-    font-size: 20px;
-    text-align: center;
-}
-
-.cardnumber {
-    position: relative;
-    border: 1px solid #aaa;
-    width: 30px;
-    float: left;
-    text-align: center;
-    margin: 2px;
-}
-
-.resultnumbers {
-    /*border: 1px solid #A8CF45;*/
-    margin: 10px;
-    float: left;
-    position: relative;
-}
-
-.resultnumber {
-    float: left;
-    position: relative;
-    font-size: 25px;
-    font-weight: 600;
-    margin: 5px;
-    padding: 10px;
-    /*box-shadow: 2px 1px 5px #580c5d;*/
-    border-radius: 50px;
-    min-width: 60px;
-    text-align: center;
-    color: #fff;
-}
-
-
-/* #####--- END CARD NUMBERS ---##### */
-
-.containerfooter {
-    margin-top: 10px;
-    padding: 10px 10px;
-    width: 100%;
-    /*border: 3px solid red;*/
-    position: relative;
-    color: black;
-    z-index: 3;
-    height: 200px;
-}
-
-.footer {
-    width: 70%;
-    margin: 0 auto;
-    border: 1px solid #ccc;
-    height: 100%;
-    position: relative;
-    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
-}
-
-.icone {
-    width: 20px;
-    text-align: center;
-}
-
-.megasena a:hover {
-    background-color: #00A600;
-}
-
-.lotofacil a:hover {
-    background-color: #981AA0;
-}
-
-.quina a:hover {
-    background-color: #341FA0;
-}
-
-.lotomania a:hover {
-    background-color: #F4710C;
-}
-
-.timemania a:hover {
-    background-color: #D0B220;
-}
-
-.duplasena a:hover {
-    background-color: #A61029;
-}
-
-.diadesorte a:hover {
-    background-color: #AFA32C;
-}
-
-.supersete a:hover {
-    background-color: #A8CF45;
-}
-
-.federal a:hover {
-    background-color: #012F60;
-}
-
-@media screen and (max-width: 1360px) and (min-width: 1150px) {
-    .icone {
-        display: none;
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    font,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
     }
-    header li a {
-        padding: 0 10px;
+    
+    a:hover {
+        text-decoration: none;
     }
-}
-
-@media screen and (max-width: 1150px) {
-    .icone {
-        display: all;
-        width: 60px;
+    
+    html,
+    body {
+        height: 100%;
     }
-}
-
-@media screen and (max-width: 1450px) {
-    header li a {
-        padding: 0 5px;
+    /* lists */
+    
+    .list-full,
+    .list-full li,
+    .list-auto,
+    .list-auto li {
+        width: 100%;
+        float: left;
+        display: block;
+        position: relative;
     }
-}
-
-@media screen and (max-width: 1150px) {
-    header nav {
-        position: fixed;
+    
+    .list-auto,
+    .list-auto li {
+        width: auto;
+        height: 60px;
+    }
+    /* floats */
+    
+    .float-l {
+        float: left;
+    }
+    
+    .float-r {
+        float: right;
+    }
+    /* FONTES */
+    
+    .font12 {
+        font-size: 12px;
+    }
+    
+    .font14 {
+        font-size: 14px;
+    }
+    
+    .font16 {
+        font-size: 16px;
+    }
+    
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #333;
+    }
+    
+    header {
+        min-height: 80px;
+        position: relative;
         top: 0;
         right: 0;
-        bottom: 0;
-        width: 250px;
-        border-left: 1px solid #ccc;
-        background: #fff;
-        overflow-x: auto;
-        z-index: 9999;
-        -webkit-transition: all 500ms ease;
-        transition: all 500ms ease;
-        -webkit-transform: translate(100%, 0);
-        -ms-transform: translate(100%, 0);
-        transform: translate(100%, 0);
+        left: 0;
+        background-color: #036358;
+        z-index: 2;
     }
+    
+    header h1 {
+        padding: 10px 0 10px 10px;
+    }
+    
+    header h1 a {
+        color: #fff;
+    }
+    
+    header ul {
+        padding: 20px 10px 0 0;
+    }
+    
+    header li {
+        border-left: 1px solid #282923;
+    }
+    
+    header li:first-child {
+        border: none;
+    }
+    
+    header li:last-child {
+        padding-right: 20px;
+    }
+    
+    header li a {
+        height: 100%;
+        display: block;
+        padding: 0 10px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 40px;
+        text-decoration: none;
+        -webkit-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+    
+    header li a:hover {
+        color: white;
+        text-decoration: none;
+    }
+    
+    input#control-nav {
+        visibility: hidden;
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+    }
+    
     .containermain {
-        height: auto;
         margin-top: 10px;
-        padding: 10px 0;
+        padding: 10px 10px;
+        width: 100%;
+        /*border: 3px solid rgb(38, 0, 255);*/
+        position: relative;
+        color: black;
+        z-index: 3;
+        height: auto;
+        /*min-height: 100%;*/
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    
+    .main {
+        width: 80%;
+        margin: 0 auto;
+        /*border: 3px solid rgb(155, 27, 27);*/
+        height: auto;
+        /*min-height: 100%;*/
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+    }
+    
+    .tloterias {
+        height: auto;
+        width: 100%;
+        color: white;
+        padding: 5px 10px;
+    }
+    
+    .tmegasena {
+        background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
+        border: 1px solid rgb(20, 167, 51, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tlotofacil {
+        background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
+        border: 1px solid rgb(133, 20, 167, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tquina {
+        background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
+        border: 1px solid rgb(54, 20, 167, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tlotomania {
+        background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
+        border: 1px solid rgb(190, 107, 12, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .ttimemania {
+        background: linear-gradient(90deg, rgb(167, 165, 20) 0%, rgb(167, 165, 20)50%, rgb(255, 254, 198) 100%);
+        border: 1px solid rgb(167, 165, 20, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tduplasena {
+        background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
+        border: 1px solid rgb(167, 49, 20, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tdiadesorte {
+        background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
+        border: 1px solid rgb(145, 125, 17, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tsupersete {
+        background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
+        border: 1px solid rgb(152, 167, 20, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .tfederal {
+        background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
+        border: 1px solid rgb(16, 42, 128, 1);
+        border-radius: 10px 0 10px 0;
+    }
+    
+    .left {
+        position: relative;
+        width: 20%;
+        /*border: 1px solid blue;*/
+        float: left;
+        height: auto;
+        background-color: #eee;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+    .title_left {
+        background-color: #A8CF45;
+        padding: 5px;
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    
+    .content_left {
+        padding: 2px 5px;
+    }
+    
+    .title_loteria_left {
+        padding: 5px 0 0 5px;
+        margin-top: 5px;
+    }
+    
+    .title_loteria_left.tmegasena :hover,
+    .content_loteria_left :hover {
+        color: rgb(3, 85, 21) !important;
+    }
+    
+    .title_loteria_left.tlotofacil :hover {
+        color: rgb(67, 15, 110) !important;
+    }
+    
+    .title_loteria_left.tquina :hover {
+        color: rgb(29, 6, 83) !important;
+    }
+    
+    .title_loteria_left.tlotomania :hover {
+        color: rgb(112, 77, 0) !important;
+    }
+    
+    .title_loteria_left.ttimemania :hover {
+        color: rgb(128, 149, 4) !important;
+    }
+    
+    .title_loteria_left.tduplasena :hover {
+        color: rgb(121, 4, 4) !important;
+    }
+    
+    .title_loteria_left.tdiadesorte :hover {
+        color: rgb(93, 102, 7) !important;
+    }
+    
+    .title_loteria_left.tsupersete :hover {
+        color: rgb(51, 98, 13) !important;
+    }
+    
+    .title_loteria_left.tfederal :hover {
+        color: rgb(8, 11, 61) !important;
+    }
+    
+    .title_loteria_left h5 {
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .title_loteria_left img {
+        padding-bottom: 5px;
+    }
+    
+    .content_loteria_left {
+        background-color: rgb(209, 226, 213);
+        padding-left: 30px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: small;
+    }
+    
+    .left_ads img {
+        padding-top: 10px;
+        width: 100%;
+    }
+    
+    .right {
+        position: relative;
+        width: 80%;
+        border: 1px solid grey;
+        float: right;
+        height: 100%;
+        padding: 5px;
+    }
+    
+    .right_middle {
+        width: 80%;
+        float: left;
+        position: relative;
+        border: 1px solid #aaa;
+        margin-top: 10px;
+        height: 300px;
+    }
+    
+    .top_right {
+        padding: 5px 15px 0 10px;
+        text-align: justify;
+        font-size: small;
+        border: 1px solid grey;
+    }
+    /* #####--- CARD NUMBERS ---##### */
+    /*LOTOFÁCIL*/
+    
+    .right_llotofacil {
+        float: left;
+        width: 25%;
+        margin-top: 10px;
+        border: 1px solid #aaa;
+    }
+    
+    .right_rlotofacil {
+        float: right;
+        width: 75%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_lotofacil {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 183px !important;
+    }
+    /*--------*/
+    /*MEGASENA*/
+    
+    .right_lmegasena {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        border: 1px solid #aaa;
+    }
+    
+    .right_rmegasena {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        border: 1px solid #aaa;
+    }
+    
+    .cardnumbers_megasena {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    /*--------*/
+    /*QUINA*/
+    
+    .right_lquina {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rquina {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_quina {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    /*--------*/
+    /*LOTOMANIA*/
+    
+    .right_llotomania {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rlotomania {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_lotomania {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    /*--------*/
+    /*TIMEMANIA*/
+    
+    .right_ltimemania {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rtimemania {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_timemania {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    
+    .right_timecoracao {
+        float: left;
+        /*border: 1px solid #aaa;*/
+        display: block;
+        margin: 10px;
+        padding: 15px;
+        font-size: 20px;
+        text-align: center;
+    }
+    /*--------*/
+    /*DUPLASENA*/
+    
+    .right_lduplasena {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rduplasena {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_duplasena {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    /*--------*/
+    /*DIA DE SORTE*/
+    
+    .right_ldiadesorte {
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rdiadesorte {
+        float: right;
+        width: 50%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_diadesorte {
+        margin: 10px!important;
+        padding: 5px!important;
+        height: 235px!important;
+        width: 350px !important;
+    }
+    
+    .right_diadesorte {
+        float: left;
+        /*border: 1px solid #aaa;*/
+        display: block;
+        margin: 10px;
+        padding: 15px;
+        font-size: 20px;
+        text-align: center;
+    }
+    /*--------*/
+    /*SUPER SETE*/
+    
+    .right_lsupersete {
+        float: left;
+        width: 42%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .right_rsupersete {
+        float: right;
+        width: 58%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_supersete {
+        margin: 4px!important;
+        padding: 4px!important;
+        height: auto!important;
+        overflow: hidden;
+        width: 45px !important;
+        border: 1px solid #aaa;
+        float: left;
+    }
+    
+    .title_cs7 {
+        background-color: #A8CF45;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .title_ns7 {
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #A8CF45;
+    }
+    /*--------*/
+    /*FEDERAL*/
+    
+    .right_lfederal {
+        float: left;
+        width: 17%;
+        margin-top: 20px;
+        /*border: 1px solid #aaa;*/
+        font-weight: 800;
+    }
+    
+    .right_rfederal {
+        float: right;
+        width: 90%;
+        margin-top: 10px;
+        /*border: 1px solid #aaa;*/
+    }
+    
+    .cardnumbers_federal {
+        margin: 4px!important;
+        padding: 4px!important;
+        height: auto!important;
+        overflow: hidden;
+        width: 45px !important;
+        /*border: 1px solid #aaa;*/
+        float: left;
+    }
+    
+    .resultnumbers_federal {
+        /*border: 1px solid #A8CF45;*/
+        margin: 10px;
+        width: 70%;
+        float: left;
+        position: relative;
+    }
+    /*--------*/
+    
+    .cardnumber {
+        position: relative;
+        border: 1px solid #aaa;
+        width: 30px;
+        float: left;
+        text-align: center;
+        margin: 2px;
+    }
+    
+    .cardnumber_sel {
+        position: relative;
+        border: 1px solid #aaa;
+        width: 30px;
+        float: left;
+        text-align: center;
+        margin: 2px;
+        background-color: darkolivegreen;
+    }
+    
+    .resultnumbers {
+        /*border: 1px solid #A8CF45;*/
+        margin: 10px;
+        float: left;
+        position: relative;
+    }
+    
+    .resultnumber {
+        float: left;
+        position: relative;
+        font-size: 25px;
+        font-weight: 600;
+        margin: 5px;
+        padding: 10px;
+        /*box-shadow: 2px 1px 5px #580c5d;*/
+        border-radius: 50px;
+        min-width: 60px;
+        text-align: center;
+        color: #fff;
+    }
+    /* #####--- END CARD NUMBERS ---##### */
+    
+    .containerfooter {
+        margin-top: 10px;
+        padding: 10px 10px;
         width: 100%;
         /*border: 3px solid red;*/
         position: relative;
         color: black;
-        z-index: 0;
+        z-index: 3;
+        height: 200px;
     }
-    .main div {
-        display: block;
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .left {
-        display: none;
-    }
-    .right {
-        width: 100%;
-    }
-    header ul.list-auto {
-        padding: 0;
-    }
-    header ul.list-auto li {
-        width: 100%;
-        border: solid #ccc;
-        border-width: 0 0 1px;
-        background-color: #036358;
-        z-index: 0;
-    }
-    header li a {
-        padding: 15px 10px;
-        color: #fff;
-    }
-    header li a:hover {
-        color: #fff;
-    }
-    header li:last-child {
-        padding-right: 0;
-    }
-    .control-nav {
-        /* label icon */
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        display: block;
-        width: 30px;
-        padding: 5px 0;
-        border: solid #ccc;
-        border-width: 2px 0;
-        z-index: 2;
-        cursor: pointer;
-    }
-    .control-nav:before {
-        content: "";
-        display: block;
-        height: 3px;
-        background: #333;
-    }
-    .control-nav-close {
-        position: fixed;
-        /* label layer */
-        right: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        display: block;
-        z-index: 1;
-        background: rgba(0, 0, 0, 0.4);
-        -webkit-transition: all 500ms ease;
-        transition: all 500ms ease;
-        -webkit-transform: translate(100%, 0);
-        -ms-transform: translate(100%, 0);
-        transform: translate(100%, 0);
-    }
-    .left_ads img {
-        display: none;
-    }
-    /* checked nav */
-    input#control-nav {
-        display: block;
-    }
-    input#control-nav:focus~.control-nav {
-        border-color: #000;
-        box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.3);
-    }
-    input#control-nav:focus~.control-nav:before {
-        background: #000;
-    }
-    input#control-nav:checked~nav,
-    input#control-nav:checked~.control-nav-close {
-        -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-        transform: translate(0, 0);
-    }
-    header+section {
-        padding-top: 80px;
-    }
-    /* #####--- CARD NUMBERS ---##### */
-    /*LOTOFÁCIL*/
-    .right_llotofacil {
-        float: left !important;
-        width: 25% !important;
-    }
-    .right_rlotofacil {
-        float: right !important;
-        width: 75% !important;
-    }
-    .cardnumbers_lotofacil {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 183px !important;
-    }
-    /*-------*/
-    /*MEGASENA*/
-    .right_lmegasena {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rmegasena {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_megasena {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    /*QUINA*/
-    .right_lquina {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rquina {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_quina {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    /*LOTOMANIA*/
-    .right_llotomania {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rlotomania {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_lotomania {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    /*TIMEMANIA*/
-    .right_ltimemania {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rtimemania {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_timemania {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    /*DUPLASENA*/
-    .right_lduplasena {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rduplasena {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_duplasena {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    /*DIA DE SORTE*/
-    .right_ldiadesorte {
-        float: left !important;
-        width: 65% !important;
-    }
-    .right_rdiadesorte {
-        float: right !important;
-        width: 35% !important;
-    }
-    .cardnumbers_diadesorte {
-        margin: 10px!important;
-        padding: 5px!important;
-        height: 235px!important;
-        width: 350px !important;
-    }
-    /*-------*/
-    .cardnumber {
-        width: 30px !important;
-        float: left !important;
-        text-align: center;
-        margin: 2px!important;
-    }
-    .resultnumbers {
-        float: left !important;
-        position: relative !important;
-    }
-    .resultnumber {
-        float: left !important;
-        position: relative !important;
-        font-size: 25px !important;
-        font-weight: 600 !important;
-        margin: 3px !important;
-        padding: 7px !important;
-        box-shadow: 2px 1px 5px #580c5d !important;
-        border-radius: 50px !important;
-        min-width: 50px !important;
-        max-width: 50px !important;
-        text-align: center !important;
-    }
-    /* #####--- END CARD NUMBERS ---##### */
-    .containerfooter {
-        display: none;
-    }
+    
     .footer {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 740px) {
-    header h1 {
-        font-size: 20px;
-        line-height: 40px;
-    }
-    h1.float-l img {
-        width: 280px;
-        padding-top: 10px;
-    }
-    header nav {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 250px;
-        border-left: 1px solid #ccc;
-        background: #fff;
-        overflow-x: auto;
-        z-index: 2;
-        -webkit-transition: all 500ms ease;
-        transition: all 500ms ease;
-        -webkit-transform: translate(100%, 0);
-        -ms-transform: translate(100%, 0);
-        transform: translate(100%, 0);
-    }
-    .containermain {
-        margin-top: 5px;
-        padding: 0;
-    }
-    .main {
-        width: 100%;
-        margin: 0;
-    }
-    /* #####--- CARD NUMBERS ---##### */
-    /*LOTOFÁCIL*/
-    .right_llotofacil {
-        float: left !important;
-        width: 50% !important;
-        /*border: 1px solid #aaa;*/
-    }
-    .right_rlotofacil {
-        float: center !important;
-        width: 50% !important;
-        /*border: 1px solid #aaa;*/
-    }
-    .cardnumbers_lotofacil {
-        margin: 2px !important;
-        padding: 4px !important;
-        height: 235px !important;
-        width: 183px !important;
-    }
-    /*-------*/
-    /*MEGASENA*/
-    .right_lmegasena {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+        width: 70%;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        height: 100%;
         position: relative;
+        box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
     }
-    .right_rmegasena {
-        float: none !important;
-        width: 85% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_megasena {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 300px !important;
-        width: 310px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*QUINA*/
-    .right_lquina {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rquina {
-        float: none !important;
-        width: 80% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_quina {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 300px !important;
-        width: 310px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*LOTOMANIA*/
-    .right_llotomania {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rlotomania {
-        float: none !important;
-        width: 80% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_lotomania {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 300px !important;
-        width: 310px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*TIMEMANIA*/
-    .right_ltimemania {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rtimemania {
-        float: none !important;
-        width: 80% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_timemania {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 300px !important;
-        width: 310px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*DUPLASENA*/
-    .right_lduplasena {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rduplasena {
-        float: none !important;
-        width: 85% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_duplasena {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 300px !important;
-        width: 310px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*DIA DE SORTE*/
-    .right_ldiadesorte {
-        float: none !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rdiadesorte {
-        float: none !important;
-        width: 80% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        margin: 0 auto !important;
-    }
-    .cardnumbers_diadesorte {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 200px !important;
-        width: 320px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    .cardnumber {
-        width: 28px !important;
-        height: 30px !important;
-        float: left !important;
+    
+    .icone {
+        width: 20px;
         text-align: center;
-        margin: 0 1px 23px 1px !important;
-        padding: 2px 0 0 0;
     }
-    .resultnumbers {
-        float: left !important;
-        margin-left: 5px !important;
-        margin-top: 0 !important;
-        margin: 0 auto !important;
-        /*border: 1px solid #ccc;*/
+    
+    .megasena a:hover {
+        background-color: #00A600;
     }
-    .resultnumber {
-        float: left !important;
-        font-size: 20px !important;
-        font-weight: 600 !important;
-        margin: 1px !important;
-        padding: 7px !important;
-        box-shadow: 2px 1px 5px #580c5d !important;
-        border-radius: 50px !important;
-        min-width: 46px !important;
-        max-width: 46px !important;
-        text-align: center !important;
+    
+    .lotofacil a:hover {
+        background-color: #981AA0;
     }
-}
-
-@media screen and (max-width: 320px) {
-    /* #####--- CARD NUMBERS ---##### */
-    /*LOTOFÁCIL*/
-    .right_llotofacil {
-        float: left !important;
-        width: 43% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    .quina a:hover {
+        background-color: #341FA0;
     }
-    .right_rlotofacil {
-        float: center !important;
-        width: 57% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    .lotomania a:hover {
+        background-color: #F4710C;
     }
-    .cardnumbers_lotofacil {
-        margin: 1px !important;
-        padding: 2px !important;
-        height: 235px !important;
-        width: 183px !important;
+    
+    .timemania a:hover {
+        background-color: #D0B220;
     }
-    /*------*/
-    /*MEGASENA*/
-    .right_lmegasena {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
+    
+    .duplasena a:hover {
+        background-color: #A61029;
     }
-    .right_rmegasena {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    .diadesorte a:hover {
+        background-color: #AFA32C;
     }
-    .cardnumbers_megasena {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 280px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
+    
+    .supersete a:hover {
+        background-color: #A8CF45;
     }
-    /*---------*/
-    /*QUINA*/
-    .right_lquina {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
+    
+    .federal a:hover {
+        background-color: #012F60;
     }
-    .right_rquina {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    @media screen and (max-width: 1360px) and (min-width: 1150px) {
+        .icone {
+            display: none;
+        }
+        header li a {
+            padding: 0 10px;
+        }
     }
-    .cardnumbers_quina {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 280px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
+    
+    @media screen and (max-width: 1150px) {
+        .icone {
+            display: all;
+            width: 60px;
+        }
     }
-    /*---------*/
-    /*LOTOMANIA*/
-    .right_llotomania {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
+    
+    @media screen and (max-width: 1450px) {
+        header li a {
+            padding: 0 5px;
+        }
     }
-    .right_rlotomania {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    @media screen and (max-width: 1150px) {
+        header nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 250px;
+            border-left: 1px solid #ccc;
+            background: #fff;
+            overflow-x: auto;
+            z-index: 9999;
+            -webkit-transition: all 500ms ease;
+            transition: all 500ms ease;
+            -webkit-transform: translate(100%, 0);
+            -ms-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        .containermain {
+            height: auto;
+            margin-top: 10px;
+            padding: 10px 0;
+            width: 100%;
+            /*border: 3px solid red;*/
+            position: relative;
+            color: black;
+            z-index: 0;
+        }
+        .main div {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .left {
+            display: none;
+        }
+        .right {
+            width: 100%;
+        }
+        header ul.list-auto {
+            padding: 0;
+        }
+        header ul.list-auto li {
+            width: 100%;
+            border: solid #ccc;
+            border-width: 0 0 1px;
+            background-color: #036358;
+            z-index: 0;
+        }
+        header li a {
+            padding: 15px 10px;
+            color: #fff;
+        }
+        header li a:hover {
+            color: #fff;
+        }
+        header li:last-child {
+            padding-right: 0;
+        }
+        .control-nav {
+            /* label icon */
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: block;
+            width: 30px;
+            padding: 5px 0;
+            border: solid #ccc;
+            border-width: 2px 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .control-nav:before {
+            content: "";
+            display: block;
+            height: 3px;
+            background: #333;
+        }
+        .control-nav-close {
+            position: fixed;
+            /* label layer */
+            right: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.4);
+            -webkit-transition: all 500ms ease;
+            transition: all 500ms ease;
+            -webkit-transform: translate(100%, 0);
+            -ms-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        .left_ads img {
+            display: none;
+        }
+        /* checked nav */
+        input#control-nav {
+            display: block;
+        }
+        input#control-nav:focus~.control-nav {
+            border-color: #000;
+            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.3);
+        }
+        input#control-nav:focus~.control-nav:before {
+            background: #000;
+        }
+        input#control-nav:checked~nav,
+        input#control-nav:checked~.control-nav-close {
+            -webkit-transform: translate(0, 0);
+            -ms-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+        header+section {
+            padding-top: 80px;
+        }
+        /* #####--- CARD NUMBERS ---##### */
+        /*LOTOFÁCIL*/
+        .right_llotofacil {
+            float: left !important;
+            width: 25% !important;
+        }
+        .right_rlotofacil {
+            float: right !important;
+            width: 75% !important;
+        }
+        .cardnumbers_lotofacil {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 183px !important;
+        }
+        /*-------*/
+        /*MEGASENA*/
+        .right_lmegasena {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rmegasena {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_megasena {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        /*QUINA*/
+        .right_lquina {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rquina {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_quina {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        /*LOTOMANIA*/
+        .right_llotomania {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rlotomania {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_lotomania {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        /*TIMEMANIA*/
+        .right_ltimemania {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rtimemania {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_timemania {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        /*DUPLASENA*/
+        .right_lduplasena {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rduplasena {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_duplasena {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        /*DIA DE SORTE*/
+        .right_ldiadesorte {
+            float: left !important;
+            width: 65% !important;
+        }
+        .right_rdiadesorte {
+            float: right !important;
+            width: 35% !important;
+        }
+        .cardnumbers_diadesorte {
+            margin: 10px!important;
+            padding: 5px!important;
+            height: 235px!important;
+            width: 350px !important;
+        }
+        /*-------*/
+        .cardnumber {
+            width: 30px !important;
+            float: left !important;
+            text-align: center;
+            margin: 2px!important;
+        }
+        .resultnumbers {
+            float: left !important;
+            position: relative !important;
+        }
+        .resultnumber {
+            float: left !important;
+            position: relative !important;
+            font-size: 25px !important;
+            font-weight: 600 !important;
+            margin: 3px !important;
+            padding: 7px !important;
+            box-shadow: 2px 1px 5px #580c5d !important;
+            border-radius: 50px !important;
+            min-width: 50px !important;
+            max-width: 50px !important;
+            text-align: center !important;
+        }
+        /* #####--- END CARD NUMBERS ---##### */
+        .containerfooter {
+            display: none;
+        }
+        .footer {
+            display: none;
+        }
     }
-    .cardnumbers_lotomania {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 280px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
+    
+    @media screen and (max-width: 740px) {
+        header h1 {
+            font-size: 20px;
+            line-height: 40px;
+        }
+        h1.float-l img {
+            width: 280px;
+            padding-top: 10px;
+        }
+        header nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 250px;
+            border-left: 1px solid #ccc;
+            background: #fff;
+            overflow-x: auto;
+            z-index: 2;
+            -webkit-transition: all 500ms ease;
+            transition: all 500ms ease;
+            -webkit-transform: translate(100%, 0);
+            -ms-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+        }
+        .containermain {
+            margin-top: 5px;
+            padding: 0;
+        }
+        .main {
+            width: 100%;
+            margin: 0;
+        }
+        /* #####--- CARD NUMBERS ---##### */
+        /*LOTOFÁCIL*/
+        .right_llotofacil {
+            float: left !important;
+            width: 50% !important;
+            /*border: 1px solid #aaa;*/
+        }
+        .right_rlotofacil {
+            float: center !important;
+            width: 50% !important;
+            /*border: 1px solid #aaa;*/
+        }
+        .cardnumbers_lotofacil {
+            margin: 2px !important;
+            padding: 4px !important;
+            height: 235px !important;
+            width: 183px !important;
+        }
+        /*-------*/
+        /*MEGASENA*/
+        .right_lmegasena {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rmegasena {
+            float: none !important;
+            width: 85% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_megasena {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 300px !important;
+            width: 310px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*QUINA*/
+        .right_lquina {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rquina {
+            float: none !important;
+            width: 80% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_quina {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 300px !important;
+            width: 310px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*LOTOMANIA*/
+        .right_llotomania {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rlotomania {
+            float: none !important;
+            width: 80% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_lotomania {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 300px !important;
+            width: 310px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*TIMEMANIA*/
+        .right_ltimemania {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rtimemania {
+            float: none !important;
+            width: 80% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_timemania {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 300px !important;
+            width: 310px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*DUPLASENA*/
+        .right_lduplasena {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rduplasena {
+            float: none !important;
+            width: 85% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_duplasena {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 300px !important;
+            width: 310px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*DIA DE SORTE*/
+        .right_ldiadesorte {
+            float: none !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rdiadesorte {
+            float: none !important;
+            width: 80% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            margin: 0 auto !important;
+        }
+        .cardnumbers_diadesorte {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 200px !important;
+            width: 320px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*SUPER SETE*/
+        .right_lsupersete {
+            float: left;
+            width: 42%;
+            margin-top: 10px;
+            /*border: 1px solid #aaa;*/
+        }
+        .right_rsupersete {
+            float: right;
+            width: 58%;
+            margin-top: 10px;
+            /*border: 1px solid #eee !important;*/
+        }
+        .cardnumbers_supersete {
+            margin: 5px!important;
+            padding: 4px!important;
+            height: auto!important;
+            overflow: hidden;
+            width: 40px !important;
+            border: 1px solid #ddd;
+            float: left;
+        }
+        /*--------*/
+        .cardnumber {
+            width: 28px !important;
+            height: 30px !important;
+            float: left !important;
+            text-align: center;
+            margin: 0 1px 23px 1px !important;
+            padding: 2px 0 0 0;
+        }
+        .resultnumbers {
+            float: left !important;
+            margin-left: 5px !important;
+            margin-top: 0 !important;
+            margin: 0 auto !important;
+            /*border: 1px solid #ccc;*/
+        }
+        .resultnumber {
+            float: left !important;
+            font-size: 20px !important;
+            font-weight: 600 !important;
+            margin: 1px !important;
+            padding: 7px !important;
+            box-shadow: 2px 1px 5px #580c5d !important;
+            border-radius: 50px !important;
+            min-width: 46px !important;
+            max-width: 46px !important;
+            text-align: center !important;
+        }
     }
-    /*---------*/
-    /*TIMEMANIA*/
-    .right_ltimemania {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
+    
+    @media screen and (max-width: 320px) {
+        /* #####--- CARD NUMBERS ---##### */
+        /*LOTOFÁCIL*/
+        .right_llotofacil {
+            float: left !important;
+            width: 43% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .right_rlotofacil {
+            float: center !important;
+            width: 57% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_lotofacil {
+            margin: 1px !important;
+            padding: 2px !important;
+            height: 235px !important;
+            width: 183px !important;
+        }
+        /*------*/
+        /*MEGASENA*/
+        .right_lmegasena {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rmegasena {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_megasena {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 280px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*QUINA*/
+        .right_lquina {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rquina {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_quina {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 280px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*LOTOMANIA*/
+        .right_llotomania {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rlotomania {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_lotomania {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 280px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*TIMEMANIA*/
+        .right_ltimemania {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rtimemania {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_timemania {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 280px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*DUPLASENA*/
+        .right_lduplasena {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rduplasena {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_duplasena {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 280px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*DIA DE SORTE*/
+        .right_ldiadesorte {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+            position: relative;
+        }
+        .right_rdiadesorte {
+            float: right !important;
+            width: 100% !important;
+            /*border: 1px solid #aaa;*/
+            border: none;
+        }
+        .cardnumbers_diadesorte {
+            margin: 1px !important;
+            padding: 4px !important;
+            height: 200px !important;
+            width: 260px !important;
+            /*border: 1px solid #ccc;*/
+            margin: 0 auto !important;
+        }
+        /*---------*/
+        /*SUPER SETE*/
+        .right_lsupersete {
+            float: left;
+            width: 42%;
+            margin-top: 10px;
+            /*border: 1px solid #aaa;*/
+        }
+        .right_rsupersete {
+            float: right;
+            width: 58%;
+            margin-top: 10px;
+            /*border: 1px solid #eee !important;*/
+        }
+        .cardnumbers_supersete {
+            margin: 4px!important;
+            padding: 4px!important;
+            height: auto!important;
+            overflow: hidden;
+            width: 36px !important;
+            border: 1px solid #ddd;
+            float: left;
+        }
+        /*--------*/
+        .cardnumber {
+            width: 20px !important;
+            float: left !important;
+            text-align: center;
+            margin: 2px !important;
+            font-size: 12px !important;
+        }
+        .resultnumbers {
+            position: relative !important;
+            margin-left: 2px !important;
+            margin-right: 0 !important;
+            padding-right: 0 !important;
+            margin-top: 0;
+        }
+        .resultnumber {
+            float: left !important;
+            position: relative !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            margin: 2px !important;
+            padding: 5px !important;
+            box-shadow: 2px 1px 5px #580c5d !important;
+            border-radius: 50px !important;
+            min-width: 40px !important;
+            max-width: 40px !important;
+            text-align: center !important;
+        }
     }
-    .right_rtimemania {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
+    
+    @media screen and (max-width: 280px) {
+        /* #####--- CARD NUMBERS ---##### */
+        /*SUPER SETE*/
+        .right_lsupersete {
+            float: left;
+            width: 42%;
+            margin-top: 10px;
+            /*border: 1px solid #aaa;*/
+        }
+        .right_rsupersete {
+            float: right;
+            width: 58%;
+            margin-top: 10px;
+            /*border: 1px solid #eee !important;*/
+        }
+        .cardnumbers_supersete {
+            margin: 2px!important;
+            padding: 4px!important;
+            height: auto!important;
+            overflow: hidden;
+            width: 34px !important;
+            border: 1px solid #ddd;
+            float: left;
+        }
+        /*--------*/
+        .resultnumber {
+            float: left !important;
+            position: relative !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin: 2px !important;
+            padding: 4px !important;
+            box-shadow: 2px 1px 5px #580c5d !important;
+            border-radius: 50px !important;
+            min-width: 33px !important;
+            max-width: 33px !important;
+            text-align: center !important;
+        }
     }
-    .cardnumbers_timemania {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 280px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*DUPLASENA*/
-    .right_lduplasena {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rduplasena {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-    }
-    .cardnumbers_duplasena {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 280px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    /*DIA DE SORTE*/
-    .right_ldiadesorte {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-        position: relative;
-    }
-    .right_rdiadesorte {
-        float: right !important;
-        width: 100% !important;
-        /*border: 1px solid #aaa;*/
-        border: none;
-    }
-    .cardnumbers_diadesorte {
-        margin: 1px !important;
-        padding: 4px !important;
-        height: 200px !important;
-        width: 260px !important;
-        /*border: 1px solid #ccc;*/
-        margin: 0 auto !important;
-    }
-    /*---------*/
-    .cardnumber {
-        width: 20px !important;
-        float: left !important;
-        text-align: center;
-        margin: 2px !important;
-        font-size: 12px !important;
-    }
-    .resultnumbers {
-        position: relative !important;
-        margin-left: 2px !important;
-        margin-right: 0 !important;
-        padding-right: 0 !important;
-        margin-top: 0;
-    }
-    .resultnumber {
-        float: left !important;
-        position: relative !important;
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        margin: 2px !important;
-        padding: 5px !important;
-        box-shadow: 2px 1px 5px #580c5d !important;
-        border-radius: 50px !important;
-        min-width: 40px !important;
-        max-width: 40px !important;
-        text-align: center !important;
-    }
-}
