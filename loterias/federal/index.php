@@ -182,35 +182,35 @@
                   echo "<div class='resultnumber tfederal'>";
                     echo "<strong>".$i."</strong>"; //echo $number[$i]; 
                   echo "</div>";   
-                  if($i > 4) echo "<br><br><br>";              
+                  if($i > 4) echo "<br><br><br><br>";              
                 }
                 echo "<div class='right_lfederal'>2º Prêmio</div>";
                 for ($i=1; $i <= 5; $i++) { 
                   echo "<div class='resultnumber tfederal'>";
                     echo $i; //echo $number[$i];
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br>";              
+                  if($i > 4) echo "<br><br><br><br>";              
                 }
                 echo "<div class='right_lfederal'>3º Prêmio</div>";
                 for ($i=1; $i <= 5; $i++) { 
                   echo "<div class='resultnumber tfederal'>";
                     echo $i; //echo $number[$i];
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br>";              
+                  if($i > 4) echo "<br><br><br><br>";              
                 }
                 echo "<div class='right_lfederal'>4º Prêmio</div>";
                 for ($i=1; $i <= 5; $i++) { 
                   echo "<div class='resultnumber tfederal'>";
                     echo $i; //echo $number[$i];
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br>";              
+                  if($i > 4) echo "<br><br><br><br>";              
                 }
                 echo "<div class='right_lfederal'>5º Prêmio</div>";
                 for ($i=1; $i <= 5; $i++) { 
                   echo "<div class='resultnumber tfederal'>";
                     echo $i; //echo $number[$i];
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br>";              
+                  if($i > 4) echo "<br><br><br><br>";              
                 }
               ?>
 

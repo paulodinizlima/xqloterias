@@ -213,55 +213,46 @@
     
     .tmegasena {
         background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
-        border: 1px solid rgb(20, 167, 51, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tlotofacil {
         background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
-        border: 1px solid rgb(133, 20, 167, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tquina {
         background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
-        border: 1px solid rgb(54, 20, 167, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tlotomania {
         background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
-        border: 1px solid rgb(190, 107, 12, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .ttimemania {
         background: linear-gradient(90deg, rgb(167, 165, 20) 0%, rgb(167, 165, 20)50%, rgb(255, 254, 198) 100%);
-        border: 1px solid rgb(167, 165, 20, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tduplasena {
         background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
-        border: 1px solid rgb(167, 49, 20, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tdiadesorte {
         background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
-        border: 1px solid rgb(145, 125, 17, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tsupersete {
         background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
-        border: 1px solid rgb(152, 167, 20, 1);
         border-radius: 10px 0 10px 0;
     }
     
     .tfederal {
         background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
-        border: 1px solid rgb(16, 42, 128, 1);
         border-radius: 10px 0 10px 0;
     }
     
@@ -372,6 +363,11 @@
         margin-top: 10px;
         padding: 10px 0 20px 10px;
         height: auto;
+        background-color: #eee;
+    }
+    
+    .tbl_premiacao {
+        background-color: rgb(158, 65, 65);
     }
     
     .acertos {
@@ -431,12 +427,13 @@
     }
     
     .title_cidades {
-        margin-top: 10px;
         font-weight: 600;
+        border-bottom: 2px solid #1f7a2e;
     }
     
     .cidades li {
-        list-style-type: circle !important;
+        border-bottom: 1px solid #A8CF45;
+        list-style-type: none !important;
     }
     
     .right_lowmiddle_info {
@@ -448,12 +445,43 @@
         width: 80%;
         text-align: center;
     }
+    
+    .middle_ads {
+        margin-top: 50px;
+        padding-left: 10px;
+        height: 100px;
+        width: 80%;
+        float: right;
+        height: auto;
+    }
+    
+    .text_top {
+        font-size: 13px;
+        padding: 10px;
+        text-align: justify;
+    }
+    
+    .text_info {
+        font-size: 13px;
+        width: 80%;
+        float: right;
+        padding: 30px;
+        text-align: justify;
+    }
+    
+    .text_info h2 {
+        font-size: 30px;
+        font-weight: 600;
+        color: darkgreen;
+        margin-top: 10px;
+    }
     /*------------------------*/
     
-    .top_right {
-        padding: 5px 15px 0 10px;
+    .top_right_megasena {
+        padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
+        background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
         /*border: 1px solid grey;*/
     }
     /* #####--- CARD NUMBERS ---##### */
@@ -463,7 +491,6 @@
         float: left;
         width: 25%;
         margin-top: 10px;
-        border: 1px solid #aaa;
     }
     
     .right_rlotofacil {
@@ -484,14 +511,14 @@
     
     .right_lmegasena {
         float: left;
-        width: 50%;
+        width: 45%;
         margin-top: 10px;
         /*border: 1px solid #aaa;*/
     }
     
     .right_rmegasena {
         float: right;
-        width: 50%;
+        width: 55%;
         margin-top: 10px;
         /*border: 1px solid #aaa;*/
     }
@@ -695,20 +722,10 @@
         /*border: 1px solid #aaa;*/
     }
     
-    .cardnumbers_federal {
-        margin: 4px!important;
-        padding: 4px!important;
-        height: auto!important;
-        overflow: hidden;
-        width: 45px !important;
-        /*border: 1px solid #aaa;*/
-        float: left;
-    }
-    
     .resultnumbers_federal {
         /*border: 1px solid #A8CF45;*/
         margin: 10px;
-        width: 70%;
+        width: 80%;
         float: left;
         position: relative;
     }
@@ -734,7 +751,6 @@
     }
     
     .resultnumbers {
-        /*border: 1px solid #A8CF45;*/
         margin: 10px;
         float: left;
         position: relative;
@@ -743,13 +759,13 @@
     .resultnumber {
         float: left;
         position: relative;
-        font-size: 25px;
+        font-size: 40px;
         font-weight: 600;
-        margin: 5px;
+        margin: 5px 2px;
         padding: 10px;
-        /*box-shadow: 2px 1px 5px #580c5d;*/
+        box-shadow: 2px 1px 5px #000000;
         border-radius: 50px;
-        min-width: 60px;
+        min-width: 82px;
         text-align: center;
         color: #fff;
     }
