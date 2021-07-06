@@ -265,8 +265,11 @@
           </div> <!-- end tbl_premiacao -->      
 
       </div> <!-- end right_middle -->
-      <div class="right_lowmiddle_info col-12">
-        Próximo Sorteio: <strong>08/07/2021</strong><br>Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+      <div class="right_lowmiddle_info tmegasena col-12">
+        Próximo Sorteio: <strong>08/07/2021</strong><br>
+        Concurso Número: <strong>2272</strong><br>
+
+        Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 
@@ -275,7 +278,7 @@
           <img src="../../img/ads01.png" width="210">               
       </div> <!-- end middle_ads -->
 
-      <div class="text_info">
+      <div class="text_info_megasena">
         <h2>Como jogar na Mega Sena</h2>
         <p>Para jogar na Mega Sena compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 60 n&uacute;meros de 01 a 60. Em um &uacute;nico jogo voc&ecirc; pode escolher entre 6 e 15 n&uacute;meros com os respectivos custos de aposta por jogo:</p>
         <div class="fl">
@@ -344,7 +347,7 @@
         <p>Caso voc&ecirc; seja um dos ganhadores da Mega Sena saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado da Mega Sena na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000.000 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
         <p>O bilhete da Mega Sena &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio da Mega Sena apresentando seu CPF.</p>
         <p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio da Mega Sena. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-      </div><!-- end text_info -->
+      </div><!-- end text_info_megasena -->
     </div> <!-- end main -->
 
   </div> <!-- end containermain -->
