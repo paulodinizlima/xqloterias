@@ -590,6 +590,21 @@
         color: rgb(152, 167, 20);
         margin-top: 10px;
     }
+    
+    .text_info_federal {
+        font-size: 13px;
+        width: 80%;
+        float: right;
+        padding: 30px;
+        text-align: justify;
+    }
+    
+    .text_info_federal h2 {
+        font-size: 30px;
+        font-weight: 600;
+        color: rgb(16, 42, 128);
+        margin-top: 10px;
+    }
     /*------------------------*/
     
     .top_right_megasena {
@@ -653,6 +668,14 @@
         text-align: justify;
         font-size: small;
         background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
+        /*border: 1px solid grey;*/
+    }
+    
+    .top_right_federal {
+        padding: 5px 15px 5px 10px;
+        text-align: justify;
+        font-size: small;
+        background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
         /*border: 1px solid grey;*/
     }
     /* #####--- CARD NUMBERS ---##### */
