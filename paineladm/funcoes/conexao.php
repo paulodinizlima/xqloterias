@@ -7,7 +7,7 @@
 
         public $conectado='n';
 
-        function Conectar(){
+        function conectar(){
             $this->conectado='n';
             $this->con = new mysqli("localhost", "root", "226298my@Sql", "dbxqloterias", "3306");
             if(!$this->con){
@@ -18,19 +18,19 @@
             }
         }
 
-        function Executar($comando){
+        function executar($comando){
             $resultado = mysqli_query($this->con, $comando);
             return $resultado;
         }
 
-        function Consultar($sql){
+        function consultar($sql){
             if($this->conectado=="s"){
                 $rs = mysqli_query($this->con, $sql);
                 $this->dados = mysqli_fetch_array($rs);
             }
         }
 
-        function Listar($sql){
+        function listar($sql){
             if($this->conectado=="s"){
                 $rs = mysqli_query($this->con,$sql);
                 $this->total = mysqli_num_rows($rs);
@@ -38,15 +38,15 @@
             }
         }
 
-        function ContarRegistros(){
+        function contarRegistros(){
             return $this->total;
         }
 
-        function RetornaDados(){
+        function retornaDados(){
             return mysqli_fetch_assoc($this->dados);
         }
 
-        function Desconectar(){
+        function desconectar(){
             mysqli_close($this->con);
         }
 
