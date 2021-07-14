@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias - Megasena</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
@@ -88,65 +89,184 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
+        <?php
+              date_default_timezone_set('America/Sao_Paulo');
+              require('../../paineladm/functions/conection.php');
+                $con = new conection();
+                $binds = ['msconc' => 0];
+                if(isset($_GET['conc'])){
+                  $conc  = $_GET['conc'];
+                  $sql = "SELECT * FROM tbmegasena WHERE msconc = $conc";
+                } else {
+                  $sql = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(idmegasena) FROM tbmegasena)";
+                }
+                $result = $con->select($sql, $binds);
+
+                
+                if($result->rowCount() > 0){
+                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                }
+
+                $horafixa = strtotime('19:00');
+                $horaatual = strtotime(date('H:i'));
+
+                //verifica se o último concurso já foi sorteado
+                foreach($dadosultimo as $item){ 
+                  $concproximo = "{$item->msconc}";
+                  $dataproximo = "{$item->msdata}";
+                  $premioproximo = "{$item->mspremioest}";
+
+                  if("{$item->msd01}" == 0){ //não foi sorteado 
+
+                    if($horafixa > $horaatual){
+                      $ultimo = "{$item->msconc}"-1;
+                    } else {
+                      $ultimo = "{$item->msconc}";
+                    }
+
+                    $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";
+                    
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  } else { 
+                    $ultimo = (int)"{$item->msconc}";
+                    $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  }
+                } //end foreach
+
+                foreach($dados as $item){                  
+                  $ant1 = $ultimo -1;
+                  $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant1";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant1 = "{$dt->msdata}";
+                      }
+                    }
+
+                  $ant2 = $ant1 -1;
+                  $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant2";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant2 = "{$dt->msdata}";
+                      }
+                    }
+                  $ant3 = $ant2 -1; 
+                  $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant3";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant3 = "{$dt->msdata}";
+                      }
+                    }
+                  $ant4 = $ant3 -1;
+                  $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant4";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant4 = "{$dt->msdata}";
+                      }
+                    }
+                  $ant5 = $ant4 -1;
+                  $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant5";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant5 = "{$dt->msdata}";
+                      }
+                    }                
+                } //end foreach
+
+                $mspr06 = "{$item->mspr06}"; 
+                $mspr05 = "{$item->mspr05}";
+                $mspr04 = "{$item->mspr04}";
+                $mspremioest = "{$item->mspremioest}";
+
+                $msgan06 = "{$item->msgan06}";
+                $msgan05 = "{$item->msgan05}";
+                $msgan04 = "{$item->msgan04}";
+
+                $dtatual = "{$item->msdata}";
+                $d01 = "{$item->msd01}";
+                $d02 = "{$item->msd02}";
+                $d03 = "{$item->msd03}";
+                $d04 = "{$item->msd04}";
+                $d05 = "{$item->msd05}";
+                $d06 = "{$item->msd06}";
+
+         ?>
+
         <div class="content_left">
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
+            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
               <div class="title_loteria_left tmegasena">            
                 <h5><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2270</span></h5>
+                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                01/07/2021
+                <?php echo $dtant1 ?>
               </div>
             </a> 
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tmegasena">            
                 <h5><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2269</span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                30/06/2021
+                <?php echo $dtant2 ?>
               </div>
             </a> 
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tmegasena">            
                 <h5><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2268</span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                29/06/2021
+                <?php echo $dtant3 ?>
               </div>
             </a> 
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tmegasena">            
                 <h5><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2267</span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                28/06/2021
+                <?php echo $dtant4 ?>
               </div>
             </a> 
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tmegasena">            
                 <h5><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2266</span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                27/06/2021
+                <?php echo $dtant5 ?>
               </div>
             </a> 
 
@@ -158,9 +278,6 @@
         <div class="left_ads">
           <img src="../../img/ads01.png">
         </div> <!-- end left_ads -->
-       
-      
-
 
       </div> <!-- end left -->
 
@@ -176,17 +293,21 @@
             o campo de busca para concursos mais antigos.</strong></p>      
       </div>
           <div class="top_right_megasena">
-            <h5><strong><span class="text-white">CONCURSO 2271 - 02/07/2021</span></strong></h5>
+            <h5><strong><span class="text-white">CONCURSO <?php echo $ultimo." - ".date("d/m/Y "." - "."H:i", strtotime($dtatual))."h"; 
+            if("{$item->msd01}" == 0){ //não foi sorteado 
+              echo " - Prêmio Estimado: R$ ".$premioproximo;
+            }
+          ?></span></strong></h5>
           </div> <!-- end top_right_megasena -->
 
           <div class="right_lmegasena">
 
             <div class="cardnumbers_megasena">
               
-              <?php 
+              <?php                 
                 
                 for ($j = 1; $j <= 60; $j++) {
-                  if($j == 0){
+                  if($j == $d01 || $j == $d02 || $j == $d03 || $j == $d04 || $j == $d05 || $j == $d06){
                     echo "<div class='cardnumber_sel'>" ;
                     echo $j;
                     echo "</div>";
@@ -208,13 +329,34 @@
             <div class="resultnumbers">
 
               <?php
+                foreach($dados as $item){
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd01}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd02}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd03}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd04}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd05}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tmegasena'>";
+                      echo "{$item->msd06}";
+                  echo "</div>";
+                }
+/*
                 for ($i=1; $i <= 6; $i++) { 
                   echo "<div class='resultnumber tmegasena'>";
-                    echo $i; //echo $number[$i];
+                    echo $dados;
                   echo "</div>";
                   //if($i < 26 && $i % 10 == 0) echo "<br><br>";
                 }
-
+*/
               ?>
 
 
@@ -240,17 +382,17 @@
                 <div class="valorpremio col-md-4 col-sm-5 col-5">
                 <div class="title_acertos">Prêmio</div>
                   <ul class="premiacao">
-                    <li>R$ 2.500.000,00</li>
-                    <li>R$ 50.000,00</li>
-                    <li>R$ 1.000,00</li>
+                    <li><?php echo "R$ ".$mspr06 ?></li>
+                    <li><?php echo "R$ ".$mspr05 ?></li>
+                    <li><?php echo "R$ ".$mspr04 ?></li>
                   </ul>  
                 </div> <!-- end valorpremio col-md3 -->
                 <div class="ganhadores col-md-2 col-sm-2 col-2">
                 <div class="title_acertos">Ganhadores</div>
                   <ul class="ganhadores">
-                    <li>1</li>
-                    <li>10</li>
-                    <li>1200</li>
+                    <li><?php echo $msgan06 ?></li>
+                    <li><?php echo $msgan05 ?></li>
+                    <li><?php echo $msgan04 ?></li>
                   </ul>  
                 </div> <!-- end ganhadores col-md2 -->
                 <div class="cidades col-md-4">
@@ -266,10 +408,10 @@
 
       </div> <!-- end right_middle -->
       <div class="right_lowmiddle_info tmegasena col-12">
-        Próximo Sorteio: <strong>08/07/2021</strong><br>
-        Concurso Número: <strong>2272</strong><br>
 
-        Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+        <h5>Próximo Sorteio: <strong><?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></strong></h5>
+        <h5>Concurso Número: <strong><?php echo $concproximo ?></strong></h5>
+        <h5>Prêmio Estimado: <strong><?php echo $premioproximo ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 

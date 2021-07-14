@@ -1,20 +1,20 @@
 <meta charset="utf-8">
 <?php
+	
+	class erros{
 
-    Class erros {
-        function erroGravar($tipo){
-
-        }
-        function erroAlterar($tipo){
-
-        }
-
-        function erroExcluir($tipo){
-
-        }
-    }
-
-
+		function erroGravar($tipo){
+			echo "Erro ao tentar gravar ".$tipo;
+		}
+		
+		function erroAlterar($tipo){
+			echo "Erro ao tentar alterar ".$tipo;
+		}
+		
+		function erroExcluir($tipo){
+			echo "Erro ao tentar excluir ".$tipo;
+		}
+	}
 
 
-?>
+    ?>

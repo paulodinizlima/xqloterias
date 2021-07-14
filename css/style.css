@@ -941,7 +941,7 @@
         float: left;
         text-align: center;
         margin: 2px;
-        background-color: darkolivegreen;
+        background-color: rgb(20, 167, 51);
     }
     
     .resultnumbers {
@@ -1087,6 +1087,9 @@
         }
         .right {
             width: 100%;
+        }
+        .text_top{
+            display: none !important;
         }
         header ul.list-auto {
             padding: 0;
@@ -1285,6 +1288,12 @@
             text-align: center;
             margin: 2px!important;
         }
+        .cardnumber_sel {
+            width: 30px !important;
+            float: left !important;
+            text-align: center;
+            margin: 2px!important;
+        }
         .resultnumbers {
             float: left !important;
             position: relative !important;
@@ -1343,6 +1352,9 @@
         .main {
             width: 100%;
             margin: 0;
+        }
+        .text_top{
+            display: none;
         }
         /* #####--- CARD NUMBERS ---##### */
         /*LOTOFÁCIL*/
@@ -1531,6 +1543,14 @@
         }
         /*--------*/
         .cardnumber {
+            width: 28px !important;
+            height: 30px !important;
+            float: left !important;
+            text-align: center;
+            margin: 0 1px 23px 1px !important;
+            padding: 2px 0 0 0;
+        }
+        .cardnumber_sel {
             width: 28px !important;
             height: 30px !important;
             float: left !important;
