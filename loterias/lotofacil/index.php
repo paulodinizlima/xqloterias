@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias - Lotofácil</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<!--Favicon -->
-	<link href="../../img/favicon.png" rel="icon">
-	<link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../../img/favicon.png" rel="icon">
+  <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -45,7 +47,7 @@
           <a href="../megasena/" title="Megasena"><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena</a>          
         </li>
         <li class="lotofacil">
-          <a href="" title="Lotofácil"><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil</a>
+          <a href="index.php" title="Lotofácil"><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil</a>
         </li>
         <li class="quina">
           <a href="../quina/" title="Quina"><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina</a>
@@ -88,65 +90,212 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
+
+        <?php
+              ini_set('default_charset', 'utf-8');
+              //define fuso horário
+              date_default_timezone_set('America/Sao_Paulo');
+
+              require('../../paineladm/functions/conection.php');
+                $con = new conection();
+                $binds = ['lfconc' => 0];
+                if(isset($_GET['conc'])){
+                  $conc  = $_GET['conc'];
+                  $sql = "SELECT * FROM tblotofacil WHERE lfconc = $conc";
+                } else {
+                  $sql = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
+                }
+                $result = $con->select($sql, $binds);                
+                if($result->rowCount() > 0){
+                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                }
+
+                //define horário para alternar concurso
+                $horafixa = strtotime('19:00');
+                $horaatual = strtotime(date('H:i'));
+                $dataatual = strtotime(date('Y-m-d'));
+                  
+
+
+                //verifica se o último concurso já foi sorteado
+                foreach($dadosultimo as $item){ 
+                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                  $concproximo = "{$item->lfconc}"; 
+                  $dataproximo = "{$item->lfdata}";
+                  $premioproximo = "{$item->lfpremioest}";
+
+
+                  if("{$item->lfd01}" == 0){ //não foi sorteado 
+                    
+                    if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
+                      $ultimo = "{$item->lfconc}"-1; //mostra o último que foi sorteado
+                    } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
+                      $ultimo = "{$item->lfconc}";
+                    } else {
+                      $ultimo = "{$item->lfconc}"-1;
+                    }
+
+                    $sql = "SELECT * FROM tblotofacil WHERE lfconc = $ultimo";
+                    
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  } else { 
+                    $ultimo = (int)"{$item->lfconc}";
+                    $sql = "SELECT * FROM tblotofacil WHERE lfconc = $ultimo";
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  }
+                } //end foreach
+
+                foreach($dados as $item){                  
+                  $ant1 = $ultimo -1;                  
+                  $post1 = $ultimo +1;
+
+                  $sql = "SELECT lfdata FROM tblotofacil WHERE lfconc = $ant1";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant1 = "{$dt->lfdata}";
+
+                      }
+                    }
+
+                  $ant2 = $ant1 -1;
+                  $sql = "SELECT lfdata FROM tblotofacil WHERE lfconc = $ant2";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant2 = "{$dt->lfdata}";
+                      }
+                    }
+                  $ant3 = $ant2 -1; 
+                  $sql = "SELECT lfdata FROM tblotofacil WHERE lfconc = $ant3";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant3 = "{$dt->lfdata}";
+                      }
+                    }
+                  $ant4 = $ant3 -1;
+                  $sql = "SELECT lfdata FROM tblotofacil WHERE lfconc = $ant4";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant4 = "{$dt->lfdata}";
+                      }
+                    }
+                  $ant5 = $ant4 -1;
+                  $sql = "SELECT lfdata FROM tblotofacil WHERE lfconc = $ant5";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant5 = "{$dt->lfdata}";
+                      }
+                    }                
+                } //end foreach
+
+                $lfpr15 = "{$item->lfpr15}"; 
+                $lfpr14 = "{$item->lfpr14}";
+                $lfpr13 = "{$item->lfpr13}";
+                $lfpr12 = "{$item->lfpr12}";
+                $lfpr11 = "{$item->lfpr11}";
+                $lfpremioest = "{$item->lfpremioest}";
+
+                $lfgan15 = "{$item->lfgan15}";
+                $lfgan14 = "{$item->lfgan14}";
+                $lfgan13 = "{$item->lfgan13}";
+                $lfgan12 = "{$item->lfgan12}";
+                $lfgan11 = "{$item->lfgan11}";                
+
+                $lfcidadesgan = "{$item->lfcidadesgan}";
+
+                $dtatual = "{$item->lfdata}";
+                $d01 = "{$item->lfd01}";
+                $d02 = "{$item->lfd02}";
+                $d03 = "{$item->lfd03}";
+                $d04 = "{$item->lfd04}";
+                $d05 = "{$item->lfd05}";
+                $d06 = "{$item->lfd06}";
+                $d07 = "{$item->lfd07}";
+                $d08 = "{$item->lfd08}";
+                $d09 = "{$item->lfd09}";
+                $d10 = "{$item->lfd10}";
+                $d11 = "{$item->lfd11}";
+                $d12 = "{$item->lfd12}";
+                $d13 = "{$item->lfd13}";
+                $d14 = "{$item->lfd14}";
+                $d15 = "{$item->lfd15}";
+
+         ?>
+
         <div class="content_left">
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
+            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
               <div class="title_loteria_left tlotofacil">            
                 <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
-                  <span class="concurso_left">2270</span></h5>
+                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                01/07/2021
+                <?php echo date("d/m/Y", strtotime($dtant1))?>
               </div>
             </a> 
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tlotofacil">            
                 <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
-                  <span class="concurso_left">2269</span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                30/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
             </a> 
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tlotofacil">            
                 <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
-                  <span class="concurso_left">2268</span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                29/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
             </a> 
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tlotofacil">            
                 <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
-                  <span class="concurso_left">2267</span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                28/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
             </a> 
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tlotofacil">            
                 <h5><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil
-                  <span class="concurso_left">2266</span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                27/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
             </a> 
 
@@ -158,9 +307,7 @@
         <div class="left_ads">
           <img src="../../img/ads01.png">
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
+
 
 
       </div> <!-- end left -->
@@ -175,23 +322,38 @@
         <p><strong>No painel abaixo, você confere hoje o resultado da Lotofácil online no último concurso. Os resultados dos sorteios 
         anteriores da Lotofácil você confere nas páginas dos respectivos números dos concursos no menu a esquerda ou utilizando o 
         campo de busca para concursos mais antigos.</strong></p>      
-      </div>
-        
+      </div>       
           
           <div class="top_right_lotofacil">
-            <h5><strong><span class="text-white">CONCURSO 2271 - 02/07/2021</span></strong></h5>
+            <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
+              <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
+              <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
+              <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
+            if("{$item->lfd01}" == 0){ //não foi sorteado 
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+            }
+          ?></strong>
           </div> <!-- end top_right_lotofacil -->
 
           <div class="right_llotofacil">
 
             <div class="cardnumbers_lotofacil">
               
-              <?php 
-                for ($i=1; $i <= 25 ;$i++) {
-                  echo "<div class='cardnumber'>" ;
-                    echo $i;
-                  echo "</div>";
-                  if($i < 26 && $i % 5 == 0) echo "<br><br>";
+              <?php                 
+                
+                for ($j = 1; $j <= 25; $j++) {
+                  if($j == $d01 || $j == $d02 || $j == $d03 || $j == $d04 || $j == $d05 || 
+                     $j == $d06 || $j == $d07 || $j == $d08 || $j == $d09 || $j == $d10 || 
+                     $j == $d11 || $j == $d12 || $j == $d13 || $j == $d14 || $j == $d15){
+                    echo "<div class='cardnumber_sel sellf'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } else {
+                    echo "<div class='cardnumber'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } 
+                  if($j < 25 && $j % 5 == 0) echo "<br><br>";
                 }
 
               ?>
@@ -204,11 +366,52 @@
             <div class="resultnumbers">
 
               <?php
-                for ($i=1; $i <= 15; $i++) { 
+                foreach($dados as $item){
                   echo "<div class='resultnumber tlotofacil'>";
-                    echo $i; //echo $number[$i];
+                      echo "{$item->lfd01}";
                   echo "</div>";
-                  //if($i < 26 && $i % 5 == 0) echo "<br><br>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd02}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd03}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd04}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd05}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd06}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd07}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd08}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd09}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd10}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd11}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd12}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd13}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd14}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotofacil'>";
+                      echo "{$item->lfd15}";
+                  echo "</div>";
                 }
 
               ?>
@@ -236,29 +439,27 @@
       <div class="valorpremio col-md-4 col-sm-5 col-5">
       <div class="title_acertos">Prêmio</div>
         <ul class="premiacao">
-          <li>R$ 2.500.000,00</li>
-          <li>R$ 50.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
+          <li><?php echo "R$ ".$lfpr15 ?></li>
+          <li><?php echo "R$ ".$lfpr14 ?></li>
+          <li><?php echo "R$ ".$lfpr13 ?></li>
+          <li><?php echo "R$ ".$lfpr12 ?></li>
+          <li><?php echo "R$ ".$lfpr11 ?></li>
         </ul>  
       </div> <!-- end valorpremio col-md3 -->
       <div class="ganhadores col-md-2 col-sm-2 col-2">
       <div class="title_acertos">Ganhadores</div>
         <ul class="ganhadores">
-          <li>1</li>
-          <li>10</li>
-          <li>1200</li>
-          <li>1200</li>
-          <li>1200</li>
+          <li><?php echo $lfgan15 ?></li>
+          <li><?php echo $lfgan14 ?></li>
+          <li><?php echo $lfgan13 ?></li>
+          <li><?php echo $lfgan12 ?></li>
+          <li><?php echo $lfgan11 ?></li>
         </ul>  
       </div> <!-- end ganhadores col-md2 -->
       <div class="cidades col-md-4">
       <div class="title_cidades">Cidades dos ganhadores</div>
         <ul class="cidades">
-          <li>Presidente Epitácio - SP / </li>
-          <li>Salvador - BA / </li>
-          <li>São Paulo - SP</li>
+          <li><?php echo $lfcidadesgan ?></li>
         </ul>
       </div> <!-- end cidades col-md5 -->
 
@@ -267,9 +468,9 @@
 </div> <!-- end right_middle -->
 
 <div class="right_lowmiddle_info tlotofacil col-12">
-Próximo Sorteio: <strong>08/07/2021</strong><br>
-Concurso Número: <strong>2272</strong><br>
-Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 
 <div class="middle_ads">

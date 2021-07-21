@@ -14,7 +14,7 @@
 
     switch($tela){
         case 'cadastrardezenas':
-            echo "<div class='crud'>
+            echo "<div class='div-left'>
                 <div class='painel-titulo-lotofacil'>Lotofácil - Cadastro de Dezenas</div>
                 <form class='formcadloterias' id='formcadastro' method='POST' enctype='multipart/form-data' action=''>
                 <div class='form-group'>
@@ -24,7 +24,10 @@
                     <input class='form-control' name='data' type='date' placeholder='Data do Sorteio' />
                 </div>
                 <div class='form-group'>
-                    <input class='form-control' name='premioest' type='number' placeholder='Prêmio Estimado' />
+                    <input class='form-control' name='lflocal' type='text'placeholder='Local do Sorteio'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='premioest' type='text' placeholder='Prêmio Estimado' />
                 </div>
                 <div class='form-group'>
                     <input class='form-control' name='d01' type='text' placeholder='Dezena 01'>
@@ -102,15 +105,16 @@
                     <input class='form-control' name='pr11' type='text' placeholder='Premiação 11'>
                 </div>
                 <div class='form-group'>
-                    <input class='form-control' name='mslocal' type='text'placeholder='Local do Sorteio'>
+                    <input class='form-control' name='cidadesgan' type='text' placeholder='Cidades dos Ganhadores'>
                 </div>
                 <div class='form-group'>   
-                    <button type='submit' id='btnlotofacil'><span>Cadastrar Dezenas</span></button>    
+                    <button type='submit' id='btnlotofacil'><span>Cadastrar</span></button>    
                     </div>
                 </form>";
                 
                     $conc = filter_input(INPUT_POST, 'conc', FILTER_SANITIZE_STRING);
                     $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+                    $lflocal = filter_input(INPUT_POST, 'lflocal', FILTER_SANITIZE_STRING);
                     $premioest = filter_input(INPUT_POST, 'premioest', FILTER_SANITIZE_STRING);
                     $d01 = filter_input(INPUT_POST, 'd01', FILTER_SANITIZE_STRING);
                     $d02 = filter_input(INPUT_POST, 'd02', FILTER_SANITIZE_STRING);
@@ -137,68 +141,71 @@
                     $pr13 = filter_input(INPUT_POST, 'pr13', FILTER_SANITIZE_STRING);
                     $pr12 = filter_input(INPUT_POST, 'pr12', FILTER_SANITIZE_STRING);
                     $pr11 = filter_input(INPUT_POST, 'pr11', FILTER_SANITIZE_STRING);
-                    $mslocal = filter_input(INPUT_POST, 'mslocal', FILTER_SANITIZE_STRING);
+                    $lfcidadesgan = filter_input(INPUT_POST, 'lfcidadesgan', FILTER_SANITIZE_STRING);
+                    
                     if(!empty($conc)){
                         $conection = new conection();
-                        $binds = [  'msconc' => $conc,
-                                    'msdata' => $data,
-                                    'mspremioest' => $premioest,
-                                    'msd01' => $d01,
-                                    'msd02' => $d02,
-                                    'msd03' => $d03,
-                                    'msd04' => $d04,
-                                    'msd05' => $d05,
-                                    'msd06' => $d06,
-                                    'msd06' => $d07,
-                                    'msd06' => $d08,
-                                    'msd06' => $d09,
-                                    'msd06' => $d10,
-                                    'msd06' => $d11,
-                                    'msd06' => $d12,
-                                    'msd06' => $d13,
-                                    'msd06' => $d14,
-                                    'msd06' => $d15,
-                                    'msgan06' => $gan15,
-                                    'msgan05' => $gan14,
-                                    'msgan04' => $gan13,
-                                    'msgan04' => $gan12,
-                                    'msgan04' => $gan11,
-                                    'mspr06' => $pr15,
-                                    'mspr05' => $pr14,
-                                    'mspr04' => $pr13,
-                                    'mspr04' => $pr12,
-                                    'mspr04' => $pr11,
-                                    'mslocal' => $mslocal];
+                        $binds = [  'lfconc' => $conc,
+                                    'lfdata' => $data,
+                                    'lflocal' => $lflocal,
+                                    'lfpremioest' => $premioest,
+                                    'lfd01' => $d01,
+                                    'lfd02' => $d02,
+                                    'lfd03' => $d03,
+                                    'lfd04' => $d04,
+                                    'lfd05' => $d05,
+                                    'lfd06' => $d06,
+                                    'lfd07' => $d07,
+                                    'lfd08' => $d08,
+                                    'lfd09' => $d09,
+                                    'lfd10' => $d10,
+                                    'lfd11' => $d11,
+                                    'lfd12' => $d12,
+                                    'lfd13' => $d13,
+                                    'lfd14' => $d14,
+                                    'lfd15' => $d15,
+                                    'lfgan15' => $gan15,
+                                    'lfgan14' => $gan14,
+                                    'lfgan13' => $gan13,
+                                    'lfgan12' => $gan12,
+                                    'lfgan11' => $gan11,
+                                    'lfpr15' => $pr15,
+                                    'lfpr14' => $pr14,
+                                    'lfpr13' => $pr13,
+                                    'lfpr12' => $pr12,
+                                    'lfpr11' => $pr11,
+                                    'lfcidadesgan' => $lfcidadesgan ];
                         $sql = "INSERT INTO tblotofacil SET 
-                                        msconc = :msconc,
-                                        msdata = :msdata,
-                                        mspremioest = :mspremioest,
-                                        msd01 = :msd01,
-                                        msd02 = :msd02,
-                                        msd03 = :msd03,
-                                        msd04 = :msd04,
-                                        msd05 = :msd05,
-                                        msd06 = :msd06,
-                                        msd06 = :msd07,
-                                        msd06 = :msd08,
-                                        msd06 = :msd09,
-                                        msd06 = :msd10,
-                                        msd06 = :msd11,
-                                        msd06 = :msd12,
-                                        msd06 = :msd13,
-                                        msd06 = :msd14,
-                                        msd06 = :msd15,
-                                        msgan06 = :msgan15,
-                                        msgan05 = :msgan14,
-                                        msgan04 = :msgan13,
-                                        msgan04 = :msgan12,
-                                        msgan04 = :msgan11,
-                                        mspr06 = :mspr15,
-                                        mspr05 = :mspr14,
-                                        mspr04 = :mspr13,
-                                        mspr04 = :mspr12,
-                                        mspr04 = :mspr11,
-                                        mslocal = :mslocal";                
+                                        lfconc = :lfconc,
+                                        lfdata = :lfdata,
+                                        lflocal = :lflocal,
+                                        lfpremioest = :lfpremioest,
+                                        lfd01 = :lfd01,
+                                        lfd02 = :lfd02,
+                                        lfd03 = :lfd03,
+                                        lfd04 = :lfd04,
+                                        lfd05 = :lfd05,
+                                        lfd06 = :lfd06,
+                                        lfd07 = :lfd07,
+                                        lfd08 = :lfd08,
+                                        lfd09 = :lfd09,
+                                        lfd10 = :lfd10,
+                                        lfd11 = :lfd11,
+                                        lfd12 = :lfd12,
+                                        lfd13 = :lfd13,
+                                        lfd14 = :lfd14,
+                                        lfd15 = :lfd15,
+                                        lfgan15 = :lfgan15,
+                                        lfgan14 = :lfgan14,
+                                        lfgan13 = :lfgan13,
+                                        lfgan12 = :lfgan12,
+                                        lfgan11 = :lfgan11,
+                                        lfpr15 = :lfpr15,
+                                        lfpr14 = :lfpr14,
+                                        lfpr13 = :lfpr13,
+                                        lfpr12 = :lfpr12,
+                                        lfpr11 = :lfpr11,
+                                        lfcidadesgan = :lfcidadesgan";                
                         $result = $conection->insert($sql,$binds);
                         if($result){
                             echo "<div class='success'>Cadastro foi realizado</div>";
@@ -206,12 +213,390 @@
                             echo "Ops, houve um erro no cadastro";
                         }
                     }            
-        echo "</div>";
-        break;
-        case 'listaresultados':
-           echo "Lista de Resultados";
-        break;
+        echo "</div>"; //div-left
 
+        echo "<div class='div-right'>";
+            echo "<div class='painel-titulo-lotofacil'>Lista de Resultados</div>";
+               echo "<table class='bordasimples'>";
+               $conection = new conection();
+               $binds = ['idlotofacil' => 0];
+               $sql = "SELECT * FROM tblotofacil WHERE idlotofacil > :idlotofacil ORDER BY idlotofacil DESC LIMIT 25";
+
+               //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
+                    $sql2 = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
+                    $resultmax = $conection->select($sql2,$binds);
+                    $dadosmax = $resultmax->fetchAll(PDO::FETCH_OBJ);
+                    foreach($dadosmax as $itemmax){
+                        $concproximo = "{$itemmax->lfconc}";
+                        $d01proximo = "{$itemmax->lfd01}";
+                    }
+                //-------------------------------------------------------------------**
+                    
+               $result = $conection->select($sql,$binds);
+               if($result->rowCount() > 0){
+                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                   echo "<tr><th>ID</th><th>Conc</th><th>Data</th><th>01</th><th>02</th><th>03</th><th>04</th><th>05</th><th>06</th><th>07</th><th>08</th><th>09</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th colspan='2'>Ações</th></tr>";
+                   foreach($dados as $item){                        
+                        echo "<tr>";
+                            echo "<td width='35'>"."<strong>{$item->lfconc}</strong>"."</td>";
+                            echo "<td width='40' align='center'>"."{$item->lfconc}"."</td>";
+                            echo "<td width='150'>"."{$item->lfdata}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd01}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd02}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd03}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd04}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd05}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd06}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd07}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd08}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd09}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd10}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd11}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd12}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd13}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd14}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd15}"."</td>";
+                            echo "<td><a href='admpainel.php?m=lotofacil&t=atualizardezenas&idconc="."{$item->idlotofacil}"."'><img src='../images/edit.png' width='32' height='32' alt='Alterar Resultado'></a></td>";
+                            echo "<td><a href='admpainel.php?m=lotofacil&t=excluirresultado&idconc="."{$item->idlotofacil}"."'><img src='../images/delete.png' width='32' height='32' alt='Excluir Resultado'></a></td>";
+                        echo "</tr>";
+                   }
+               }              
+
+               echo "</table>";
+           echo "</div>"; //div-right
+        break;
+        //--------------------------------------------------------------------------------------------------------------
+
+        case 'atualizardezenas':
+            if(isset($_GET['idconc']))
+                $codconc = $_GET['idconc'];
+            $conection = new conection();
+            $binds = ['idlotofacil' => 0];
+            $sql = "SELECT * FROM tblotofacil WHERE idlotofacil = $codconc";
+            $result = $conection->select($sql,$binds);
+            if($result->rowCount() > 0){
+                $dados = $result->fetchAll(PDO::FETCH_OBJ);
+            }
+
+            foreach($dados as $item){
+                echo "<div class='div-left'>
+                <div class='painel-titulo-lotofacil'>Lotofácil - Atualizar</div>
+                <form class='formcadloterias' id='formcadastro' method='POST' enctype='multipart/form-data' action=''>
+                <div class='form-group'>
+                    <input class='form-control' name='conc' type='text' value=".$item->idlotofacil." />
+                </div><div class='formlabel'>conc</div>
+                <div class='form-group'>
+                    <input class='form-control' name='data' type='text' value='".date('Y/m/d', strtotime($item->lfdata)).' 20:00:00'."' />
+                </div><div class='formlabel'>data</div>
+                <div class='form-group'>
+                    <input class='form-control' name='lflocal' type='text' value='".$item->lflocal."' />
+                </div><div class='formlabel'>local</div>
+                <div class='form-group'>
+                    <input class='form-control' name='premioest' type='text' value='".$item->lfpremioest."' />
+                </div><div class='formlabel'>preest</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d01' type='text' value='".$item->lfd01."'/>
+                </div><div class='formlabel'>D01</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d02' type='text' value='".$item->lfd02."'/>
+                </div><div class='formlabel'>D02</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d03' type='text' value='".$item->lfd03."'/>
+                </div><div class='formlabel'>D03</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d04' type='text' value='".$item->lfd04."'/>
+                </div><div class='formlabel'>D04</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d05' type='text' value='".$item->lfd05."'/>
+                </div><div class='formlabel'>D05</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d06' type='text' value='".$item->lfd06."'/>
+                </div><div class='formlabel'>D06</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d07' type='text' value='".$item->lfd07."'/>
+                </div><div class='formlabel'>D07</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d08' type='text' value='".$item->lfd08."'/>
+                </div><div class='formlabel'>D08</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d09' type='text' value='".$item->lfd09."'/>
+                </div><div class='formlabel'>D09</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d10' type='text' value='".$item->lfd10."'/>
+                </div><div class='formlabel'>D10</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d11' type='text' value='".$item->lfd11."'/>
+                </div><div class='formlabel'>D11</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d12' type='text' value='".$item->lfd12."'/>
+                </div><div class='formlabel'>D12</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d13' type='text' value='".$item->lfd13."'/>
+                </div><div class='formlabel'>D13</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d14' type='text' value='".$item->lfd14."'/>
+                </div><div class='formlabel'>D14</div>
+                <div class='form-group'>
+                    <input class='form-control' name='d15' type='text' value='".$item->lfd15."'/>
+                </div><div class='formlabel'>D15</div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan15' type='text' value='".$item->lfgan15."' />
+                </div><div class='formlabel'>Gan15</div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan14' type='text' value='".$item->lfgan14."' />
+                </div><div class='formlabel'>Gan14</div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan13' type='text' value='".$item->lfgan13."' />
+                </div><div class='formlabel'>Gan13</div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan12' type='text' value='".$item->lfgan12."' />
+                </div><div class='formlabel'>Gan12</div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan11' type='text' value='".$item->lfgan11."' />
+                </div><div class='formlabel'>Gan11</div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr15' type='text' value='".$item->lfpr15."' />
+                </div><div class='formlabel'>Pre15</div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr14' type='text' value='".$item->lfpr14."' />
+                </div><div class='formlabel'>Pre14</div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr13' type='text' value='".$item->lfpr13."' />
+                </div><div class='formlabel'>Pre13</div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr12' type='text' value='".$item->lfpr12."' />
+                </div><div class='formlabel'>Pre12</div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr11' type='text' value='".$item->lfpr11."' />
+                </div><div class='formlabel'>Pre11</div>
+                <div class='form-group'>
+                    <input class='form-control' name='lfcidadesgan' type='text' value='".$item->lfcidadesgan."' />
+                </div><div class='formlabel'>Cidades</div>
+
+                <div class='form-group'>   
+                    <button type='submit' id='btnlotofacil'><span>Atualizar</span></button>    
+                    </div>
+                </form>";
+            }
+                    $conc = filter_input(INPUT_POST, 'conc', FILTER_SANITIZE_STRING);
+                    $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+                    $lflocal = filter_input(INPUT_POST, 'lflocal', FILTER_SANITIZE_STRING);
+                    $premioest = filter_input(INPUT_POST, 'premioest', FILTER_SANITIZE_STRING);
+                    $d01 = filter_input(INPUT_POST, 'd01', FILTER_SANITIZE_STRING);
+                    $d02 = filter_input(INPUT_POST, 'd02', FILTER_SANITIZE_STRING);
+                    $d03 = filter_input(INPUT_POST, 'd03', FILTER_SANITIZE_STRING);
+                    $d04 = filter_input(INPUT_POST, 'd04', FILTER_SANITIZE_STRING);
+                    $d05 = filter_input(INPUT_POST, 'd05', FILTER_SANITIZE_STRING);
+                    $d06 = filter_input(INPUT_POST, 'd06', FILTER_SANITIZE_STRING);
+                    $d07 = filter_input(INPUT_POST, 'd07', FILTER_SANITIZE_STRING);
+                    $d08 = filter_input(INPUT_POST, 'd08', FILTER_SANITIZE_STRING);
+                    $d09 = filter_input(INPUT_POST, 'd09', FILTER_SANITIZE_STRING);
+                    $d10 = filter_input(INPUT_POST, 'd10', FILTER_SANITIZE_STRING);
+                    $d11 = filter_input(INPUT_POST, 'd11', FILTER_SANITIZE_STRING);
+                    $d12 = filter_input(INPUT_POST, 'd12', FILTER_SANITIZE_STRING);
+                    $d13 = filter_input(INPUT_POST, 'd13', FILTER_SANITIZE_STRING);
+                    $d14 = filter_input(INPUT_POST, 'd14', FILTER_SANITIZE_STRING);
+                    $d15 = filter_input(INPUT_POST, 'd15', FILTER_SANITIZE_STRING);
+                    $gan15 = filter_input(INPUT_POST, 'gan15', FILTER_SANITIZE_STRING);
+                    $gan14 = filter_input(INPUT_POST, 'gan14', FILTER_SANITIZE_STRING);
+                    $gan13 = filter_input(INPUT_POST, 'gan13', FILTER_SANITIZE_STRING);
+                    $gan12 = filter_input(INPUT_POST, 'gan12', FILTER_SANITIZE_STRING);
+                    $gan11 = filter_input(INPUT_POST, 'gan11', FILTER_SANITIZE_STRING);
+                    $pr15 = filter_input(INPUT_POST, 'pr15', FILTER_SANITIZE_STRING);
+                    $pr14 = filter_input(INPUT_POST, 'pr14', FILTER_SANITIZE_STRING);
+                    $pr13 = filter_input(INPUT_POST, 'pr13', FILTER_SANITIZE_STRING);
+                    $pr12 = filter_input(INPUT_POST, 'pr12', FILTER_SANITIZE_STRING);
+                    $pr11 = filter_input(INPUT_POST, 'pr11', FILTER_SANITIZE_STRING);
+                    $lfcidadesgan = filter_input(INPUT_POST, 'lfcidadesgan', FILTER_SANITIZE_STRING);
+                    
+                    if(!empty($conc)){
+                        $conection = new conection();
+                        $binds = [  'lfconc' => $conc,
+                                    'lfdata' => $data,
+                                    'lflocal' => $lflocal,
+                                    'lfpremioest' => $premioest,
+                                    'lfd01' => $d01,
+                                    'lfd02' => $d02,
+                                    'lfd03' => $d03,
+                                    'lfd04' => $d04,
+                                    'lfd05' => $d05,
+                                    'lfd06' => $d06,
+                                    'lfd07' => $d07,
+                                    'lfd08' => $d08,
+                                    'lfd09' => $d09,
+                                    'lfd10' => $d10,
+                                    'lfd11' => $d11,
+                                    'lfd12' => $d12,
+                                    'lfd13' => $d13,
+                                    'lfd14' => $d14,
+                                    'lfd15' => $d15,
+                                    'lfgan15' => $gan15,
+                                    'lfgan14' => $gan14,
+                                    'lfgan13' => $gan13,
+                                    'lfgan12' => $gan12,
+                                    'lfgan11' => $gan11,
+                                    'lfpr15' => $pr15,
+                                    'lfpr14' => $pr14,
+                                    'lfpr13' => $pr13,
+                                    'lfpr12' => $pr12,
+                                    'lfpr11' => $pr11,
+                                    'lfcidadesgan' => $lfcidadesgan ];
+                        $sql = "UPDATE tblotofacil SET
+                                        lfconc = :lfconc,
+                                        lfdata = :lfdata,
+                                        lflocal = :lflocal,
+                                        lfpremioest = :lfpremioest,
+                                        lfd01 = :lfd01,
+                                        lfd02 = :lfd02,
+                                        lfd03 = :lfd03,
+                                        lfd04 = :lfd04,
+                                        lfd05 = :lfd05,
+                                        lfd06 = :lfd06,
+                                        lfd07 = :lfd07,
+                                        lfd08 = :lfd08,
+                                        lfd09 = :lfd09,
+                                        lfd10 = :lfd10,
+                                        lfd11 = :lfd11,
+                                        lfd12 = :lfd12,
+                                        lfd13 = :lfd13,
+                                        lfd14 = :lfd14,
+                                        lfd15 = :lfd15,
+                                        lfgan15 = :lfgan15,
+                                        lfgan14 = :lfgan14,
+                                        lfgan13 = :lfgan13,
+                                        lfgan12 = :lfgan12,
+                                        lfgan11 = :lfgan11,
+                                        lfpr15 = :lfpr15,
+                                        lfpr14 = :lfpr14,
+                                        lfpr13 = :lfpr13,
+                                        lfpr12 = :lfpr12,
+                                        lfpr11 = :lfpr11,
+                                        lfcidadesgan = :lfcidadesgan WHERE lfconc = $codconc";                 
+                        $result = $conection->insert($sql,$binds);
+
+                        //---------------------------------------------------------
+                        //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
+                        $sql2 = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
+                        $resultmax = $conection->select($sql2,$binds);
+                        $dadosmax = $resultmax->fetchAll(PDO::FETCH_OBJ);
+                        foreach($dadosmax as $itemmax){
+                            $concproximo = "{$itemmax->lfconc}";
+                            $d01proximo = "{$itemmax->lfd01}";
+                        }
+
+                        if($conc == $concproximo && $d01proximo != 0){
+                        $binds = [  'lfconc' => $conc+1,
+                                    'lfd01' => 0,
+                                    'lfd02' => 0,
+                                    'lfd03' => 0,
+                                    'lfd04' => 0,
+                                    'lfd05' => 0,
+                                    'lfd06' => 0,
+                                    'lfd07' => 0,
+                                    'lfd08' => 0,
+                                    'lfd09' => 0,
+                                    'lfd10' => 0,
+                                    'lfd11' => 0,
+                                    'lfd12' => 0,
+                                    'lfd13' => 0,
+                                    'lfd14' => 0,
+                                    'lfd15' => 0,
+                                    'lfgan15' => 0,
+                                    'lfgan14' => 0,
+                                    'lfgan13' => 0,
+                                    'lfgan12' => 0,
+                                    'lfgan11' => 0,
+                                    'lfpr15' => 0,
+                                    'lfpr14' => 0,
+                                    'lfpr13' => 0,
+                                    'lfpr12' => 0,
+                                    'lfpr11' => 0,];
+                            $sql = "INSERT INTO tblotofacil SET 
+                                        lfconc = :lfconc,
+                                        lfd01 = :lfd01,
+                                        lfd02 = :lfd02,
+                                        lfd03 = :lfd03,
+                                        lfd04 = :lfd04,
+                                        lfd05 = :lfd05,
+                                        lfd06 = :lfd06,
+                                        lfd07 = :lfd07,
+                                        lfd08 = :lfd08,
+                                        lfd09 = :lfd09,
+                                        lfd10 = :lfd10,
+                                        lfd11 = :lfd11,
+                                        lfd12 = :lfd12,
+                                        lfd13 = :lfd13,
+                                        lfd14 = :lfd14,
+                                        lfd15 = :lfd15,
+                                        lfgan15 = :lfgan15,
+                                        lfgan14 = :lfgan14,
+                                        lfgan13 = :lfgan13,
+                                        lfgan12 = :lfgan12,
+                                        lfgan11 = :lfgan11,
+                                        lfpr15 = :lfpr15,
+                                        lfpr14 = :lfpr14,
+                                        lfpr13 = :lfpr13,
+                                        lfpr12 = :lfpr12,
+                                        lfpr11 = :lfpr11";            
+                            $result = $conection->insert($sql,$binds);
+                        }
+                        //------------------------------------------------------------//       
+
+
+
+
+
+
+
+                        if($result){
+                            echo "<div class='success'>Cadastro foi realizado</div>";
+                        } else {
+                            echo "Ops, houve um erro no cadastro";
+                        }
+                    }            
+        echo "</div>"; //div-left
+
+        echo "<div class='div-right'>";
+            echo "<div class='painel-titulo-lotofacil'>Lista de Resultados</div>";
+               echo "<table class='bordasimples'>";
+               $conection = new conection();
+               $binds = ['idlotofacil' => 0];
+               $sql = "SELECT * FROM tblotofacil WHERE idlotofacil > :idlotofacil ORDER BY idlotofacil DESC LIMIT 25";
+               $result = $conection->select($sql,$binds);
+               if($result->rowCount() > 0){
+                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                   echo "<tr><th>ID</th><th>Conc</th><th>Data</th><th>01</th><th>02</th><th>03</th><th>04</th><th>05</th><th>06</th><th>07</th><th>08</th><th>09</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th colspan='2'>Ações</th></tr>";
+                   foreach($dados as $item){
+                        
+                        echo "<tr>";
+                            echo "<td width='35'>"."<strong>{$item->lfconc}</strong>"."</td>";
+                            echo "<td width='40' align='center'>"."{$item->lfconc}"."</td>";
+                            echo "<td width='150'>"."{$item->lfdata}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd01}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd02}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd03}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd04}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd05}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd06}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd07}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd08}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd09}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd10}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd11}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd12}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd13}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd14}"."</td>";
+                            echo "<td width='20'>"."{$item->lfd15}"."</td>";
+                            echo "<td><a href='admpainel.php?m=lotofacil&t=atualizardezenas&idconc="."{$item->idlotofacil}"."'><img src='../images/edit.png' width='32' height='32' alt='Alterar Resultado'></a></td>";
+                            echo "<td><a href='admpainel.php?m=lotofacil&t=excluirresultado&idconc="."{$item->idlotofacil}"."'><img src='../images/delete.png' width='32' height='32' alt='Excluir Resultado'></a></td>";
+                        echo "</tr>";
+                   }
+               }              
+
+               echo "</table>";
+           echo "</div>"; //div-right
+        break;
+        //--------------------------------------------------------------------------------------------------------------
         default:
            //code
         break;

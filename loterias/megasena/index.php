@@ -11,6 +11,7 @@
 	<!--Favicon -->
 	<link href="../../img/favicon.png" rel="icon">
 	<link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -43,7 +44,7 @@
     <nav class="float-r">
       <ul class="list-auto">
         <li class="megasena">          
-          <a href="" title="Megasena"><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena</a>          
+          <a href="index.php" title="Megasena"><span class="icone"><img src="../../img/icon_megasena.png" width="20"></span> Megasena</a>         
         </li>
         <li class="lotofacil">
           <a href="../lotofacil/" title="Lotofácil"><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil</a>
@@ -90,7 +91,10 @@
         </div> <!-- end title_left -->
 
         <?php
+              ini_set('default_charset', 'utf-8');
+              //define fuso horário
               date_default_timezone_set('America/Sao_Paulo');
+
               require('../../paineladm/functions/conection.php');
                 $con = new conection();
                 $binds = ['msconc' => 0];
@@ -98,30 +102,36 @@
                   $conc  = $_GET['conc'];
                   $sql = "SELECT * FROM tbmegasena WHERE msconc = $conc";
                 } else {
-                  $sql = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(idmegasena) FROM tbmegasena)";
+                  $sql = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(msconc) FROM tbmegasena)";
                 }
-                $result = $con->select($sql, $binds);
-
-                
+                $result = $con->select($sql, $binds);                
                 if($result->rowCount() > 0){
                   $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
+                //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
+                $dataatual = strtotime(date('Y-m-d'));
+                  
+
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dadosultimo as $item){ 
-                  $concproximo = "{$item->msconc}";
+                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                  $concproximo = "{$item->msconc}"; 
                   $dataproximo = "{$item->msdata}";
                   $premioproximo = "{$item->mspremioest}";
 
-                  if("{$item->msd01}" == 0){ //não foi sorteado 
 
-                    if($horafixa > $horaatual){
-                      $ultimo = "{$item->msconc}"-1;
-                    } else {
+                  if("{$item->msd01}" == 0){ //não foi sorteado 
+                    
+                    if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
+                      $ultimo = "{$item->msconc}"-1; //mostra o último que foi sorteado
+                    } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->msconc}";
+                    } else {
+                      $ultimo = "{$item->msconc}"-1;
                     }
 
                     $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";
@@ -142,12 +152,14 @@
 
                 foreach($dados as $item){                  
                   $ant1 = $ultimo -1;
+                  $post1 = $ultimo +1;
                   $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant1";
                     $resultdates = $con->select($sql, $binds);
                     if($resultdates->rowCount() > 0){
                       $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
                       foreach($dates as $dt){
                         $dtant1 = "{$dt->msdata}";
+
                       }
                     }
 
@@ -198,6 +210,8 @@
                 $msgan05 = "{$item->msgan05}";
                 $msgan04 = "{$item->msgan04}";
 
+                $mscidadesgan = "{$item->mscidadesgan}";
+
                 $dtatual = "{$item->msdata}";
                 $d01 = "{$item->msd01}";
                 $d02 = "{$item->msd02}";
@@ -218,7 +232,7 @@
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo $dtant1 ?>
+                <?php echo date("d/m/Y", strtotime($dtant1))?>
               </div>
             </a> 
 
@@ -230,7 +244,7 @@
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo $dtant2 ?>
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
             </a> 
 
@@ -242,7 +256,7 @@
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo $dtant3 ?>
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
             </a> 
 
@@ -254,7 +268,7 @@
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo $dtant4 ?>
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
             </a> 
 
@@ -266,7 +280,7 @@
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo $dtant5 ?>
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
             </a> 
 
@@ -293,11 +307,14 @@
             o campo de busca para concursos mais antigos.</strong></p>      
       </div>
           <div class="top_right_megasena">
-            <h5><strong><span class="text-white">CONCURSO <?php echo $ultimo." - ".date("d/m/Y "." - "."H:i", strtotime($dtatual))."h"; 
+            <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
+              <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
+              <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
+              <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->msd01}" == 0){ //não foi sorteado 
-              echo " - Prêmio Estimado: R$ ".$premioproximo;
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
             }
-          ?></span></strong></h5>
+          ?></strong>
           </div> <!-- end top_right_megasena -->
 
           <div class="right_lmegasena">
@@ -308,7 +325,7 @@
                 
                 for ($j = 1; $j <= 60; $j++) {
                   if($j == $d01 || $j == $d02 || $j == $d03 || $j == $d04 || $j == $d05 || $j == $d06){
-                    echo "<div class='cardnumber_sel'>" ;
+                    echo "<div class='cardnumber_sel selms'>" ;
                     echo $j;
                     echo "</div>";
                   } else {
@@ -398,9 +415,7 @@
                 <div class="cidades col-md-4">
                 <div class="title_cidades">Cidades dos ganhadores</div>
                   <ul class="cidades">
-                    <li>Presidente Epitácio - SP / </li>
-                    <li>Salvador - BA / </li>
-                    <li>São Paulo - SP</li>
+                    <li><?php echo $mscidadesgan ?></li>
                   </ul>
                 </div> <!-- end cidades col-md5 -->
 
@@ -409,9 +424,9 @@
       </div> <!-- end right_middle -->
       <div class="right_lowmiddle_info tmegasena col-12">
 
-        <h5>Próximo Sorteio: <strong><?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></strong></h5>
-        <h5>Concurso Número: <strong><?php echo $concproximo ?></strong></h5>
-        <h5>Prêmio Estimado: <strong><?php echo $premioproximo ?></strong></h5>
+        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
+        <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
+        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 
@@ -493,6 +508,8 @@
     </div> <!-- end main -->
 
   </div> <!-- end containermain -->
+
+
 
   
 

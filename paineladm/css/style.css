@@ -139,6 +139,8 @@
     font-size: 14px;
 }
 
+
+
 .ft-cred {
     font-size: 10px;
 }
@@ -623,15 +625,6 @@ p {
     background-color: white;
 }
 
-fieldset {
-    border: none;
-    border-radius: 15px;
-    box-shadow: #a0a0a0 2px 2px 8px;
-    margin-top: 15px;
-    padding: 20px 0 20px 0;
-    width: 650px;
-}
-
 .formulario {
     width: 680px;
     margin: 0 auto;
@@ -642,91 +635,64 @@ fieldset {
     width: 850px;
 }
 
-.formcadloterias {
+.formcadloterias,
+.formcadcidades {
     margin: 0 auto;
     width: 300px;
     margin-top: 10px;
     float: left;
+    position: relative;
 }
 
 .form-group {
     margin-bottom: 5px !important;
-}
-
-.formcaixa {
-    width: 166px;
     float: right;
+    position: relative;
+    width: 80%;
+    
 }
 
-.formcaixa input[type=submit] {
-    line-height: 28px;
-    width: 160px;
-    padding: 5px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #C82023;
-    color: white;
-    box-shadow: 0 0 2px 2px #aaa;
-    border: 1px solid #ccc;
-}
-
-.formcaixa input[type=submit]:hover {
-    background-color: #DF2D29;
-}
-
-.formcadastro input[type=text],
-input[type=date],
-input[type=password],
-select {
+.formcadastro input[type=text]{
     position: relative;
     line-height: 28px;
     padding: 0 5px 0 3px;
     font-size: 16px;
-    border: 1px solid #ccc;
     border-radius: 3px;
 }
 
-.formcadloterias input[type=text],
-input[type=date],
-input[type=password],
-input[type=number],
-select {
+.formcadloterias input[type=text] {
     position: relative;
     line-height: 28px;
     padding: 0 5px 0 3px;
     font-size: 16px;
-    border: 1px solid #ccc;
     border-radius: 3px;
     width: 100%;
 }
 
 .formcadastro input[type=submit],
-input.radio {
+.formcadcidade input[type=submit] {
     position: relative;
     line-height: 28px;
     width: 170px;
     padding: 5px;
     font-size: 18px;
-    border: 1px solid #ccc;
     border-radius: 3px;
     float: left;
 }
 
 .formcadloterias input[type=submit],
-input.radio {
+.formcadcidades input[type=submit] {
     position: relative;
     line-height: 28px;
     width: 170px;
     padding: 5px;
     font-size: 18px;
-    border: 1px solid #ccc;
     border-radius: 3px;
     float: left;
 }
 
-.formcadloterias button {
+.formcadloterias button, 
+.formcadcidades button {
     position: relative;
     line-height: 28px;
     width: 100%;
@@ -734,14 +700,14 @@ input.radio {
     font-size: 20px;
     font-weight: 500;
     color: white;
-    border: 1px solid #ccc;
     border-radius: 3px;
     float: left;    
     cursor: pointer;
 }
 /*----------*/
 /* MEGASENA */
-#btnmegasena {
+#btnmegasena,
+#btncidmegasena {
     border-radius: 4px;
     background-color: darkgreen;
     border: none;
@@ -754,16 +720,19 @@ input.radio {
     cursor: pointer;
     margin-top: 5px;
 }
-#btnmegasena:hover{
+#btnmegasena:hover,
+#btncidmegasena: hover{
     background-color: green;
 }
-#btnmegasena span {
+#btnmegasena span,
+#btncidmegasena span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
-#btnmegasena span:after {
+#btnmegasena span:after,
+#btncidmegasena span:after {
   content: '\00bb';
   position: absolute;
   opacity: 0;
@@ -771,10 +740,12 @@ input.radio {
   right: -20px;
   transition: 0.5s;
 }
-#btnmegasena:hover span {
+#btnmegasena:hover span,
+#btncidmegasena:hover span {
   padding-right: 25px;
 }
-#btnmegasena:hover span:after {
+#btnmegasena:hover span:after,
+#btncidmegasena:hover span:after {
   opacity: 1;
   right: 0;
 }
@@ -818,6 +789,45 @@ input.radio {
   right: 0;
 }
 /*-----------*/
+/* QUINA */
+#btnquina {
+    border-radius: 4px;
+    background-color: darkblue;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 5px;
+}
+#btnquina:hover{
+    background-color: blue;
+}
+#btnquina span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+#btnquina span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+#btnquina:hover span {
+  padding-right: 25px;
+}
+#btnquina:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*-----------*/
 
 
 .formcadastro input[type=submit] {
@@ -839,7 +849,7 @@ input.radio {
 }
 
 .formlabel {
-    width: 190px;
+    width: 30px;
     margin-top: 7px;
     padding: 2px;
     font-size: 14px;
@@ -985,6 +995,14 @@ select {
     border-radius: 3px;
 }
 
+.formcadcidades input[type=text] {
+    position: relative;
+    line-height: 28px;
+    padding: 0 5px 0 3px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+} 
 .contato {
     padding: 10px;
     z-index: 9997;
@@ -1161,18 +1179,35 @@ legend {
     font-weight: bold;
     color: white;
     background-color: green;
-    padding: 10px 0 5px 20px;
+    padding: 10px 20px 5px 20px;
     border-radius: 15px 0 15px 0;
-    border-bottom: 2px solid green;
 }
+.painel-titulo-quina {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    background-color: darkblue;
+    padding: 10px 20px 5px 20px;
+    border-radius: 15px 0 15px 0;
+}
+
 .painel-titulo-lotofacil {
     font-size: 20px;
     text-transform: uppercase;
     font-weight: bold;
     color: white;
     background-color: darkmagenta;
-    padding: 10px 0 5px 20px;
+    padding: 10px 20px 5px 20px;
     border-radius: 15px 0 15px 0;
+}
+
+.div-left{
+    float: left;
+}
+
+.div-right{
+    float: right;
 }
 
 

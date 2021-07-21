@@ -7,6 +7,7 @@
         <ul>
             <li><a href="?m=megasena&t=cadastrardezenas">Megasena</a></li><br>
             <li><a href="?m=lotofacil&t=cadastrardezenas">Lotofácil</a></li><br>
+            <li><a href="?m=quina&t=cadastrardezenas">Quina</a></li><br>
         </ul>
 
     </div> <!-- accordion -->

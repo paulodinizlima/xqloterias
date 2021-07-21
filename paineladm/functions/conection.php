@@ -7,7 +7,8 @@ Class conection{
     public function __construct($dbname = 'dbxqloterias')
     {        
         try{
-            $con = $this->PDO = new PDO("mysql:host=localhost;dbname={$dbname}",'root', '226298my@Sql');
+            $con = $this->PDO = new PDO("mysql:host=localhost;dbname={$dbname}",'root', '226298my@Sql',
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conectado = 's';
             return $this->con;

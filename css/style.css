@@ -212,55 +212,55 @@
     }
     
     .tmegasena {
-        background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
+        background: rgb(20, 167, 51);
         border-bottom: 2px solid #73b17d;
         border-radius: 10px 0 10px 0;
     }
     
     .tlotofacil {
-        background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
+        background: rgb(133, 20, 167);
         border-bottom: 2px solid #9777a1;
         border-radius: 10px 0 10px 0;
     }
     
     .tquina {
-        background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
+        background: rgb(54, 20, 167);
         border-bottom: 2px solid #7b77a1;
         border-radius: 10px 0 10px 0;
     }
     
     .tlotomania {
-        background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
+        background: rgb(190, 107, 12);
         border-bottom: 2px solid #a18a77;
         border-radius: 10px 0 10px 0;
     }
     
     .ttimemania {
-        background: linear-gradient(90deg, rgb(167, 165, 20) 0%, rgb(167, 165, 20)50%, rgb(255, 254, 198) 100%);
+        background: rgb(167, 165, 20);
         border-bottom: 2px solid #9da177;
         border-radius: 10px 0 10px 0;
     }
     
     .tduplasena {
-        background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
+        background: rgb(167, 49, 20);
         border-bottom: 2px solid #a17777;
         border-radius: 10px 0 10px 0;
     }
     
     .tdiadesorte {
-        background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
+        background: rgb(145, 125, 17);
         border-bottom: 2px solid #9ea177;
         border-radius: 10px 0 10px 0;
     }
     
     .tsupersete {
-        background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
+        background: rgb(152, 167, 20);
         border-bottom: 2px solid #94a177;
         border-radius: 10px 0 10px 0;
     }
     
     .tfederal {
-        background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
+        background: rgb(16, 42, 128);
         border-bottom: 2px solid #777da1;
         border-radius: 10px 0 10px 0;
     }
@@ -470,6 +470,29 @@
         padding: 10px;
         text-align: justify;
     }
+
+    .text-white{
+        color: white;
+        font-size: 26px !important;
+    }
+    .text-white a{
+        color: white;
+    }
+    .text-white a:hover{
+        color: orange;
+    }
+
+    .text-grey{
+        color: white;
+        opacity: 0.5;
+        font-size: 18px !important;
+    }
+    .text-hour{
+        color: white;
+        opacity: 0.5;
+        font-size: 18px !important;
+        font-style: italic;
+    }
     
     .text_info_megasena {
         font-size: 13px;
@@ -611,7 +634,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(20, 167, 51) 0%, rgb(20, 167, 51)50%, rgb(255, 255, 255) 100%);
+        background: rgb(20, 167, 51);
         /*border: 1px solid grey;*/
     }
     
@@ -619,7 +642,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(133, 20, 167) 0%, rgb(133, 20, 167)50%, rgb(245, 213, 255) 100%);
+        background: rgb(133, 20, 167);
         /*border: 1px solid grey;*/
     }
     
@@ -627,7 +650,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(54, 20, 167) 0%, rgb(54, 20, 167)50%, rgb(213, 214, 255) 100%);
+        background: rgb(54, 20, 167);
         /*border: 1px solid grey;*/
     }
     
@@ -635,7 +658,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(190, 107, 12) 0%, rgb(190, 107, 12)50%, rgb(255, 218, 193) 100%);
+        background: rgb(190, 107, 12);
         /*border: 1px solid grey;*/
     }
     
@@ -643,7 +666,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(167, 165, 20) 0%, rgb(167, 165, 20)50%, rgb(255, 254, 198) 100%);
+        background: rgb(167, 165, 20);
         /*border: 1px solid grey;*/
     }
     
@@ -651,7 +674,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(167, 49, 20) 0%, rgb(167, 49, 20)50%, rgb(255, 209, 190) 100%);
+        background: rgb(167, 49, 20);
         /*border: 1px solid grey;*/
     }
     
@@ -659,7 +682,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(145, 125, 17) 0%, rgb(145, 125, 17)50%, rgb(188, 192, 149) 100%);
+        background: rgb(145, 125, 17);
         /*border: 1px solid grey;*/
     }
     
@@ -667,7 +690,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(152, 167, 20) 0%, rgb(152, 167, 20)50%, rgb(206, 211, 163) 100%);
+        background: rgb(152, 167, 20);
         /*border: 1px solid grey;*/
     }
     
@@ -675,7 +698,7 @@
         padding: 5px 15px 5px 10px;
         text-align: justify;
         font-size: small;
-        background: linear-gradient(90deg, rgb(16, 42, 128) 0%, rgb(16, 42, 128)50%, rgb(130, 137, 158) 100%);
+        background: rgb(16, 42, 128);
         /*border: 1px solid grey;*/
     }
     /* #####--- CARD NUMBERS ---##### */
@@ -940,8 +963,44 @@
         width: 30px;
         float: left;
         text-align: center;
-        margin: 2px;
+        margin: 2px;        
+    }
+
+    .selms{
         background-color: rgb(20, 167, 51);
+        color: white;
+    }
+    .sellf{
+        background-color: rgb(133, 20, 167);
+        color: white;
+    }
+    .selqui{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .sellm{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .seltm{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .selds{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .seldds{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .selss{
+        background-color: rgb(54, 20, 167);
+        color: white;
+    }
+    .selfd{
+        background-color: rgb(54, 20, 167);
+        color: white;
     }
     
     .resultnumbers {
@@ -1817,6 +1876,14 @@
             text-align: center;
             margin: 2px !important;
             font-size: 12px !important;
+        }
+        .cardnumber_sel {
+            width: 20px !important;
+            height: 30px !important;
+            float: left !important;
+            text-align: center;
+            margin: 2px 1px 15px 1px !important;
+            padding: 2px 0 0 0;
         }
         .resultnumbers {
             position: relative !important;
