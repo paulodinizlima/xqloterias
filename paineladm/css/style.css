@@ -538,6 +538,14 @@
     text-align: justify;
 }
 
+.texto-12{
+    font-size: 12px;
+}
+
+.texto-14{
+    font-size: 14px;
+}
+
 p {
     text-indent: 80px;
     font-size: 16px;
@@ -824,6 +832,45 @@ p {
   padding-right: 25px;
 }
 #btnquina:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*-----------*/
+/* LOTOMANIA */
+#btnlotomania {
+    border-radius: 4px;
+    background-color: darkorange;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 5px;
+}
+#btnlotomania:hover{
+    background-color: orange;
+}
+#btnlotomania span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+#btnlotomania span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+#btnlotomania:hover span {
+  padding-right: 25px;
+}
+#btnlotomania:hover span:after {
   opacity: 1;
   right: 0;
 }
@@ -1198,6 +1245,16 @@ legend {
     font-weight: bold;
     color: white;
     background-color: darkmagenta;
+    padding: 10px 20px 5px 20px;
+    border-radius: 15px 0 15px 0;
+}
+
+.painel-titulo-lotomania {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    background-color: darkorange;
     padding: 10px 20px 5px 20px;
     border-radius: 15px 0 15px 0;
 }

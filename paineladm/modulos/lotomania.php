@@ -1,0 +1,730 @@
+<meta charset=utf-8 />
+<script>
+    function inserir(modulo, tipo){
+        location.href='admpainel.php?m='+modulo+'&t='+tipo;
+    }
+</script>
+<link rel="stylesheet" href="../css/style.css">
+
+<?php
+    ini_set('default_charset', 'utf-8');
+    require_once "../functions/funcoes.php";
+    require_once "../functions/conection.php";
+
+    $funcoes = new funcoes();
+    $con = "../functions/conection.php";
+
+    switch($tela){
+        //--------------------------------------------------------------------------------------------------------------
+        case 'cadastrardezenas':
+            echo "<div class='div-left'>
+                <div class='painel-titulo-lotomania'>Lotomania - Cadastro </div>
+                <form class='formcadloterias' id='formcadastro' method='POST' enctype='multipart/form-data' action=''>
+                <div class='form-group'>
+                    <input class='form-control' name='conc' type='text' placeholder='Concurso Nº' />
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='data' type='date' placeholder='Data do Sorteio' />
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='ltmlocal' type='text'placeholder='Local do Sorteio'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='premioest' type='text' placeholder='Prêmio Estimado' />
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d01' type='text' placeholder='Dezena 01'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d02' type='text' placeholder='Dezena 02'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d03' type='text' placeholder='Dezena 03'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d04' type='text' placeholder='Dezena 04'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d05' type='text' placeholder='Dezena 05'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d06' type='text' placeholder='Dezena 06'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d07' type='text' placeholder='Dezena 07'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d08' type='text' placeholder='Dezena 08'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d09' type='text' placeholder='Dezena 09'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d10' type='text' placeholder='Dezena 10'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d11' type='text' placeholder='Dezena 11'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d12' type='text' placeholder='Dezena 12'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d13' type='text' placeholder='Dezena 13'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d14' type='text' placeholder='Dezena 14'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d15' type='text' placeholder='Dezena 15'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d16' type='text' placeholder='Dezena 16'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d17' type='text' placeholder='Dezena 17'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d18' type='text' placeholder='Dezena 18'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d19' type='text' placeholder='Dezena 19'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='d20' type='text' placeholder='Dezena 20'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan20' type='text' placeholder='Ganhadores 20'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan19' type='text' placeholder='Ganhadores 19'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan18' type='text' placeholder='Ganhadores 18'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan17' type='text' placeholder='Ganhadores 17'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan16' type='text' placeholder='Ganhadores 16'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan15' type='text' placeholder='Ganhadores 15'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='gan00' type='text' placeholder='Ganhadores 00'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr20' type='text' placeholder='Premiação 20'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr19' type='text' placeholder='Premiação 19'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr18' type='text' placeholder='Premiação 18'>
+                </div>  
+                <div class='form-group'>
+                    <input class='form-control' name='pr17' type='text' placeholder='Premiação 17'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr16' type='text' placeholder='Premiação 16'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr15' type='text' placeholder='Premiação 15'>
+                </div>
+                <div class='form-group'>
+                    <input class='form-control' name='pr00' type='text' placeholder='Premiação 00'>
+                </div>               
+                <div class='form-group'>
+                    <input class='form-control' name='cidadesgan' type='text' placeholder='Cidades dos Ganhadores'>
+                </div>
+                <div class='form-group'>   
+                    <button type='submit' id='btnlotomania'><span>Cadastrar</span></button>    
+                    </div>
+                </form>";
+                
+                    $conc = filter_input(INPUT_POST, 'conc', FILTER_SANITIZE_STRING);
+                    $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+                    $ltmlocal = filter_input(INPUT_POST, 'ltmlocal', FILTER_SANITIZE_STRING);
+                    $premioest = filter_input(INPUT_POST, 'premioest', FILTER_SANITIZE_STRING);
+                    $d01 = filter_input(INPUT_POST, 'd01', FILTER_SANITIZE_STRING);
+                    $d02 = filter_input(INPUT_POST, 'd02', FILTER_SANITIZE_STRING);
+                    $d03 = filter_input(INPUT_POST, 'd03', FILTER_SANITIZE_STRING);
+                    $d04 = filter_input(INPUT_POST, 'd04', FILTER_SANITIZE_STRING);
+                    $d05 = filter_input(INPUT_POST, 'd05', FILTER_SANITIZE_STRING);
+                    $d06 = filter_input(INPUT_POST, 'd06', FILTER_SANITIZE_STRING);
+                    $d07 = filter_input(INPUT_POST, 'd07', FILTER_SANITIZE_STRING);
+                    $d08 = filter_input(INPUT_POST, 'd08', FILTER_SANITIZE_STRING);
+                    $d09 = filter_input(INPUT_POST, 'd09', FILTER_SANITIZE_STRING);
+                    $d10 = filter_input(INPUT_POST, 'd10', FILTER_SANITIZE_STRING);
+                    $d11 = filter_input(INPUT_POST, 'd11', FILTER_SANITIZE_STRING);
+                    $d12 = filter_input(INPUT_POST, 'd12', FILTER_SANITIZE_STRING);
+                    $d13 = filter_input(INPUT_POST, 'd13', FILTER_SANITIZE_STRING);
+                    $d14 = filter_input(INPUT_POST, 'd14', FILTER_SANITIZE_STRING);
+                    $d15 = filter_input(INPUT_POST, 'd15', FILTER_SANITIZE_STRING);
+                    $d16 = filter_input(INPUT_POST, 'd16', FILTER_SANITIZE_STRING);
+                    $d17 = filter_input(INPUT_POST, 'd17', FILTER_SANITIZE_STRING);
+                    $d18 = filter_input(INPUT_POST, 'd18', FILTER_SANITIZE_STRING);
+                    $d19 = filter_input(INPUT_POST, 'd19', FILTER_SANITIZE_STRING);
+                    $d20 = filter_input(INPUT_POST, 'd20', FILTER_SANITIZE_STRING);
+                    $gan20 = filter_input(INPUT_POST, 'gan20', FILTER_SANITIZE_STRING);
+                    $gan19 = filter_input(INPUT_POST, 'gan19', FILTER_SANITIZE_STRING);
+                    $gan18 = filter_input(INPUT_POST, 'gan18', FILTER_SANITIZE_STRING);
+                    $gan17 = filter_input(INPUT_POST, 'gan17', FILTER_SANITIZE_STRING);
+                    $gan16 = filter_input(INPUT_POST, 'gan16', FILTER_SANITIZE_STRING);
+                    $gan15 = filter_input(INPUT_POST, 'gan15', FILTER_SANITIZE_STRING);
+                    $gan00 = filter_input(INPUT_POST, 'gan00', FILTER_SANITIZE_STRING);
+                    $pr20 = filter_input(INPUT_POST, 'pr20', FILTER_SANITIZE_STRING);
+                    $pr19 = filter_input(INPUT_POST, 'pr19', FILTER_SANITIZE_STRING);
+                    $pr18 = filter_input(INPUT_POST, 'pr18', FILTER_SANITIZE_STRING);
+                    $pr17 = filter_input(INPUT_POST, 'pr17', FILTER_SANITIZE_STRING);
+                    $pr16 = filter_input(INPUT_POST, 'pr16', FILTER_SANITIZE_STRING);
+                    $pr15 = filter_input(INPUT_POST, 'pr15', FILTER_SANITIZE_STRING);
+                    $pr00 = filter_input(INPUT_POST, 'pr00', FILTER_SANITIZE_STRING);
+                    $ltmcidadesgan = filter_input(INPUT_POST, 'ltmcidadesgan', FILTER_SANITIZE_STRING);
+                    if(!empty($conc)){
+                        $conection = new conection();
+                        $binds = [  'ltmconc' => $conc,
+                                    'ltmdata' => $data,
+                                    'ltmlocal' => $ltmlocal,
+                                    'ltmpremioest' => $premioest,
+                                    'ltmd01' => $d01,
+                                    'ltmd02' => $d02,
+                                    'ltmd03' => $d03,
+                                    'ltmd04' => $d04,
+                                    'ltmd05' => $d05,
+                                    'ltmd06' => $d06,
+                                    'ltmd07' => $d07,
+                                    'ltmd08' => $d08,
+                                    'ltmd09' => $d09,
+                                    'ltmd10' => $d10,
+                                    'ltmd11' => $d11,
+                                    'ltmd12' => $d12,
+                                    'ltmd13' => $d13,
+                                    'ltmd14' => $d14,
+                                    'ltmd15' => $d15,
+                                    'ltmd16' => $d16,
+                                    'ltmd17' => $d17,
+                                    'ltmd18' => $d18,
+                                    'ltmd19' => $d19,
+                                    'ltmd20' => $d20,
+                                    'ltmgan20' => $gan20,
+                                    'ltmgan19' => $gan19,
+                                    'ltmgan18' => $gan18,
+                                    'ltmgan17' => $gan17,
+                                    'ltmgan16' => $gan16,
+                                    'ltmgan15' => $gan15,
+                                    'ltmgan00' => $gan00,
+                                    'ltmpr20' => $pr20,
+                                    'ltmpr19' => $pr19,
+                                    'ltmpr18' => $pr18,
+                                    'ltmpr17' => $pr17,
+                                    'ltmpr16' => $pr16,
+                                    'ltmpr15' => $pr15,
+                                    'ltmpr00' => $pr00,
+                                    'ltmcidadesgan' => $ltmcidadesgan ];
+                        $sql = "INSERT INTO tblotomania SET 
+                                        ltmconc = :ltmconc,
+                                        ltmdata = :ltmdata,
+                                        ltmlocal = :ltmlocal,
+                                        ltmpremioest = :ltmpremioest,
+                                        ltmd01 = :ltmd01,
+                                        ltmd02 = :ltmd02,
+                                        ltmd03 = :ltmd03,
+                                        ltmd04 = :ltmd04,
+                                        ltmd05 = :ltmd05,
+                                        ltmd06 = :ltmd06,
+                                        ltmd07 = :ltmd07,
+                                        ltmd08 = :ltmd08,
+                                        ltmd09 = :ltmd09,
+                                        ltmd10 = :ltmd10,
+                                        ltmd11 = :ltmd11,
+                                        ltmd12 = :ltmd12,
+                                        ltmd13 = :ltmd13,
+                                        ltmd14 = :ltmd14,
+                                        ltmd15 = :ltmd15,
+                                        ltmd16 = :ltmd16,
+                                        ltmd17 = :ltmd17,
+                                        ltmd18 = :ltmd18,
+                                        ltmd19 = :ltmd19,
+                                        ltmd20 = :ltmd20,
+                                        ltmgan20 = :ltmgan20,
+                                        ltmgan19 = :ltmgan19,
+                                        ltmgan18 = :ltmgan18,
+                                        ltmgan17 = :ltmgan17,
+                                        ltmgan16 = :ltmgan16,
+                                        ltmgan15 = :ltmgan15,
+                                        ltmgan00 = :ltmgan00,
+                                        ltmpr20 = :ltmpr20,
+                                        ltmpr19 = :ltmpr19,
+                                        ltmpr18 = :ltmpr18,
+                                        ltmpr17 = :ltmpr17,
+                                        ltmpr16 = :ltmpr16,
+                                        ltmpr15 = :ltmpr15,
+                                        ltmpr00 = :ltmpr00,
+                                        ltmcidadesgan = :ltmcidadesgan";                
+                        $result = $conection->insert($sql,$binds);
+
+                        
+
+                        if($result){
+                            echo "<div class='success'>Cadastro foi realizado</div>";
+                        } else {
+                            echo "Ops, houve um erro no cadastro";
+                        }
+                    } 
+
+                      
+        echo "</div>"; //div-left
+
+        echo "<div class='div-right'>";
+            echo "<div class='painel-titulo-lotomania'>Lista de Resultados</div>";
+               echo "<table class='bordasimples'>";
+               $conection = new conection();
+               $binds = ['idlotomania' => 0];
+               $sql = "SELECT * FROM tblotomania WHERE idlotomania > :idlotomania ORDER BY idlotomania DESC LIMIT 30";
+
+               //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
+               $sql2 = "SELECT * FROM tblotomania WHERE ltmconc = (SELECT max(ltmconc) FROM tblotomania)";
+               $resultmax = $conection->select($sql2,$binds);
+               $dadosmax = $resultmax->fetchAll(PDO::FETCH_OBJ);
+               foreach($dadosmax as $itemmax){
+                    $concproximo = "{$itemmax->ltmconc}";
+                    $d01proximo = "{$itemmax->ltmd01}";
+                }
+
+               $result = $conection->select($sql,$binds);
+               if($result->rowCount() > 0){
+                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                   echo "<tr><th>ID</th><th>Conc</th><th>Data</th><th>01</th><th>02</th><th>03</th><th>04</th><th>05</th><th>06</th><th>07</th><th>08</th><th>09</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th colspan='2'>Ações</th></tr>";
+                   foreach($dados as $item){                        
+                        echo "<tr>";
+                            echo "<td width='35'>"."<strong>{$item->ltmconc}</strong>"."</td>";
+                            echo "<td width='40' align='center'>"."{$item->ltmconc}"."</td>";
+                            echo "<td width='120'><span class='texto-12'>"."{$item->ltmdata}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd01}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd02}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd03}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd04}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd05}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd06}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd07}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd08}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd09}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd10}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd11}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd12}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd13}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd14}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd15}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd16}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd17}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd18}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd19}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd20}"."</span></td>";
+                            echo "<td><a href='admpainel.php?m=lotomania&t=atualizardezenas&idconc="."{$item->idlotomania}"."'><img src='../images/edit.png' width='32' height='32' alt='Alterar Resultado'></a></td>";
+                            echo "<td><a href='admpainel.php?m=lotomania&t=excluirresultado&idconc="."{$item->idlotomania}"."'><img src='../images/delete.png' width='32' height='32' alt='Excluir Resultado'></a></td>";
+                        echo "</tr>";
+                   }
+               }              
+
+               echo "</table>";
+           echo "</div>"; //div-right
+        break;
+        //--------------------------------------------------------------------------------------------------------------
+        case 'atualizardezenas':
+            if(isset($_GET['idconc']))
+                $codconc = $_GET['idconc'];
+            $conection = new conection();
+            $binds = ['idlotomania' => 0];
+            $sql = "SELECT * FROM tblotomania WHERE idlotomania = $codconc";
+            $result = $conection->select($sql,$binds);
+            if($result->rowCount() > 0){
+                $dados = $result->fetchAll(PDO::FETCH_OBJ);
+            }
+
+            foreach($dados as $item){
+                echo "<div class='div-left'>
+                    <div class='painel-titulo-lotomania'>Lotomania - Atualização</div>
+                    <form class='formcadloterias' id='formcadastro' method='POST' enctype='multipart/form-data' action=''>
+                        <div class='form-group'>
+                            <input class='form-control' name='conc' type='text' value=".$item->idlotomania." />
+                        </div><div class='formlabel'>conc</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='data' type='text' value='".date('Y/m/d', strtotime($item->ltmdata)).' 20:00:00'."' />
+                        </div><div class='formlabel'>data</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='ltmlocal' type='text' value='".$item->ltmlocal."' />
+                        </div><div class='formlabel'>local</div>                        
+                        <div class='form-group'>
+                            <input class='form-control' name='premioest' type='text' value='".$item->ltmpremioest."' />
+                        </div><div class='formlabel'>prest</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d01' type='text' value='".$item->ltmd01."'/>
+                        </div><div class='formlabel'>d01</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d02' type='text' value='".$item->ltmd02."' />
+                        </div><div class='formlabel'>d02</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d03' type='text' value='".$item->ltmd03."' />
+                        </div><div class='formlabel'>d03</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d04' type='text' value='".$item->ltmd04."' />
+                        </div><div class='formlabel'>d04</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d05' type='text' value='".$item->ltmd05."' />
+                        </div><div class='formlabel'>d05</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d06' type='text' value='".$item->ltmd06."' />
+                        </div><div class='formlabel'>d06</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d07' type='text' value='".$item->ltmd07."' />
+                        </div><div class='formlabel'>d07</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d08' type='text' value='".$item->ltmd08."' />
+                        </div><div class='formlabel'>d08</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d09' type='text' value='".$item->ltmd09."' />
+                        </div><div class='formlabel'>d09</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d10' type='text' value='".$item->ltmd10."' />
+                        </div><div class='formlabel'>d10</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d11' type='text' value='".$item->ltmd11."' />
+                        </div><div class='formlabel'>d11</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d12' type='text' value='".$item->ltmd12."' />
+                        </div><div class='formlabel'>d12</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d13' type='text' value='".$item->ltmd13."' />
+                        </div><div class='formlabel'>d13</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d14' type='text' value='".$item->ltmd14."' />
+                        </div><div class='formlabel'>d14</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d15' type='text' value='".$item->ltmd15."' />
+                        </div><div class='formlabel'>d15</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d16' type='text' value='".$item->ltmd16."' />
+                        </div><div class='formlabel'>d16</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d17' type='text' value='".$item->ltmd17."' />
+                        </div><div class='formlabel'>d17</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d18' type='text' value='".$item->ltmd18."' />
+                        </div><div class='formlabel'>d18</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d19' type='text' value='".$item->ltmd19."' />
+                        </div><div class='formlabel'>d19</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='d20' type='text' value='".$item->ltmd20."' />
+                        </div><div class='formlabel'>d20</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan20' type='text' value='".$item->ltmgan20."' />
+                        </div><div class='formlabel'>gan20</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan19' type='text' value='".$item->ltmgan19."' />
+                        </div><div class='formlabel'>gan19</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan18' type='text' value='".$item->ltmgan18."' />
+                        </div><div class='formlabel'>gan18</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan17' type='text' value='".$item->ltmgan17."' />
+                        </div><div class='formlabel'>gan17</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan16' type='text' value='".$item->ltmgan16."' />
+                        </div><div class='formlabel'>gan16</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan15' type='text' value='".$item->ltmgan15."' />
+                        </div><div class='formlabel'>gan15</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='gan00' type='text' value='".$item->ltmgan00."' />
+                        </div><div class='formlabel'>gan00</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr20' type='text' value='".$item->ltmpr20."' />
+                        </div><div class='formlabel'>pr20</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr19' type='text' value='".$item->ltmpr19."' />
+                        </div><div class='formlabel'>pr19</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr18' type='text' value='".$item->ltmpr18."' />
+                        </div><div class='formlabel'>pr18</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr17' type='text' value='".$item->ltmpr17."' />
+                        </div><div class='formlabel'>pr17</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr16' type='text' value='".$item->ltmpr16."' />
+                        </div><div class='formlabel'>pr16</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr15' type='text' value='".$item->ltmpr15."' />
+                        </div><div class='formlabel'>pr15</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='pr00' type='text' value='".$item->ltmpr00."' />
+                        </div><div class='formlabel'>pr00</div>
+                        <div class='form-group'>
+                            <input class='form-control' name='ltmcidadesgan' type='text' value='".$item->ltmcidadesgan."' />
+                        </div><div class='formlabel'>cidgan</div>
+
+                        <div class='form-group'>   
+                            <button type='submit' id='btnlotomania'><span>Atualizar</span></button>    
+                        </div>
+
+                    </form>";
+                }
+                    $conc = filter_input(INPUT_POST, 'conc', FILTER_SANITIZE_STRING);
+                    $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+                    $ltmlocal = filter_input(INPUT_POST, 'ltmlocal', FILTER_SANITIZE_STRING);
+                    $premioest = filter_input(INPUT_POST, 'premioest', FILTER_SANITIZE_STRING);
+                    $d01 = filter_input(INPUT_POST, 'd01', FILTER_SANITIZE_STRING);
+                    $d02 = filter_input(INPUT_POST, 'd02', FILTER_SANITIZE_STRING);
+                    $d03 = filter_input(INPUT_POST, 'd03', FILTER_SANITIZE_STRING);
+                    $d04 = filter_input(INPUT_POST, 'd04', FILTER_SANITIZE_STRING);
+                    $d05 = filter_input(INPUT_POST, 'd05', FILTER_SANITIZE_STRING);
+                    $d06 = filter_input(INPUT_POST, 'd06', FILTER_SANITIZE_STRING);
+                    $d07 = filter_input(INPUT_POST, 'd07', FILTER_SANITIZE_STRING);
+                    $d08 = filter_input(INPUT_POST, 'd08', FILTER_SANITIZE_STRING);
+                    $d09 = filter_input(INPUT_POST, 'd09', FILTER_SANITIZE_STRING);
+                    $d10 = filter_input(INPUT_POST, 'd10', FILTER_SANITIZE_STRING);
+                    $d11 = filter_input(INPUT_POST, 'd11', FILTER_SANITIZE_STRING);
+                    $d12 = filter_input(INPUT_POST, 'd12', FILTER_SANITIZE_STRING);
+                    $d13 = filter_input(INPUT_POST, 'd13', FILTER_SANITIZE_STRING);
+                    $d14 = filter_input(INPUT_POST, 'd14', FILTER_SANITIZE_STRING);
+                    $d15 = filter_input(INPUT_POST, 'd15', FILTER_SANITIZE_STRING);
+                    $d16 = filter_input(INPUT_POST, 'd16', FILTER_SANITIZE_STRING);
+                    $d17 = filter_input(INPUT_POST, 'd17', FILTER_SANITIZE_STRING);
+                    $d18 = filter_input(INPUT_POST, 'd18', FILTER_SANITIZE_STRING);
+                    $d19 = filter_input(INPUT_POST, 'd19', FILTER_SANITIZE_STRING);
+                    $d20 = filter_input(INPUT_POST, 'd20', FILTER_SANITIZE_STRING);
+                    $gan20 = filter_input(INPUT_POST, 'gan20', FILTER_SANITIZE_STRING);
+                    $gan19 = filter_input(INPUT_POST, 'gan19', FILTER_SANITIZE_STRING);
+                    $gan18 = filter_input(INPUT_POST, 'gan18', FILTER_SANITIZE_STRING);
+                    $gan17 = filter_input(INPUT_POST, 'gan17', FILTER_SANITIZE_STRING);
+                    $gan16 = filter_input(INPUT_POST, 'gan16', FILTER_SANITIZE_STRING);
+                    $gan15 = filter_input(INPUT_POST, 'gan15', FILTER_SANITIZE_STRING);
+                    $gan00 = filter_input(INPUT_POST, 'gan00', FILTER_SANITIZE_STRING);
+                    $pr20 = filter_input(INPUT_POST, 'pr20', FILTER_SANITIZE_STRING);
+                    $pr19 = filter_input(INPUT_POST, 'pr19', FILTER_SANITIZE_STRING);
+                    $pr18 = filter_input(INPUT_POST, 'pr18', FILTER_SANITIZE_STRING);
+                    $pr17 = filter_input(INPUT_POST, 'pr17', FILTER_SANITIZE_STRING);
+                    $pr16 = filter_input(INPUT_POST, 'pr16', FILTER_SANITIZE_STRING);
+                    $pr15 = filter_input(INPUT_POST, 'pr15', FILTER_SANITIZE_STRING);
+                    $pr00 = filter_input(INPUT_POST, 'pr00', FILTER_SANITIZE_STRING);
+                    $ltmcidadesgan = filter_input(INPUT_POST, 'ltmcidadesgan', FILTER_SANITIZE_STRING);
+
+                    if(!empty($conc)){
+                        $conection = new conection();
+                        $binds = [  'ltmconc' => $conc,
+                                    'ltmdata' => $data,
+                                    'ltmlocal' => $ltmlocal,
+                                    'ltmpremioest' => $premioest,
+                                    'ltmd01' => $d01,
+                                    'ltmd02' => $d02,
+                                    'ltmd03' => $d03,
+                                    'ltmd04' => $d04,
+                                    'ltmd05' => $d05,
+                                    'ltmd06' => $d06,
+                                    'ltmd07' => $d07,
+                                    'ltmd08' => $d08,
+                                    'ltmd09' => $d09,
+                                    'ltmd10' => $d10,
+                                    'ltmd11' => $d11,
+                                    'ltmd12' => $d12,
+                                    'ltmd13' => $d13,
+                                    'ltmd14' => $d14,
+                                    'ltmd15' => $d15,
+                                    'ltmd16' => $d16,
+                                    'ltmd17' => $d17,
+                                    'ltmd18' => $d18,
+                                    'ltmd19' => $d19,
+                                    'ltmd20' => $d20,
+                                    'ltmgan20' => $gan20,
+                                    'ltmgan19' => $gan19,
+                                    'ltmgan18' => $gan18,
+                                    'ltmgan17' => $gan17,
+                                    'ltmgan16' => $gan16,
+                                    'ltmgan15' => $gan15,
+                                    'ltmgan00' => $gan00,
+                                    'ltmpr20' => $pr20,
+                                    'ltmpr19' => $pr19,
+                                    'ltmpr18' => $pr18,
+                                    'ltmpr17' => $pr17,
+                                    'ltmpr16' => $pr16,
+                                    'ltmpr15' => $pr15,
+                                    'ltmpr00' => $pr00,
+                                    'ltmcidadesgan' => $ltmcidadesgan ];
+                        $sql = "UPDATE tblotomania SET 
+                                        ltmconc = :ltmconc,
+                                        ltmdata = :ltmdata,
+                                        ltmlocal = :ltmlocal,
+                                        ltmpremioest = :ltmpremioest,
+                                        ltmd01 = :ltmd01,
+                                        ltmd02 = :ltmd02,
+                                        ltmd03 = :ltmd03,
+                                        ltmd04 = :ltmd04,
+                                        ltmd05 = :ltmd05,
+                                        ltmd06 = :ltmd06,
+                                        ltmd07 = :ltmd07,
+                                        ltmd08 = :ltmd08,
+                                        ltmd09 = :ltmd09,
+                                        ltmd10 = :ltmd10,
+                                        ltmd11 = :ltmd11,
+                                        ltmd12 = :ltmd12,
+                                        ltmd13 = :ltmd13,
+                                        ltmd14 = :ltmd14,
+                                        ltmd15 = :ltmd15,
+                                        ltmd16 = :ltmd16,
+                                        ltmd17 = :ltmd17,
+                                        ltmd18 = :ltmd18,
+                                        ltmd19 = :ltmd19,
+                                        ltmd20 = :ltmd20,
+                                        ltmgan20 = :ltmgan20,
+                                        ltmgan19 = :ltmgan19,
+                                        ltmgan18 = :ltmgan18,
+                                        ltmgan17 = :ltmgan17,
+                                        ltmgan16 = :ltmgan16,
+                                        ltmgan15 = :ltmgan15,
+                                        ltmgan00 = :ltmgan00,
+                                        ltmpr20 = :ltmpr20,
+                                        ltmpr19 = :ltmpr19,
+                                        ltmpr18 = :ltmpr18,
+                                        ltmpr17 = :ltmpr17,
+                                        ltmpr16 = :ltmpr16,
+                                        ltmpr15 = :ltmpr15,
+                                        ltmpr00 = :ltmpr00,
+                                        ltmcidadesgan = :ltmcidadesgan WHERE ltmconc = $codconc";                
+                        $result = $conection->insert($sql,$binds);
+
+                        //---------------------------------------------------------
+                       //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
+                        $sql2 = "SELECT * FROM tblotomania WHERE ltmconc = (SELECT max(ltmconc) FROM tblotomania)";
+                        $resultmax = $conection->select($sql2,$binds);
+                        $dadosmax = $resultmax->fetchAll(PDO::FETCH_OBJ);
+                        foreach($dadosmax as $itemmax){
+                            $concproximo = "{$itemmax->ltmconc}";
+                            $d01proximo = "{$itemmax->ltmd01}";
+                        }
+
+                        if($conc == $concproximo && $d01proximo != 0){
+                            $binds = [  'ltmconc' => $conc+1,
+                                        'ltmd01' => 0,
+                                        'ltmd02' => 0,
+                                        'ltmd03' => 0,
+                                        'ltmd04' => 0,
+                                        'ltmd05' => 0,
+                                        'ltmd06' => 0,
+                                        'ltmd07' => 0,
+                                        'ltmd08' => 0,
+                                        'ltmd09' => 0,
+                                        'ltmd10' => 0,
+                                        'ltmd11' => 0,
+                                        'ltmd12' => 0,
+                                        'ltmd13' => 0,
+                                        'ltmd14' => 0,
+                                        'ltmd15' => 0,
+                                        'ltmd16' => 0,
+                                        'ltmd17' => 0,
+                                        'ltmd18' => 0,
+                                        'ltmd19' => 0,
+                                        'ltmd20' => 0,
+                                        'ltmgan20' => 0,
+                                        'ltmgan19' => 0,
+                                        'ltmgan18' => 0,
+                                        'ltmgan17' => 0,
+                                        'ltmgan16' => 0,
+                                        'ltmgan15' => 0,
+                                        'ltmgan00' => 0 ];
+                            $sql = "INSERT INTO tblotomania SET 
+                                            ltmconc = :ltmconc,
+                                            ltmd01 = :ltmd01,
+                                            ltmd02 = :ltmd02,
+                                            ltmd03 = :ltmd03,
+                                            ltmd04 = :ltmd04,
+                                            ltmd05 = :ltmd05,
+                                            ltmd06 = :ltmd06,
+                                            ltmd07 = :ltmd07,
+                                            ltmd08 = :ltmd08,
+                                            ltmd09 = :ltmd09,
+                                            ltmd10 = :ltmd10,
+                                            ltmd11 = :ltmd11,
+                                            ltmd12 = :ltmd12,
+                                            ltmd13 = :ltmd13,
+                                            ltmd14 = :ltmd14,
+                                            ltmd15 = :ltmd15,
+                                            ltmd16 = :ltmd16,
+                                            ltmd17 = :ltmd17,
+                                            ltmd18 = :ltmd18,
+                                            ltmd19 = :ltmd19,
+                                            ltmd20 = :ltmd20,
+                                            ltmgan20 = :ltmgan20,
+                                            ltmgan19 = :ltmgan19,
+                                            ltmgan18 = :ltmgan18,
+                                            ltmgan17 = :ltmgan17,
+                                            ltmgan16 = :ltmgan16,
+                                            ltmgan15 = :ltmgan15,
+                                            ltmgan00 = :ltmgan00";            
+                            $result = $conection->insert($sql,$binds);
+                        }
+                        //------------------------------------------------------------//
+
+                        if($result){
+                            echo "<div class='success'>Cadastro foi realizado</div>";
+                        } else {
+                            echo "Ops, houve um erro no cadastro";
+                        }
+                    }  
+
+        echo "</div>"; //div-left
+
+        echo "<div class='div-right'>";
+            echo "<div class='painel-titulo-lotomania'>Lista de Resultados</div>";
+               echo "<table class='bordasimples'>";
+               $conection = new conection();
+               $binds = ['idlotomania' => 0];
+               $sql = "SELECT * FROM tblotomania WHERE idlotomania > :idlotomania ORDER BY idlotomania DESC LIMIT 30";
+
+               $result = $conection->select($sql,$binds);
+
+               if($result->rowCount() > 0){
+                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                   echo "<tr><th>ID</th><th>Conc</th><th>Data</th><th>01</th><th>02</th><th>03</th><th>04</th><th>05</th><th>06</th><th>07</th><th>08</th><th>09</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th colspan='2'>Ações</th></tr>";
+                   foreach($dados as $item){                        
+                        echo "<tr>";
+                            echo "<td width='35'>"."<strong>{$item->ltmconc}</strong>"."</td>";
+                            echo "<td width='40' align='center'>"."{$item->ltmconc}"."</td>";
+                            echo "<td width='120'><span class='texto-12'>"."{$item->ltmdata}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd01}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd02}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd03}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd04}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd05}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd06}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd07}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd08}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd09}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd10}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd11}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd12}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd13}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd14}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd15}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd16}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd17}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd18}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd19}"."</span></td>";
+                            echo "<td width='12'><span class='texto-14'>"."{$item->ltmd20}"."</span></td>";
+                            echo "<td><a href='admpainel.php?m=lotomania&t=atualizardezenas&idconc="."{$item->idlotomania}"."'><img src='../images/edit.png' width='32' height='32' alt='Alterar Resultado'></a></td>";
+                            echo "<td><a href='admpainel.php?m=lotomania&t=excluirresultado&idconc="."{$item->idlotomania}"."'><img src='../images/delete.png' width='32' height='32' alt='Excluir Resultado'></a></td>";
+                        echo "</tr>";
+                   }
+               }              
+
+               echo "</table>";
+           echo "</div>"; //div-right
+        break;
+        //--------------------------------------------------------------------------------------------------------------
+        
+        default:
+           //code
+        break;
+    } //end switch
+?>
+

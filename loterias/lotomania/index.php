@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias - Lotomania</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<!--Favicon -->
 	<link href="../../img/favicon.png" rel="icon">
-	<link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -51,7 +53,7 @@
           <a href="../quina/" title="Quina"><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina</a>
         </li>
         <li class="lotomania">
-          <a href="../lotomania/" title="Lotomania"><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania</a>
+          <a href="index.php" title="Lotomania"><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania</a>
         </li>
         <li class="timemania">
           <a href="../timemania/" title="Timemania"><span class="icone"><img src="../../img/icon_timemania.png" width="20"></span> Timemania</a>
@@ -88,67 +90,223 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
+<?php
+              ini_set('default_charset', 'utf-8');
+              //define fuso horário
+              date_default_timezone_set('America/Sao_Paulo');
+
+              require('../../paineladm/functions/conection.php');
+                $con = new conection();
+                $binds = ['ltmconc' => 0];
+                if(isset($_GET['conc'])){
+                  $conc  = $_GET['conc'];
+                  $sql = "SELECT * FROM tblotomania WHERE ltmconc = $conc";
+                } else {
+                  $sql = "SELECT * FROM tblotomania WHERE ltmconc = (SELECT max(ltmconc) FROM tblotomania)";
+                }
+                $result = $con->select($sql, $binds);                
+                if($result->rowCount() > 0){
+                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                }
+
+                //define horário para alternar concurso
+                $horafixa = strtotime('19:00');
+                $horaatual = strtotime(date('H:i'));
+                $dataatual = strtotime(date('Y-m-d'));
+                  
+
+
+                //verifica se o último concurso já foi sorteado
+                foreach($dadosultimo as $item){ 
+                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                  $concproximo = "{$item->ltmconc}"; 
+                  $dataproximo = "{$item->ltmdata}";
+                  $premioproximo = "{$item->ltmpremioest}";
+
+
+                  if("{$item->ltmd01}" == 0){ //não foi sorteado 
+                    
+                    if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
+                      $ultimo = "{$item->ltmconc}"-1; //mostra o último que foi sorteado
+                    } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
+                      $ultimo = "{$item->ltmconc}";
+                    } else {
+                      $ultimo = "{$item->ltmconc}"-1;
+                    }
+
+                    $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";
+                    
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  } else { 
+                    $ultimo = (int)"{$item->ltmconc}";
+                    $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";
+                    $result = $con->select($sql, $binds);
+                    if($result->rowCount() > 0){
+                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                    }
+                  }
+                } //end foreach
+
+                foreach($dados as $item){ 
+                  $post1 = $ultimo +1;                 
+                  
+                  $ant1 = $ultimo -1;
+                  $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant1";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant1 = "{$dt->ltmdata}";
+
+                      }
+                    }
+
+                  $ant2 = $ant1 -1;
+                  $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant2";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant2 = "{$dt->ltmdata}";
+                      }
+                    }
+                  $ant3 = $ant2 -1; 
+                  $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant3";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant3 = "{$dt->ltmdata}";
+                      }
+                    }
+                  $ant4 = $ant3 -1;
+                  $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant4";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant4 = "{$dt->ltmdata}";
+                      }
+                    }
+                  $ant5 = $ant4 -1;
+                  $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant5";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant5 = "{$dt->ltmdata}";
+                      }
+                    }                
+                } //end foreach
+
+                $ltmpr20 = "{$item->ltmpr20}";
+                $ltmpr19 = "{$item->ltmpr19}";
+                $ltmpr18 = "{$item->ltmpr18}";
+                $ltmpr17 = "{$item->ltmpr17}";
+                $ltmpr16 = "{$item->ltmpr16}";
+                $ltmpr15 = "{$item->ltmpr15}";
+                $ltmpr00 = "{$item->ltmpr00}";
+
+                $ltmpremioest = "{$item->ltmpremioest}";
+
+                $ltmgan20 = "{$item->ltmgan20}";
+                $ltmgan19 = "{$item->ltmgan19}";
+                $ltmgan18 = "{$item->ltmgan18}";
+                $ltmgan17 = "{$item->ltmgan17}";
+                $ltmgan16 = "{$item->ltmgan16}";
+                $ltmgan15 = "{$item->ltmgan15}";
+                $ltmgan00 = "{$item->ltmgan00}";
+
+                $ltmcidadesgan = "{$item->ltmcidadesgan}";
+
+                $dtatual = "{$item->ltmdata}";
+                $d01 = "{$item->ltmd01}";
+                $d02 = "{$item->ltmd02}";
+                $d03 = "{$item->ltmd03}";
+                $d04 = "{$item->ltmd04}";
+                $d05 = "{$item->ltmd05}";
+                $d06 = "{$item->ltmd06}";
+                $d07 = "{$item->ltmd07}";
+                $d08 = "{$item->ltmd08}";
+                $d09 = "{$item->ltmd09}";
+                $d10 = "{$item->ltmd10}";
+                $d11 = "{$item->ltmd11}";
+                $d12 = "{$item->ltmd12}";
+                $d13 = "{$item->ltmd13}";
+                $d14 = "{$item->ltmd14}";
+                $d15 = "{$item->ltmd15}";
+                $d16 = "{$item->ltmd16}";
+                $d17 = "{$item->ltmd17}";
+                $d18 = "{$item->ltmd18}";
+                $d19 = "{$item->ltmd19}";
+                $d20 = "{$item->ltmd20}";
+
+         ?>
+
         <div class="content_left">
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
+            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
               <div class="title_loteria_left tlotomania">            
                 <h5><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania
-                  <span class="concurso_left">2270</span></h5>
+                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                01/07/2021
+                <?php echo date("d/m/Y", strtotime($dtant1))?>
               </div>
             </a> 
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tlotomania">            
                 <h5><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania
-                  <span class="concurso_left">2269</span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                30/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
-            </a> 
+            </a>
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tlotomania">            
                 <h5><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania
-                  <span class="concurso_left">2268</span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                29/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
-            </a> 
+            </a>
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tlotomania">            
                 <h5><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania
-                  <span class="concurso_left">2267</span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                28/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
-            </a> 
+            </a>
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tlotomania">            
                 <h5><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania
-                  <span class="concurso_left">2266</span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                27/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
-            </a> 
+            </a>
 
         </div> <!-- end content_left -->
 
@@ -176,7 +334,14 @@
            menu a esquerda ou utilizando o campo de busca para concursos mais antigos.</strong></p>      
       </div>
           <div class="top_right_lotomania">
-          <h5><strong><span class="text-white">CONCURSO 2271 - 02/07/2021</span></strong></h5>
+          <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
+              <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
+              <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
+              <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
+            if("{$item->ltmd01}" == 0){ //não foi sorteado 
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+            }
+          ?></strong>
           </div> <!-- end top_right -->
 
           <div class="right_llotomania">
@@ -185,12 +350,18 @@
               
               <?php 
                 for ($j = 1; $j <= 100; $j++) {
-                  echo "<div class='cardnumber'>" ;
-                    if($j < 100)
-                      echo $j;
-                    else
-                      echo "00";
-                  echo "</div>";
+                  if($j == $d01 || $j == $d02 || $j == $d03 || $j == $d04 || $j == $d05 ||
+                     $j == $d06 || $j == $d07 || $j == $d08 || $j == $d09 || $j == $d10 ||
+                     $j == $d11 || $j == $d12 || $j == $d13 || $j == $d14 || $j == $d15 ||
+                     $j == $d16 || $j == $d17 || $j == $d18 || $j == $d19 || $j == $d20){
+                    echo "<div class='cardnumber_sel selltm'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } else {
+                    echo "<div class='cardnumber'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } 
                   if($j < 100 && $j % 10 == 0) echo "<br><br>";
                 }
 
@@ -204,11 +375,67 @@
             <div class="resultnumbers">
 
               <?php
-                for ($i=1; $i <= 20; $i++) { 
+                foreach($dados as $item){
                   echo "<div class='resultnumber tlotomania'>";
-                    echo $i; //echo $number[$i];
+                      echo "{$item->ltmd01}";
                   echo "</div>";
-                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd02}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd03}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd04}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd05}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd06}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd07}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd08}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd09}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd10}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd11}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd12}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd13}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd14}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd15}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd16}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd17}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd18}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd19}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tlotomania'>";
+                      echo "{$item->ltmd20}";
+                  echo "</div>";
                 }
 
               ?>
@@ -238,33 +465,31 @@
                 <div class="valorpremio col-md-4 col-sm-5 col-5">
                 <div class="title_acertos">Prêmio</div>
                   <ul class="premiacao">
-                    <li>R$ 2.500.000,00</li>
-                    <li>R$ 50.000,00</li>
-                    <li>R$ 1.000,00</li>
-                    <li>R$ 1.000,00</li>
-                    <li>R$ 1.000,00</li>
-                    <li>R$ 1.000,00</li>
-                    <li>R$ 1.000,00</li>
+                    <li><?php echo "R$ ".$ltmpr20 ?></li>
+                    <li><?php echo "R$ ".$ltmpr19 ?></li>
+                    <li><?php echo "R$ ".$ltmpr18 ?></li>
+                    <li><?php echo "R$ ".$ltmpr17 ?></li>
+                    <li><?php echo "R$ ".$ltmpr16 ?></li>
+                    <li><?php echo "R$ ".$ltmpr15 ?></li>
+                    <li><?php echo "R$ ".$ltmpr00 ?></li>
                   </ul>  
                 </div> <!-- end valorpremio col-md3 -->
                 <div class="ganhadores col-md-2 col-sm-2 col-2">
                 <div class="title_acertos">Ganhadores</div>
                   <ul class="ganhadores">
-                    <li>1</li>
-                    <li>10</li>
-                    <li>1200</li>
-                    <li>1200</li>
-                    <li>1200</li>
-                    <li>1200</li>
-                    <li>1200</li>
+                    <li><?php echo $ltmgan20 ?></li>
+                    <li><?php echo $ltmgan19 ?></li>
+                    <li><?php echo $ltmgan18 ?></li>
+                    <li><?php echo $ltmgan17 ?></li>
+                    <li><?php echo $ltmgan16 ?></li>
+                    <li><?php echo $ltmgan15 ?></li>
+                    <li><?php echo $ltmgan00 ?></li>
                   </ul>  
                 </div> <!-- end ganhadores col-md2 -->
                 <div class="cidades col-md-4">
                 <div class="title_cidades">Cidades dos ganhadores</div>
                   <ul class="cidades">
-                    <li>Presidente Epitácio - SP / </li>
-                    <li>Salvador - BA / </li>
-                    <li>São Paulo - SP</li>
+                    <li><?php echo $ltmcidadesgan ?></li>
                   </ul>
                 </div> <!-- end cidades col-md5 -->
 
@@ -272,10 +497,9 @@
 
       </div> <!-- end right_middle -->
       <div class="right_lowmiddle_info tlotomania col-12">
-        Próximo Sorteio: <strong>08/07/2021</strong><br>
-        Concurso Número: <strong>2272</strong><br>
-
-        Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
+        <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
+        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 
