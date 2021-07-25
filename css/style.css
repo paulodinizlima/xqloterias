@@ -446,7 +446,7 @@
     }
     
     .right_lowmiddle_info {
-        float: left;
+        float: right;
         position: relative;
         font-weight: 500;
         /*border-bottom: 3px solid #1f7a2e;*/
@@ -830,14 +830,14 @@
     
     .right_lduplasena {
         float: left;
-        width: 50%;
+        width: 40%;
         margin-top: 10px;
         /*border: 1px solid #aaa;*/
     }
     
     .right_rduplasena {
         float: right;
-        width: 50%;
+        width: 55%;
         margin-top: 10px;
         /*border: 1px solid #aaa;*/
     }
@@ -982,7 +982,7 @@
         background-color: rgb(190, 107, 12);
         color: white;
     }
-    .seltm{
+    .seltmm{
         background-color: rgb(167, 165, 20);
         color: white;
     }
@@ -1007,6 +1007,7 @@
         margin: 10px;
         float: left;
         position: relative;
+        /*border: 1px solid green;*/
     }
     
     .resultnumber {
@@ -1324,6 +1325,7 @@
             height: 235px!important;
             width: 350px !important;
         }
+
         /*-------*/
         /*DIA DE SORTE*/
         .right_ldiadesorte {

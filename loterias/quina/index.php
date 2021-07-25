@@ -90,7 +90,7 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
-<?php
+          <?php
               ini_set('default_charset', 'utf-8');
               //define fuso horário
               date_default_timezone_set('America/Sao_Paulo');
