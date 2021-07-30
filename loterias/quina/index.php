@@ -106,26 +106,18 @@
                 }
                 $result = $con->select($sql, $binds);                
                 if($result->rowCount() > 0){
-                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
                 $dataatual = strtotime(date('Y-m-d'));
-                  
-
 
                 //verifica se o último concurso já foi sorteado
-                foreach($dadosultimo as $item){ 
-                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
-                  $concproximo = "{$item->quiconc}"; 
-                  $dataproximo = "{$item->quidata}";
-                  $premioproximo = "{$item->quipremioest}";
-
-
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->quidata}";                
                   if("{$item->quid01}" == 0){ //não foi sorteado 
-                    
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->quiconc}"-1; //mostra o último que foi sorteado
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
@@ -133,26 +125,31 @@
                     } else {
                       $ultimo = "{$item->quiconc}"-1;
                     }
-
-                    $sql = "SELECT * FROM tbquina WHERE quiconc = $ultimo";
-                    
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   } else { 
                     $ultimo = (int)"{$item->quiconc}";
-                    $sql = "SELECT * FROM tbquina WHERE quiconc = $ultimo";
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   }
+                  $sql = "SELECT * FROM tbquina WHERE quiconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tbquina WHERE quiconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->quiconc}"; 
+                    $datapost = "{$itempost->quidata}";
+                    $premiopost = "{$itempost->quipremioest}";
+                  }
+
                 } //end foreach
 
-                foreach($dados as $item){ 
-                  $post1 = $ultimo +1;                 
-                  
+                foreach($dados as $item){                  
                   $ant1 = $ultimo -1;
                   $sql = "SELECT quidata FROM tbquina WHERE quiconc = $ant1";
                     $resultdates = $con->select($sql, $binds);
@@ -318,7 +315,7 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->quid01}" == 0){ //não foi sorteado 
-              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premiopost."</span>";
             }
           ?></strong>
           </div> <!-- end top_right_quina -->
@@ -420,9 +417,9 @@
 
 </div> <!-- end right_middle -->
 <div class="right_lowmiddle_info tquina col-12">
-  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
-  <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
-  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
 <img src="../../img/ads01.png" width="210"> 

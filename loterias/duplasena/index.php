@@ -106,26 +106,18 @@
                 }
                 $result = $con->select($sql, $binds);                
                 if($result->rowCount() > 0){
-                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
-                  
-
+                $dataatual = strtotime(date('Y-m-d'));                  
 
                 //verifica se o último concurso já foi sorteado
-                foreach($dadosultimo as $item){ 
-                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
-                  $concproximo = "{$item->dsconc}"; 
-                  $dataproximo = "{$item->dsdata}";
-                  $premioproximo = "{$item->dspremioest}";
-
-
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->dsdata}";                
                   if("{$item->ds01d01}" == 0){ //não foi sorteado 
-                    
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->dsconc}"-1; //mostra o último que foi sorteado
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
@@ -133,26 +125,31 @@
                     } else {
                       $ultimo = "{$item->dsconc}"-1;
                     }
-
-                    $sql = "SELECT * FROM tbduplasena WHERE dsconc = $ultimo";
-                    
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   } else { 
                     $ultimo = (int)"{$item->dsconc}";
-                    $sql = "SELECT * FROM tbduplasena WHERE dsconc = $ultimo";
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   }
+                  $sql = "SELECT * FROM tbduplasena WHERE dsconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tbduplasena WHERE dsconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->dsconc}"; 
+                    $datapost = "{$itempost->dsdata}";
+                    $premiopost = "{$itempost->dspremioest}";
+                  }
+
                 } //end foreach
 
-                foreach($dados as $item){ 
-                  $post1 = $ultimo +1;                 
-                  
+                foreach($dados as $item){                  
                   $ant1 = $ultimo -1;
                   $sql = "SELECT dsdata FROM tbduplasena WHERE dsconc = $ant1";
                     $resultdates = $con->select($sql, $binds);
@@ -255,50 +252,50 @@
             </a> 
 
             <!-- Dupla Sena -->
-            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tduplasena">            
                 <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
-                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo date("d/m/Y", strtotime($dtant1))?>
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
             </a> 
 
             <!-- Dupla Sena -->
-            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tduplasena">            
                 <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
-                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo date("d/m/Y", strtotime($dtant1))?>
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
             </a> 
 
             <!-- Dupla Sena -->
-            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tduplasena">            
                 <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
-                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo date("d/m/Y", strtotime($dtant1))?>
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
             </a> 
 
             <!-- Dupla Sena -->
-            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tduplasena">            
                 <h5><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena
-                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                <?php echo date("d/m/Y", strtotime($dtant1))?>
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
             </a> 
 
@@ -511,9 +508,9 @@
 
 </div> <!-- end right_middle -->
 <div class="right_lowmiddle_info tduplasena col-12">
-  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
-  <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
-  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
 <img src="../../img/ads01.png" width="210"> 

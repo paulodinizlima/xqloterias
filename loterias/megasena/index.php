@@ -106,7 +106,7 @@
                 }
                 $result = $con->select($sql, $binds);                
                 if($result->rowCount() > 0){
-                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
                 //define horário para alternar concurso
@@ -117,15 +117,9 @@
 
 
                 //verifica se o último concurso já foi sorteado
-                foreach($dadosultimo as $item){ 
-                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
-                  $concproximo = "{$item->msconc}"; 
-                  $dataproximo = "{$item->msdata}";
-                  $premioproximo = "{$item->mspremioest}";
-
-
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->msdata}";                
                   if("{$item->msd01}" == 0){ //não foi sorteado 
-                    
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->msconc}"-1; //mostra o último que foi sorteado
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
@@ -133,26 +127,32 @@
                     } else {
                       $ultimo = "{$item->msconc}"-1;
                     }
-
-                    $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";
-                    
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   } else { 
                     $ultimo = (int)"{$item->msconc}";
-                    $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   }
+                  $sql = "SELECT * FROM tbmegasena WHERE msconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tbmegasena WHERE msconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->msconc}"; 
+                    $datapost = "{$itempost->msdata}";
+                    $premiopost = "{$itempost->mspremioest}";
+                  }
+
                 } //end foreach
 
                 foreach($dados as $item){                  
                   $ant1 = $ultimo -1;
-                  $post1 = $ultimo +1;
                   $sql = "SELECT msdata FROM tbmegasena WHERE msconc = $ant1";
                     $resultdates = $con->select($sql, $binds);
                     if($resultdates->rowCount() > 0){
@@ -312,7 +312,7 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->msd01}" == 0){ //não foi sorteado 
-              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premiopost."</span>";
             }
           ?></strong>
           </div> <!-- end top_right_megasena -->
@@ -424,9 +424,9 @@
       </div> <!-- end right_middle -->
       <div class="right_lowmiddle_info tmegasena col-12">
 
-        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
-        <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
-        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
+        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+        <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 

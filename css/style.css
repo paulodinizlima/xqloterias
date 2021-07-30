@@ -475,6 +475,15 @@
         color: white;
         font-size: 26px !important;
     }
+    .text-white-federal{
+        color: white;
+        font-size: 22px !important;
+    }
+    .text-grey-federal{
+        color: ghostwhite;
+        opacity: 0.5;
+        font-size: 20px !important;
+    }
     .text-white a{
         color: white;
     }
@@ -994,7 +1003,7 @@
         background-color: rgb(145, 125, 17);
         color: white;
     }
-    .selss{
+    .selsps{
         background-color: rgb(152, 167, 20);
         color: white;
     }
@@ -1011,6 +1020,19 @@
     }
     
     .resultnumber {
+        float: left;
+        position: relative;
+        font-size: 40px;
+        font-weight: 600;
+        margin: 5px 2px;
+        padding: 10px;
+        box-shadow: 2px 1px 5px #000000;
+        border-radius: 50px;
+        min-width: 82px;
+        text-align: center;
+        color: #fff;
+    }
+    .resultnumberfed {
         float: left;
         position: relative;
         font-size: 40px;
@@ -1370,6 +1392,18 @@
             border-radius: 50px !important;
             min-width: 50px !important;
             max-width: 50px !important;
+            text-align: center !important;
+        }
+        .resultnumberfed {
+            float: left !important;
+            position: relative !important;
+            font-size: 25px !important;
+            font-weight: 600 !important;
+            margin: 3px !important;
+            padding: 7px !important;
+            box-shadow: 2px 1px 5px #580c5d !important;
+            border-radius: 50px !important;
+            min-width: 50px !important;
             text-align: center !important;
         }
         /* #####--- END CARD NUMBERS ---##### */

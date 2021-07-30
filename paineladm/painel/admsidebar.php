@@ -11,6 +11,9 @@
             <li><a href="?m=lotomania&t=cadastrardezenas"><img src="../../img/icon_lotomania.png" width="15"> Lotomania</a></li><br>
             <li><a href="?m=timemania&t=cadastrardezenas"><img src="../../img/icon_timemania.png" width="15"> Timemania</a></li><br>
             <li><a href="?m=duplasena&t=cadastrardezenas"><img src="../../img/icon_duplasena.png" width="15"> Dupla Sena</a></li><br>
+            <li><a href="?m=diadesorte&t=cadastrardezenas"><img src="../../img/icon_diadesorte.png" width="15"> Dia de Sorte</a></li><br>
+            <li><a href="?m=supersete&t=cadastrardezenas"><img src="../../img/icon_supersete.png" width="15"> Super Sete</a></li><br>
+            <li><a href="?m=federal&t=cadastrardezenas"><img src="../../img/icon_federal.png" width="15"> Federal</a></li><br>
         </ul>
 
     </div> <!-- accordion -->

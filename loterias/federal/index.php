@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias - Loteria Federal</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-efedv="refresh" content="60">
+    <meta http-efedv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-efedv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<!--Favicon -->
 	<link href="../../img/favicon.png" rel="icon">
-	<link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -48,7 +50,7 @@
           <a href="../lotofacil/" title="Lotofácil"><span class="icone"><img src="../../img/icon_lotofacil.png" width="20"></span> Lotofácil</a>
         </li>
         <li class="quina">
-          <a href="../quina/" title="Quina"><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina</a>
+          <a href="../quina/" title="quina"><span class="icone"><img src="../../img/icon_quina.png" width="20"></span> Quina</a>
         </li>
         <li class="lotomania">
           <a href="../lotomania/" title="Lotomania"><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania</a>
@@ -66,7 +68,7 @@
           <a href="../supersete/" title="Super Sete"><span class="icone"><img src="../../img/icon_supersete.png" width="20"></span> Super Sete</a>
         </li>
         <li class="federal">
-          <a href="" title="Federal"><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Federal</a>
+          <a href="index.php" title="Federal"><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Federal</a>
         </li>
       </ul>
     </nav>
@@ -88,65 +90,196 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
+        <?php
+              ini_set('default_charset', 'utf-8');
+              //define fuso horário
+              date_default_timezone_set('America/Sao_Paulo');
+
+              require('../../paineladm/functions/conection.php');
+                $con = new conection();
+                $binds = ['fedconc' => 0];
+                if(isset($_GET['conc'])){
+                  $conc  = $_GET['conc'];
+                  $sql = "SELECT * FROM tbfederal WHERE fedconc = $conc";
+                } else {
+                  $sql = "SELECT * FROM tbfederal WHERE fedconc = (SELECT max(fedconc) FROM tbfederal)";
+                }
+                $result = $con->select($sql, $binds);                
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                }
+
+                //define horário para alternar concurso
+                $horafixa = strtotime('18:00');
+                $horaatual = strtotime(date('H:i'));
+                $dataatual = strtotime(date('Y-m-d'));
+                  
+                //verifica se o último concurso já foi sorteado
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->feddata}";                
+                  if("{$item->feds01}" == 0){ //não foi sorteado 
+                    if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
+                      $ultimo = "{$item->fedconc}"-1; //mostra o último que foi sorteado
+                    } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
+                      $ultimo = "{$item->fedconc}";
+                    } else {
+                      $ultimo = "{$item->fedconc}"-1;
+                    }
+                  } else { 
+                    $ultimo = (int)"{$item->fedconc}";
+                  }
+                  $sql = "SELECT * FROM tbfederal WHERE fedconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tbfederal WHERE fedconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->fedconc}"; 
+                    $datapost = "{$itempost->feddata}";
+                    $premiopost = "{$itempost->fedpremioest}";
+                  }
+
+                } //end foreach
+
+                foreach($dados as $item){                  
+                  $ant1 = $ultimo -1;
+                  $sql = "SELECT feddata FROM tbfederal WHERE fedconc = $ant1";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant1 = "{$dt->feddata}";
+
+                      }
+                    }
+
+                  $ant2 = $ant1 -1;
+                  $sql = "SELECT feddata FROM tbfederal WHERE fedconc = $ant2";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant2 = "{$dt->feddata}";
+                      }
+                    }
+                  $ant3 = $ant2 -1; 
+                  $sql = "SELECT feddata FROM tbfederal WHERE fedconc = $ant3";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant3 = "{$dt->feddata}";
+                      }
+                    }
+                  $ant4 = $ant3 -1;
+                  $sql = "SELECT feddata FROM tbfederal WHERE fedconc = $ant4";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant4 = "{$dt->feddata}";
+                      }
+                    }
+                  $ant5 = $ant4 -1;
+                  $sql = "SELECT feddata FROM tbfederal WHERE fedconc = $ant5";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant5 = "{$dt->feddata}";
+                      }
+                    }                
+                } //end foreach
+
+                $fedpr01 = "{$item->fedpr01}";
+                $fedpr02 = "{$item->fedpr02}";
+                $fedpr03 = "{$item->fedpr03}";
+                $fedpr04 = "{$item->fedpr04}";
+                $fedpr05 = "{$item->fedpr05}";
+                $fedpremioest = "{$item->fedpremioest}";
+
+                $fedcidgan01 = "{$item->fedcidgan01}";
+                $fedcidgan02 = "{$item->fedcidgan02}";
+                $fedcidgan03 = "{$item->fedcidgan03}";
+                $fedcidgan04 = "{$item->fedcidgan04}";
+                $fedcidgan05 = "{$item->fedcidgan05}";
+
+                $dtatual = "{$item->feddata}";
+                $s01 = "{$item->feds01}";
+                $s02 = "{$item->feds02}";
+                $s03 = "{$item->feds03}";
+                $s04 = "{$item->feds04}";
+                $s05 = "{$item->feds05}";
+
+         ?>
+
         <div class="content_left">
 
             <!-- Loteria Federal -->
-            <a href="loterias/federal">
+            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
               <div class="title_loteria_left tfederal">            
                 <h5><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Loteria Federal
-                  <span class="concurso_left">2270</span></h5>
+                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                01/07/2021
+                <?php echo date("d/m/Y", strtotime($dtant1))?>
               </div>
             </a> 
 
             <!-- Loteria Federal -->
-            <a href="loterias/federal">
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tfederal">            
                 <h5><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Loteria Federal
-                  <span class="concurso_left">2269</span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                30/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
             </a> 
 
             <!-- Loteria Federal -->
-            <a href="loterias/federal">
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tfederal">            
                 <h5><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Loteria Federal
-                  <span class="concurso_left">2268</span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                29/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
             </a> 
 
             <!-- Loteria Federal -->
-            <a href="loterias/federal">
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tfederal">            
                 <h5><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Loteria Federal
-                  <span class="concurso_left">2267</span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                28/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
             </a> 
 
             <!-- Loteria Federal -->
-            <a href="loterias/federal">
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tfederal">            
                 <h5><span class="icone"><img src="../../img/icon_federal.png" width="20"></span> Loteria Federal
-                  <span class="concurso_left">2266</span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                27/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
             </a> 
 
@@ -167,7 +300,7 @@
 
       <div class="right">        
       <div class="text_top">
-        <p>Criada no ano de 1962 a Loteria Federal sorteio cinco números no total, a premiação corresponde do primeiro ao quinto prêmio 
+        <p>Criada no ano de 1962 a Loteria Federal sorteia cinco números no total, a premiação corresponde do primeiro ao quinto prêmio 
           e cada número corresponde de 0001 até 99.999.
           O valor da faixa principal é de R$ 500 mil reais, ocasionalmente a Caixa Econômica Federal realiza sorteios especiais com 
           premiação de maior valor.</p>
@@ -177,7 +310,14 @@
             o campo de busca para concursos mais antigos.</strong></p>      
       </div>
       <div class="top_right_federal">
-            <h5><strong><span class="text-white">CONCURSO 2271 - 02/07/2021</span></strong></h5>
+            <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
+              <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
+              <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
+              <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
+            if("{$item->feds01}" == 0){ //não foi sorteado 
+              echo " - <span class='text-white'>Prêmio principal: R$ ".$premiopost."</span>";
+            }
+          ?></strong>
           </div> <!-- end top_right_megasena -->
 
 
@@ -186,41 +326,36 @@
             <div class="resultnumbers_federal">
 
               <?php
-                echo "<div class='right_lfederal'>1º Prêmio</div>";
-                for ($i=1; $i <= 5; $i++) { 
-                  echo "<div class='resultnumber tfederal'>";
-                    echo "<strong>".$i."</strong>"; //echo $number[$i]; 
+                echo "<div class='right_lfederal'>1º Prêmio</div>";                
+                  echo "<div class='resultnumberfed tfederal'>";
+                    echo "<strong>&nbsp;".$s01."</strong> <span class='text-white-federal'> &nbsp;&nbsp;Prêmio: R$ ".$fedpr01."&nbsp;&nbsp;</span>" ; 
                   echo "</div>";   
-                  if($i > 4) echo "<br><br><br><br>";              
-                }
-                echo "<div class='right_lfederal'>2º Prêmio</div>";
-                for ($i=1; $i <= 5; $i++) { 
-                  echo "<div class='resultnumber tfederal'>";
-                    echo $i; //echo $number[$i];
+                  echo "<br><br><br><br>";              
+                
+                echo "<div class='right_lfederal'>2º Prêmio</div>";               
+                  echo "<div class='resultnumberfed tfederal'>";
+                    echo "&nbsp;&nbsp;&nbsp;".$s02."<span class='text-grey-federal'> &nbsp;&nbsp;Prêmio: R$ ".$fedpr02."&nbsp;&nbsp;</span>" ;
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br><br>";              
-                }
-                echo "<div class='right_lfederal'>3º Prêmio</div>";
-                for ($i=1; $i <= 5; $i++) { 
-                  echo "<div class='resultnumber tfederal'>";
-                    echo $i; //echo $number[$i];
+                  echo "<br><br><br><br>";              
+               
+                echo "<div class='right_lfederal'>3º Prêmio</div>";                
+                  echo "<div class='resultnumberfed tfederal'>";
+                    echo "&nbsp;&nbsp;&nbsp;".$s03."<span class='text-grey-federal'> &nbsp;&nbsp;Prêmio: R$ ".$fedpr03."&nbsp;&nbsp;</span>" ;
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br><br>";              
-                }
-                echo "<div class='right_lfederal'>4º Prêmio</div>";
-                for ($i=1; $i <= 5; $i++) { 
-                  echo "<div class='resultnumber tfederal'>";
-                    echo $i; //echo $number[$i];
+                  echo "<br><br><br><br>";              
+              
+                echo "<div class='right_lfederal'>4º Prêmio</div>";                
+                  echo "<div class='resultnumberfed tfederal'>";
+                    echo "&nbsp;&nbsp;&nbsp;".$s04."<span class='text-grey-federal'> &nbsp;&nbsp;Prêmio: R$ ".$fedpr04."&nbsp;&nbsp;</span>" ;
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br><br>";              
-                }
-                echo "<div class='right_lfederal'>5º Prêmio</div>";
-                for ($i=1; $i <= 5; $i++) { 
-                  echo "<div class='resultnumber tfederal'>";
-                    echo $i; //echo $number[$i];
+                  echo "<br><br><br><br>";              
+             
+                echo "<div class='right_lfederal'>5º Prêmio</div>";                
+                  echo "<div class='resultnumberfed tfederal'>";
+                    echo "&nbsp;&nbsp;&nbsp;".$s05."<span class='text-grey-federal'> &nbsp;&nbsp;Prêmio: R$ ".$fedpr05."&nbsp;&nbsp;</span>" ;
                   echo "</div>";
-                  if($i > 4) echo "<br><br><br><br>";              
-                }
+                  echo "<br><br><br><br>";              
+              
               ?>
 
             </div> <!-- end resultnumbers -->        
@@ -246,31 +381,22 @@
       <div class="valorpremio col-md-4 col-sm-5 col-5">
       <div class="title_acertos">Prêmio</div>
         <ul class="premiacao">
-          <li>R$ 2.500.000,00</li>
-          <li>R$ 50.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
+          <li><?php echo "R$ ".$fedpr01 ?></li>
+          <li><?php echo "R$ ".$fedpr02 ?></li>
+          <li><?php echo "R$ ".$fedpr03?></li>
+          <li><?php echo "R$ ".$fedpr04 ?></li>
+          <li><?php echo "R$ ".$fedpr05 ?></li>
         </ul>  
       </div> <!-- end valorpremio col-md3 -->
-      <div class="ganhadores col-md-2 col-sm-2 col-2">
-      <div class="title_acertos">Ganhadores</div>
-        <ul class="ganhadores">
-          <li>1</li>
-          <li>10</li>
-          <li>1200</li>
-          <li>1200</li>
-          <li>1200</li>
-        </ul>  
-      </div> <!-- end ganhadores col-md2 -->
-      <div class="cidades col-md-4">
-      <div class="title_cidades">Cidades dos ganhadores</div>
+      
+      <div class="cidades col-md-6">
+        <div class="title_cidades">Cidades dos ganhadores</div>
         <ul class="cidades">
-          <li>1º Prêmio: Presidente Epitácio - SP / </li>
-          <li>2º Prêmio: Presidente Epitácio - SP / </li>
-          <li>3º Prêmio: Presidente Epitácio - SP / </li>
-          <li>4º Prêmio: Presidente Epitácio - SP / </li>
-          <li>5º Prêmio: Presidente Epitácio - SP / </li>
+          <li><?php echo $fedcidgan01 ?></li>
+          <li><?php echo $fedcidgan02 ?></li>
+          <li><?php echo $fedcidgan03 ?></li>
+          <li><?php echo $fedcidgan04 ?></li>
+          <li><?php echo $fedcidgan05 ?></li>
         </ul>
       </div> <!-- end cidades col-md5 -->
 
@@ -278,10 +404,9 @@
 
 </div> <!-- end right_middle -->
 <div class="right_lowmiddle_info tfederal col-12">
-Próximo Sorteio: <strong>08/07/2021</strong><br>
-Concurso Número: <strong>2272</strong><br>
-
-Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+  <h5>Prêmio principal: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
 <img src="../../img/ads01.png" width="210"> 
@@ -295,7 +420,7 @@ Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
 <p></p>
 <p>A Loteria Federal &eacute; o concurso mais antigo e tradicional da Caixa Econ&ocirc;mica Federal. Apesar de ter sido oficializada apenas em 1962, a modalidade &eacute; bem mais antiga e se manteve renomada durante anos por conta da suas premia&ccedil;&otilde;es em dinheiro que atra&iacute;am muitos compradores de bilhete.</p>
 <p>Atualmente o concurso &eacute; o que tem a maior probabilidade de acertos e, consequentemente, garante as maiores chances de premia&ccedil;&atilde;o aos jogadores dentre todos os outros jogos de loteria.</p>
-<p>Para participar dos seus dois sorteios semanais voc&ecirc; s&oacute; precisa adquirir um &uacute;nico bilhete e acompanhar os n&uacute;meros sorteados e a ordem em que sa&iacute;ram. Al&eacute;m disso, a quantidade de fra&ccedil;&otilde;es adquiridas faz com que o valor da premia&ccedil;&atilde;o possa ser ainda maior - dependendo da sua aquisi&ccedil;&atilde;o.</p>
+<p>Para participar dos seus dois sorteios semanais voc&ecirc; s&oacute; precisa adfedrir um &uacute;nico bilhete e acompanhar os n&uacute;meros sorteados e a ordem em que sa&iacute;ram. Al&eacute;m disso, a quantidade de fra&ccedil;&otilde;es adfedridas faz com que o valor da premia&ccedil;&atilde;o possa ser ainda maior - dependendo da sua afedsi&ccedil;&atilde;o.</p>
 <p>Confira tudo o que voc&ecirc; precisa saber para come&ccedil;ar a participar da Loteria Federal e, assim como milhares de pessoas, ganhar diversos pr&ecirc;mios em dinheiro com os seus n&uacute;meros da sorte.</p>
 <h2>Como surgiu o sorteio da Loteria Federal?</h2>
 <p>O sorteio da Loteria Federal foi uma das primeiras modalidades de jogos consolidadas no Brasil. Com influ&ecirc;ncia de loterias similares que j&aacute; existiam na &eacute;poca, a Caixa Econ&ocirc;mica deu in&iacute;cio aos seus sorteios oficiais no dia 15 de setembro de 1962, com o pr&ecirc;mio de R$ 15 Milh&otilde;es de Cruzeiros.</p>
@@ -309,7 +434,7 @@ Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
 <p>Para facilitar a identifica&ccedil;&atilde;o e melhorar a seguran&ccedil;a dos sorteios, al&eacute;m de serem enumeradas, as bolinhas tamb&eacute;m t&ecirc;m cores diferentes para cada um dos n&uacute;meros. Confira a rela&ccedil;&atilde;o:</p>
 <p>N&uacute;mero 1 - vermelhas<br />N&uacute;mero 2 - amarelas<br />N&uacute;mero 3 - verdes<br />N&uacute;mero 4 - marrons<br />N&uacute;mero 5 - azuis<br />N&uacute;mero 6 - rosas<br />N&uacute;mero 7 - pretas<br />N&uacute;mero 8 - cinzas<br />N&uacute;mero 9 - laranjas<br />Terminadas em 0 - brancas</p>
 <p>O n&uacute;mero final &eacute; definido pela ordem que as bolinhas saem no sorteio e, por isso, o resultado da Loteria Federal &eacute; revelado de modo decrescente, ou seja, da dezena de milhar at&eacute; a unidade.</p>
-<p>Primeira Bolinha: Dezena de milhar<br />Segunda Bolinha: Unidade de milhar<br />Terceira Bolinha: Centena<br />Quarta bolinha: Dezena<br />Quinta bolinha: Unidade</p>
+<p>Primeira Bolinha: Dezena de milhar<br />Segunda Bolinha: Unidade de milhar<br />Terceira Bolinha: Centena<br />Quarta bolinha: Dezena<br />quinta bolinha: Unidade</p>
 <p>H&aacute; casos em que o sorteio pode ser realizado com apenas quatro globos e situa&ccedil;&otilde;es que pode ser usado apenas um, com dez bolas numeradas de 00 &agrave; 09 (desconsiderando o zero a esquerda). Contudo, al&eacute;m de serem algumas exce&ccedil;&otilde;es, esse tipo de mudan&ccedil;a s&oacute; ocorre mediante aos crit&eacute;rios definidos e aprovados pela Caixa Econ&ocirc;mica.</p>
 <p>De qualquer forma, n&atilde;o acontecem altera&ccedil;&otilde;es nos pr&ecirc;mios sorteados e nem nas faixas de premia&ccedil;&atilde;o do concurso.</p>
 <h2>Como ganhar na Loteria Federal?</h2>

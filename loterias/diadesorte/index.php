@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias - Dia de Sorte</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-eddsv="refresh" content="60">
+    <meta http-eddsv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-eddsv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<!--Favicon -->
 	<link href="../../img/favicon.png" rel="icon">
-	<link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -53,14 +55,14 @@
         <li class="lotomania">
           <a href="../lotomania/" title="Lotomania"><span class="icone"><img src="../../img/icon_lotomania.png" width="20"></span> Lotomania</a>
         </li>
-        <li class="timemania">
+        <li class="diadesorte">
           <a href="../timemania/" title="Timemania"><span class="icone"><img src="../../img/icon_timemania.png" width="20"></span> Timemania</a>
         </li>
         <li class="duplasena">
           <a href="../duplasena/" title="Dupla Sena"><span class="icone"><img src="../../img/icon_duplasena.png" width="20"></span> Dupla Sena</a>
         </li>
         <li class="diadesorte">
-          <a href="" title="Dia de Sorte"><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte</a>
+          <a href="index.php" title="Dia de Sorte"><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte</a>
         </li>
         <li class="supersete">
           <a href="../supersete/" title="Super Sete"><span class="icone"><img src="../../img/icon_supersete.png" width="20"></span> Super Sete</a>
@@ -88,65 +90,201 @@
           Resultados Anteriores
         </div> <!-- end title_left -->
 
+        <?php
+              ini_set('default_charset', 'utf-8');
+              //define fuso horário
+              date_default_timezone_set('America/Sao_Paulo');
+
+              require('../../paineladm/functions/conection.php');
+                $con = new conection();
+                $binds = ['ddsconc' => 0];
+                if(isset($_GET['conc'])){
+                  $conc  = $_GET['conc'];
+                  $sql = "SELECT * FROM tbdiadesorte WHERE ddsconc = $conc";
+                } else {
+                  $sql = "SELECT * FROM tbdiadesorte WHERE ddsconc = (SELECT max(ddsconc) FROM tbdiadesorte)";
+                }
+                $result = $con->select($sql, $binds);                
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                }
+
+                //define horário para alternar concurso
+                $horafixa = strtotime('19:00');
+                $horaatual = strtotime(date('H:i'));
+                $dataatual = strtotime(date('Y-m-d'));
+
+                //verifica se o último concurso já foi sorteado
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->ddsdata}";                
+                  if("{$item->ddsd01}" == 0){ //não foi sorteado 
+                    if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
+                      $ultimo = "{$item->ddsconc}"-1; //mostra o último que foi sorteado
+                    } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
+                      $ultimo = "{$item->ddsconc}";
+                    } else {
+                      $ultimo = "{$item->ddsconc}"-1;
+                    }
+                  } else { 
+                    $ultimo = (int)"{$item->ddsconc}";
+                  }
+                  $sql = "SELECT * FROM tbdiadesorte WHERE ddsconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tbdiadesorte WHERE ddsconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->ddsconc}"; 
+                    $datapost = "{$itempost->ddsdata}";
+                    $premiopost = "{$itempost->ddspremioest}";
+                  }
+
+                } //end foreach
+
+                foreach($dados as $item){                  
+                  $ant1 = $ultimo -1;
+                  $sql = "SELECT ddsdata FROM tbdiadesorte WHERE ddsconc = $ant1";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant1 = "{$dt->ddsdata}";
+
+                      }
+                    }
+
+                  $ant2 = $ant1 -1;
+                  $sql = "SELECT ddsdata FROM tbdiadesorte WHERE ddsconc = $ant2";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant2 = "{$dt->ddsdata}";
+                      }
+                    }
+                  $ant3 = $ant2 -1; 
+                  $sql = "SELECT ddsdata FROM tbdiadesorte WHERE ddsconc = $ant3";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant3 = "{$dt->ddsdata}";
+                      }
+                    }
+                  $ant4 = $ant3 -1;
+                  $sql = "SELECT ddsdata FROM tbdiadesorte WHERE ddsconc = $ant4";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant4 = "{$dt->ddsdata}";
+                      }
+                    }
+                  $ant5 = $ant4 -1;
+                  $sql = "SELECT ddsdata FROM tbdiadesorte WHERE ddsconc = $ant5";
+                    $resultdates = $con->select($sql, $binds);
+                    if($resultdates->rowCount() > 0){
+                      $dates = $resultdates->fetchAll(PDO::FETCH_OBJ);  
+                      foreach($dates as $dt){
+                        $dtant5 = "{$dt->ddsdata}";
+                      }
+                    }                
+                } //end foreach
+
+                $ddspr07 = "{$item->ddspr07}";
+                $ddspr06 = "{$item->ddspr06}";
+                $ddspr05 = "{$item->ddspr05}";
+                $ddspr04 = "{$item->ddspr04}";
+                $ddsprmes = "{$item->ddsprmes}";
+                $ddspremioest = "{$item->ddspremioest}";
+
+                $ddsgan07 = "{$item->ddsgan07}";
+                $ddsgan06 = "{$item->ddsgan06}";
+                $ddsgan05 = "{$item->ddsgan05}";
+                $ddsgan04 = "{$item->ddsgan04}";
+                $ddsganmes = "{$item->ddsganmes}";
+
+                $ddscidadesgan = "{$item->ddscidadesgan}";
+
+                $dtatual = "{$item->ddsdata}";
+                $d01 = "{$item->ddsd01}";
+                $d02 = "{$item->ddsd02}";
+                $d03 = "{$item->ddsd03}";
+                $d04 = "{$item->ddsd04}";
+                $d05 = "{$item->ddsd05}";
+                $d06 = "{$item->ddsd06}";
+                $d07 = "{$item->ddsd07}";
+                $dmes = "{$item->ddsdmes}";
+
+         ?>
+
         <div class="content_left">
 
             <!-- Dia de Sorte -->
-            <a href="loterias/diadesorte">
+            <?php echo "<a href='index.php?conc=".$ant1."'>"; ?>
               <div class="title_loteria_left tdiadesorte">            
                 <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                  <span class="concurso_left">2270</span></h5>
+                  <span class="concurso_left"><?php echo $ant1 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                01/07/2021
+                <?php echo date("d/m/Y", strtotime($dtant1))?>
               </div>
             </a> 
 
             <!-- Dia de Sorte -->
-            <a href="loterias/icon_diadesorte">
+            <?php echo "<a href='index.php?conc=".$ant2."'>"; ?>
               <div class="title_loteria_left tdiadesorte">            
                 <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                  <span class="concurso_left">2269</span></h5>
+                  <span class="concurso_left"><?php echo $ant2 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                30/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant2))?>
               </div>
             </a> 
 
             <!-- Dia de Sorte -->
-            <a href="loterias/icon_diadesorte">
+            <?php echo "<a href='index.php?conc=".$ant3."'>"; ?>
               <div class="title_loteria_left tdiadesorte">            
                 <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                  <span class="concurso_left">2268</span></h5>
+                  <span class="concurso_left"><?php echo $ant3 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                29/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant3))?>
               </div>
             </a> 
 
             <!-- Dia de Sorte -->
-            <a href="loterias/icon_diadesorte">
+            <?php echo "<a href='index.php?conc=".$ant4."'>"; ?>
               <div class="title_loteria_left tdiadesorte">            
                 <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                  <span class="concurso_left">2267</span></h5>
+                  <span class="concurso_left"><?php echo $ant4 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                28/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant4))?>
               </div>
             </a> 
 
             <!-- Dia de Sorte -->
-            <a href="loterias/icon_diadesorte">
+            <?php echo "<a href='index.php?conc=".$ant5."'>"; ?>
               <div class="title_loteria_left tdiadesorte">            
                 <h5><span class="icone"><img src="../../img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                  <span class="concurso_left">2266</span></h5>
+                  <span class="concurso_left"><?php echo $ant5 ?></span></h5>
               </div>    
                    
               <div class="content_loteria_left">
-                27/06/2021
+                <?php echo date("d/m/Y", strtotime($dtant5))?>
               </div>
             </a> 
 
@@ -177,7 +315,14 @@
           o campo de busca para concursos mais antigos.</strong></p>      
       </div>    
           <div class="top_right_diadesorte">
-          <h5><strong><span class="text-white">CONCURSO 2271 - 02/07/2021</span></strong></h5>
+          <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
+              <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
+              <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
+              <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
+            if("{$item->ddsd01}" == 0){ //não foi sorteado 
+              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+            }
+          ?></strong>
           </div> <!-- end top_right -->
 
           <div class="right_ldiadesorte">
@@ -186,9 +331,15 @@
               
               <?php 
                 for ($j = 1; $j <= 31; $j++) {
-                  echo "<div class='cardnumber'>" ;
+                  if($j == $d01 || $j == $d02 || $j == $d03 || $j == $d04 || $j == $d05 || $j == $d06 || $j == $d07){
+                    echo "<div class='cardnumber_sel seldds'>" ;
                     echo $j;
-                  echo "</div>";
+                    echo "</div>";
+                  } else {
+                    echo "<div class='cardnumber'>" ;
+                    echo $j;
+                    echo "</div>";
+                  } 
                   if($j < 80 && $j % 10 == 0) echo "<br><br>";
                 }
 
@@ -202,11 +353,28 @@
             <div class="resultnumbers">
 
             <?php
-                for ($i=1; $i <= 7; $i++) { 
+                foreach($dados as $item){
                   echo "<div class='resultnumber tdiadesorte'>";
-                    echo $i; //echo $number[$i];
+                      echo "{$item->ddsd01}";
                   echo "</div>";
-                  //if($i < 26 && $i % 10 == 0) echo "<br><br>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd02}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd03}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd04}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd05}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd06}";
+                  echo "</div>";
+                  echo "<div class='resultnumber tdiadesorte'>";
+                      echo "{$item->ddsd07}";
+                  echo "</div>";
                 }
 
               ?>
@@ -216,7 +384,7 @@
           </div> <!-- end right_rdiadesorte -->
 
           <div class="right_diadesorte">
-            Dia de Sorte
+            Mês de Sorte: <?php echo "{$item->ddsdmes}"; ?>
           </div> <!-- end right_diadesorte -->
 
       </div> <!-- end right -->
@@ -237,29 +405,27 @@
       <div class="valorpremio col-md-4 col-sm-5 col-5">
       <div class="title_acertos">Prêmio</div>
         <ul class="premiacao">
-          <li>R$ 2.500.000,00</li>
-          <li>R$ 50.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
-          <li>R$ 1.000,00</li>
+          <li><?php echo "R$ ".$ddspr07 ?></li>
+          <li><?php echo "R$ ".$ddspr06 ?></li>
+          <li><?php echo "R$ ".$ddspr05 ?></li>
+          <li><?php echo "R$ ".$ddspr04 ?></li>
+          <li><?php echo "R$ ".$ddsprmes ?></li>
         </ul>  
       </div> <!-- end valorpremio col-md3 -->
       <div class="ganhadores col-md-2 col-sm-2 col-2">
       <div class="title_acertos">Ganhadores</div>
         <ul class="ganhadores">
-          <li>1</li>
-          <li>10</li>
-          <li>1200</li>
-          <li>1200</li>
-          <li>1200</li>
+          <li><?php echo $ddsgan07 ?></li>
+          <li><?php echo $ddsgan06 ?></li>
+          <li><?php echo $ddsgan05 ?></li>
+          <li><?php echo $ddsgan04 ?></li>
+          <li><?php echo $ddsganmes ?></li>
         </ul>  
       </div> <!-- end ganhadores col-md2 -->
       <div class="cidades col-md-4">
       <div class="title_cidades">Cidades dos ganhadores</div>
         <ul class="cidades">
-          <li>Presidente Epitácio - SP / </li>
-          <li>Salvador - BA / </li>
-          <li>São Paulo - SP</li>
+          <li><?php echo $ddscidadesgan ?></li>
         </ul>
       </div> <!-- end cidades col-md5 -->
 
@@ -267,10 +433,9 @@
 
 </div> <!-- end right_middle -->
 <div class="right_lowmiddle_info tdiadesorte col-12">
-Próximo Sorteio: <strong>08/07/2021</strong><br>
-Concurso Número: <strong>2272</strong><br>
-
-Prêmio Estimado: <strong>R$ 20.000.000,00</strong>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
 <img src="../../img/ads01.png" width="210"> 

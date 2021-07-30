@@ -106,26 +106,18 @@
                 }
                 $result = $con->select($sql, $binds);                
                 if($result->rowCount() > 0){
-                  $dadosultimo = $result->fetchAll(PDO::FETCH_OBJ);
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
                 $dataatual = strtotime(date('Y-m-d'));
-                  
-
 
                 //verifica se o último concurso já foi sorteado
-                foreach($dadosultimo as $item){ 
-                  //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
-                  $concproximo = "{$item->ltmconc}"; 
-                  $dataproximo = "{$item->ltmdata}";
-                  $premioproximo = "{$item->ltmpremioest}";
-
-
+                foreach($dados as $item){  
+                  $dataproximo = "{$item->ltmdata}";                
                   if("{$item->ltmd01}" == 0){ //não foi sorteado 
-                    
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->ltmconc}"-1; //mostra o último que foi sorteado
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
@@ -133,26 +125,31 @@
                     } else {
                       $ultimo = "{$item->ltmconc}"-1;
                     }
-
-                    $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";
-                    
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   } else { 
                     $ultimo = (int)"{$item->ltmconc}";
-                    $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";
-                    $result = $con->select($sql, $binds);
-                    if($result->rowCount() > 0){
-                      $dados = $result->fetchAll(PDO::FETCH_OBJ);
-                    }
                   }
+                  $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";                    
+                  $result = $con->select($sql, $binds);
+                  if($result->rowCount() > 0){
+                    $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                  }
+
+                  $post1 = $ultimo +1;
+                  $sqlpost = "SELECT * FROM tblotomania WHERE ltmconc = $post1";
+                  $resultpost = $con->select($sqlpost, $binds);
+                  if($resultpost->rowCount() > 0){
+                    $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
+                  }
+                  foreach($dadospost as $itempost){
+                    //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
+                    $concpost = "{$itempost->ltmconc}"; 
+                    $datapost = "{$itempost->ltmdata}";
+                    $premiopost = "{$itempost->ltmpremioest}";
+                  }
+
                 } //end foreach
 
-                foreach($dados as $item){ 
-                  $post1 = $ultimo +1;                 
-                  
+                foreach($dados as $item){                  
                   $ant1 = $ultimo -1;
                   $sql = "SELECT ltmdata FROM tblotomania WHERE ltmconc = $ant1";
                     $resultdates = $con->select($sql, $binds);
@@ -497,9 +494,9 @@
 
       </div> <!-- end right_middle -->
       <div class="right_lowmiddle_info tlotomania col-12">
-        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($dataproximo))."h"; ?></span>
-        <span class="text-grey">Concurso: </span><?php echo $concproximo ?></span>
-        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premioproximo ?></strong></h5>
+        <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
+        <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
+        <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
           <img src="../../img/ads01.png" width="210"> 

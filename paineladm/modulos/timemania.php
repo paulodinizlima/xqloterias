@@ -60,7 +60,7 @@
                     <input class='form-control' name='gan06' type='text' placeholder='Ganhadores 06'>
                 </div>
                 <div class='form-group'>
-                    <input class='form-control' name='gan053' type='text' placeholder='Ganhadores 05'>
+                    <input class='form-control' name='gan05' type='text' placeholder='Ganhadores 05'>
                 </div>
                 <div class='form-group'>
                     <input class='form-control' name='gan04' type='text' placeholder='Ganhadores 04'>
