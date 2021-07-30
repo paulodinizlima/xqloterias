@@ -72,11 +72,27 @@
     </nav>
   </header>
 
+  <?php
+    ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
+
+    require('paineladm/functions/conection.php');
+    $con = new conection();
+
+    //define horário para alternar concurso
+    $horafixa = strtotime('19:00');
+    $horaatual = strtotime(date('H:i'));
+    $dataatual = date('Y-m-d');
+
+     
+  ?>
+
   <div class="containermain">
     
     <div class="main">
       
-      <div class="left">
+      <div class="main-left">
           <!-- left -->
           <div class="title_left">
 
@@ -87,105 +103,346 @@
           <div class="content_left">
 
             <!-- Megasena -->
-            <a href="loterias/megasena">
-              <div class="title_loteria_left tmegasena">            
-                <h5><span class="icone"><img src="img/icon_megasena.png" width="20"></span> Megasena
-                  <span class="concurso_left">2154</span></h5>
-              </div>    
-                   
-              <div class="content_loteria_left">
-                03/07/2021 
-              </div>
-            </a> 
+            <?php
+                $binds = ['msconc' => 0];
+                $sql = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(msconc) FROM tbmegasena)";
+                $sql2 = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(msconc)-1 FROM tbmegasena)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/megasena'>
+                  <div class='title_loteria_left tmegasena'>            
+                    <h5><span class='icone'><img src='img/icon_megasena.png' width='20'></span> Megasena";
+                      $datajogo = date("Y-m-d", strtotime("{$item->msdata}"));
+                      if("{$item->msd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->msconc}</span></h5>";
+                      } else if("{$item->msd01}" == 0 && "{$item->msdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->msconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->msd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->msdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->msdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Lotofácil -->
-            <a href="loterias/lotofacil">
-              <div class="title_loteria_left tlotofacil">
-              <h5><span class="icone"><img src="img/icon_lotofacil.png" width="20"></span> Lotofácil
-                <span class="concurso_left">2154</span></h5>
-              </div>
-            
-              <div class="content_loteria_left">
-                03/07/2021
-              </div> 
-            </a>
+            <?php
+                $binds = ['lfconc' => 0];
+                $sql = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
+                $sql2 = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc)-1 FROM tblotofacil)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/lotofacil'>
+                  <div class='title_loteria_left tlotofacil'>            
+                    <h5><span class='icone'><img src='img/icon_lotofacil.png' width='20'></span> Lotofácil";
+                      $datajogo = date("Y-m-d", strtotime("{$item->lfdata}"));
+                      if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->lfconc}</span></h5>";
+                      } else if("{$item->lfd01}" == 0 && "{$item->lfdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->lfconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->lfdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->lfdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Quina -->  
-            <a href="loterias/quina">
-              <div class="title_loteria_left tquina">
-              <h5><span class="icone"><img src="img/icon_quina.png" width="20"></span> Quina
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021
-              </div>  
-            </a>
+            <?php
+                $binds = ['quiconc' => 0];
+                $sql = "SELECT * FROM tbquina WHERE quiconc = (SELECT max(quiconc) FROM tbquina)";
+                $sql2 = "SELECT * FROM tbquina WHERE quiconc = (SELECT max(quiconc)-1 FROM tbquina)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/quina'>
+                  <div class='title_loteria_left tquina'>            
+                    <h5><span class='icone'><img src='img/icon_quina.png' width='20'></span> Quina";
+                      $datajogo = date("Y-m-d", strtotime("{$item->quidata}"));
+                      if("{$item->quid01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->quiconc}</span></h5>";
+                      } else if("{$item->quid01}" == 0 && "{$item->quidata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->quiconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->quid01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->quidata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->quidata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Lotomania -->
-            <a href="loterias/lotomania">
-              <div class="title_loteria_left tlotomania">
-              <h5><span class="icone"><img src="img/icon_lotomania.png" width="20"></span> Lotomania
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021
-              </div> 
-            </a>
+            <?php
+                $binds = ['ltmconc' => 0];
+                $sql = "SELECT * FROM tblotomania WHERE ltmconc = (SELECT max(ltmconc) FROM tblotomania)";
+                $sql2 = "SELECT * FROM tblotomania WHERE ltmconc = (SELECT max(ltmconc)-1 FROM tblotomania)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/lotomania'>
+                  <div class='title_loteria_left tlotomania'>            
+                    <h5><span class='icone'><img src='img/icon_lotomania.png' width='20'></span> Lotomania";
+                      $datajogo = date("Y-m-d", strtotime("{$item->ltmdata}"));
+                      if("{$item->ltmd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->ltmconc}</span></h5>";
+                      } else if("{$item->ltmd01}" == 0 && "{$item->ltmdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->ltmconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->ltmd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->ltmdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->ltmdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Timemania -->
-            <a href="loterias/timemania">
-              <div class="title_loteria_left ttimemania">
-              <h5><span class="icone"><img src="img/icon_timemania.png" width="20"></span> Timemania
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021
-              </div>  
-            </a>
+            <?php
+                $binds = ['tmmconc' => 0];
+                $sql = "SELECT * FROM tbtimemania WHERE tmmconc = (SELECT max(tmmconc) FROM tbtimemania)";
+                $sql2 = "SELECT * FROM tbtimemania WHERE tmmconc = (SELECT max(tmmconc)-1 FROM tbtimemania)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/timemania'>
+                  <div class='title_loteria_left ttimemania'>            
+                    <h5><span class='icone'><img src='img/icon_timemania.png' width='20'></span> Timemania";
+                      $datajogo = date("Y-m-d", strtotime("{$item->tmmdata}"));
+                      if("{$item->tmmd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->tmmconc}</span></h5>";
+                      } else if("{$item->tmmd01}" == 0 && "{$item->tmmdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->tmmconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->tmmd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->tmmdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->tmmdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Dupla Sena -->
-            <a href="loterias/duplasena">
-              <div class="title_loteria_left tduplasena">
-              <h5><span class="icone"><img src="img/icon_duplasena.png" width="20"></span>  Dupla Sena
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021 
-              </div>  
-            </a>
+            <?php
+                $binds = ['dsconc' => 0];
+                $sql = "SELECT * FROM tbduplasena WHERE dsconc = (SELECT max(dsconc) FROM tbduplasena)";
+                $sql2 = "SELECT * FROM tbduplasena WHERE dsconc = (SELECT max(dsconc)-1 FROM tbduplasena)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/duplasena'>
+                  <div class='title_loteria_left tduplasena'>            
+                    <h5><span class='icone'><img src='img/icon_duplasena.png' width='20'></span> Dupla Sena";
+                      $datajogo = date("Y-m-d", strtotime("{$item->dsdata}"));
+                      if("{$item->ds01d01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->dsconc}</span></h5>";
+                      } else if("{$item->ds01d01}" == 0 && "{$item->dsdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->dsconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->ds01d01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->dsdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->dsdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Dia de Sorte -->
-            <a href="loterias/diadesorte">
-              <div class="title_loteria_left tdiadesorte">
-              <h5><span class="icone"><img src="img/icon_diadesorte.png" width="20"></span> Dia de Sorte
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021 
-              </div>  
-            </a>
+            <?php
+                $binds = ['ddsconc' => 0];
+                $sql = "SELECT * FROM tbdiadesorte WHERE ddsconc = (SELECT max(ddsconc) FROM tbdiadesorte)";
+                $sql2 = "SELECT * FROM tbdiadesorte WHERE ddsconc = (SELECT max(ddsconc)-1 FROM tbdiadesorte)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/diadesorte'>
+                  <div class='title_loteria_left tdiadesorte'>            
+                    <h5><span class='icone'><img src='img/icon_diadesorte.png' width='20'></span> Dia de Sorte";
+                      $datajogo = date("Y-m-d", strtotime("{$item->ddsdata}"));
+                      if("{$item->ddsd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->ddsconc}</span></h5>";
+                      } else if("{$item->ddsd01}" == 0 && "{$item->ddsdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->ddsconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->ddsd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->ddsdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->ddsdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Super Sete -->
-            <a href="loterias/supersete">
-              <div class="title_loteria_left tsupersete">
-              <h5><span class="icone"><img src="img/icon_supersete.png" width="20"></span> Super Sete
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021 
-              </div>  
-            </a>
+            <?php
+                $binds = ['spsconc' => 0];
+                $sql = "SELECT * FROM tbsupersete WHERE spsconc = (SELECT max(spsconc) FROM tbsupersete)";
+                $sql2 = "SELECT * FROM tbsupersete WHERE spsconc = (SELECT max(spsconc)-1 FROM tbsupersete)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/supersete'>
+                  <div class='title_loteria_left tsupersete'>            
+                    <h5><span class='icone'><img src='img/icon_supersete.png' width='20'></span> Super Sete";
+                      $datajogo = date("Y-m-d", strtotime("{$item->spsdata}"));
+                      if("{$item->spsd01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->spsconc}</span></h5>";
+                      } else if("{$item->spsd01}" == 0 && "{$item->spsdata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->spsconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->spsd01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->spsdata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->spsdata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
             <!-- Federal -->
-            <a href="loterias/federal">
-              <div class="title_loteria_left tfederal">
-              <h5><span class="icone"><img src="img/icon_federal.png" width="20"></span> Federal
-                <span class="concurso_left">2154</span></h5>
-              </div>
-              <div class="content_loteria_left">
-                03/07/2021 
-              </div> 
-            </a> 
+            <?php
+                $binds = ['fedconc' => 0];
+                $sql = "SELECT * FROM tbfederal WHERE fedconc = (SELECT max(fedconc) FROM tbfederal)";
+                $sql2 = "SELECT * FROM tbfederal WHERE fedconc = (SELECT max(fedconc)-1 FROM tbfederal)";
+                $result = $con->select($sql, $binds); 
+                $result2= $con->select($sql2, $binds);                 
+                if($result->rowCount() > 0){
+                  $dados = $result->fetchAll(PDO::FETCH_OBJ);
+                } 
+                if($result2->rowCount() > 0){
+                  $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
+                }           
+            foreach($dados as $item){    
+            echo "<a href='loterias/federal'>
+                  <div class='title_loteria_left tfederal'>            
+                    <h5><span class='icone'><img src='img/icon_federal.png' width='20'></span> Federal";
+                      $datajogo = date("Y-m-d", strtotime("{$item->feddata}"));
+                      if("{$item->feds01}" == 0 && $datajogo == $dataatual){
+                        echo "<span class='concurso_left'>&nbsp;{$item->fedconc}</span></h5>";
+                      } else if("{$item->feds01}" == 0 && "{$item->feddata}" != $dataatual){
+                        foreach($dados2 as $item2){
+                          echo "<span class='concurso_left'>&nbsp;{$item2->fedconc}</span></h5>";
+                        }
+                      }
+            echo "</div>    
+                  <div class='content_loteria_left'>";
+                  if("{$item->feds01}" == 0 && $datajogo == $dataatual){
+                    echo date('d/m/Y', strtotime("{$item->feddata}"))."&nbsp;- Aguardando Sorteio";
+                  } else {
+                    foreach($dados2 as $item2){
+                      echo date('d/m/Y', strtotime("{$item2->feddata}"));
+                    }
+                  }
+            echo  "</div>
+                  </a>";
+            }?>
 
           </div>  <!-- end content_left -->
           
@@ -195,7 +452,7 @@
 
       </div> <!-- end left -->
       
-      <div class="right">
+      <div class="main-right">
           right
 
       </div> <!-- end right -->

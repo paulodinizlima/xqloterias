@@ -105,11 +105,22 @@
                 } else {
                   $sql = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
                 }
-                $result = $con->select($sql, $binds);                
-                
+                $result = $con->select($sql, $binds);              
                 if($result->rowCount() > 0){
                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
+
+                //sempre pega o último registro da tabela
+                $sqllast = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
+                $resultlast = $con->select($sqllast, $binds);                
+                if($resultlast->rowCount() > 0){
+                  $dadoslast = $resultlast->fetchAll(PDO::FETCH_OBJ);
+                }
+                foreach($dadoslast as $itemlast){
+                  $conclast = "{$itemlast->lfconc}";
+                  $datalast = "{$itemlast->lfdata}";
+                  $premiolast = "{$itemlast->lfpremioest}";
+                } 
 
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
@@ -118,7 +129,7 @@
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
-                  $dataproximo = "{$item->lfdata}";                
+                  $dataproximo = date("Y-m-d", strtotime("{$item->lfdata}"));                 
                   if("{$item->lfd01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->lfconc}"-1; //mostra o último que foi sorteado
@@ -328,7 +339,7 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->lfd01}" == 0){ //não foi sorteado 
-              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+              //echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
             }
           ?></strong>
           </div> <!-- end top_right_lotofacil -->
@@ -466,9 +477,9 @@
 </div> <!-- end right_middle -->
 
 <div class="right_lowmiddle_info tlotofacil col-12">
-  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
-  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
-  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datalast))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $conclast ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 
 <div class="middle_ads">

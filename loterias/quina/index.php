@@ -109,6 +109,18 @@
                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 }
 
+                //sempre pega o último registro da tabela
+                $sqllast = "SELECT * FROM tbquina WHERE quiconc = (SELECT max(quiconc) FROM tbquina)";
+                $resultlast = $con->select($sqllast, $binds);                
+                if($resultlast->rowCount() > 0){
+                  $dadoslast = $resultlast->fetchAll(PDO::FETCH_OBJ);
+                }
+                foreach($dadoslast as $itemlast){
+                  $conclast = "{$itemlast->quiconc}";
+                  $datalast = "{$itemlast->quidata}";
+                  $premiolast = "{$itemlast->quipremioest}";
+                } 
+
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
@@ -116,7 +128,7 @@
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
-                  $dataproximo = "{$item->quidata}";                
+                  $dataproximo = date("Y-m-d", strtotime("{$item->quidata}"));                 
                   if("{$item->quid01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->quiconc}"-1; //mostra o último que foi sorteado
@@ -315,7 +327,7 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->quid01}" == 0){ //não foi sorteado 
-              echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premiopost."</span>";
+              //echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premiopost."</span>";
             }
           ?></strong>
           </div> <!-- end top_right_quina -->
@@ -417,9 +429,9 @@
 
 </div> <!-- end right_middle -->
 <div class="right_lowmiddle_info tquina col-12">
-  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datapost))."h"; ?></span>
-  <span class="text-grey">Concurso: </span><?php echo $concpost ?></span>
-  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiopost ?></strong></h5>
+  <span class="text-grey">Próximo Sorteio:</span> <?php echo date("d/m/Y "." - "."H:i", strtotime($datalast))."h"; ?></span>
+  <span class="text-grey">Concurso: </span><?php echo $conclast ?></span>
+  <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
 <img src="../../img/ads01.png" width="210"> 
