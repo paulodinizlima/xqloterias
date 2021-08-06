@@ -8,6 +8,8 @@
 
 <?php
     ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
     require_once "../functions/funcoes.php";
     require_once "../functions/conection.php";
 
@@ -383,35 +385,36 @@
                             $concproximo = "{$itemmax->spsconc}";
                             $d01proximo = "{$itemmax->spsd01}";
                         }
+                        $diadasemana = date('w',strtotime('today'));
+
+                        if($diadasemana != 5){
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 15:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 15:00:00';
+                        }
 
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'spsconc' => $conc+1,
+                                        'spsdata' => $proximosorteio,
+                                        'spslocal' => 'SÃO PAULO, SP',
                                         'spsd01' => 0,
                                         'spsd02' => 0,
                                         'spsd03' => 0,
                                         'spsd04' => 0,
                                         'spsd05' => 0,
                                         'spsd06' => 0,
-                                        'spsd07' => 0,
-                                        'spsgan07' => '',
-                                        'spsgan06' => '',
-                                        'spsgan05' => '',
-                                        'spsgan04' => '',
-                                        'spsgan03' => '' ];
+                                        'spsd07' => 0 ];
                             $sql = "INSERT INTO tbsupersete SET 
                                             spsconc = :spsconc,
+                                            spsdata = :spsdata,
+                                            spslocal = :spslocal,
                                             spsd01 = :spsd01,
                                             spsd02 = :spsd02,
                                             spsd03 = :spsd03,
                                             spsd04 = :spsd04,
                                             spsd05 = :spsd05,
                                             spsd06 = :spsd06,
-                                            spsd07 = :spsd07,
-                                            spsgan07 = :spsgan07,
-                                            spsgan06 = :spsgan06,
-                                            spsgan05 = :spsgan05,
-                                            spsgan04 = :spsgan04,
-                                            spsgan03 = :spsgan03";            
+                                            spsd07 = :spsd07";            
                             $result = $conection->insert($sql,$binds);
                         }
                         //------------------------------------------------------------//

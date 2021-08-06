@@ -115,6 +115,7 @@
                 if($resultlast->rowCount() > 0){
                   $dadoslast = $resultlast->fetchAll(PDO::FETCH_OBJ);
                 }
+
                 foreach($dadoslast as $itemlast){
                   $conclast = "{$itemlast->quiconc}";
                   $datalast = "{$itemlast->quidata}";
@@ -124,7 +125,7 @@
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
+                $dataatual = date("Y-m-d", strtotime("today"));
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
@@ -132,21 +133,25 @@
                   if("{$item->quid01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->quiconc}"-1; //mostra o último que foi sorteado
+                      $post1 = $ultimo +1;
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->quiconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->quiconc}"-1;
+                      $post1 = $ultimo +1;
                     }
                   } else { 
                     $ultimo = (int)"{$item->quiconc}";
+                    $post1 = $ultimo +1;
                   }
+                  
                   $sql = "SELECT * FROM tbquina WHERE quiconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
                   if($result->rowCount() > 0){
                     $dados = $result->fetchAll(PDO::FETCH_OBJ);
                   }
 
-                  $post1 = $ultimo +1;
                   $sqlpost = "SELECT * FROM tbquina WHERE quiconc = $post1";
                   $resultpost = $con->select($sqlpost, $binds);
                   if($resultpost->rowCount() > 0){
@@ -298,28 +303,17 @@
         </div> <!-- end content_left -->
 
         <div class="left_ads">
-          <img src="../../img/ads01.png">
+          
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-
-
+        
       </div> <!-- end left -->
 
       <div class="right">        
       <div class="text_top">
-        <p>A Quina foi lançada em 13 de março de 1994 pela Caixa Econômica Federal e é a mais tradicional das loterias. Com 80 
-          números disponíveis no volante de apostas da Quina, de 01 a 80, você pode marcar de 5 a 15 números e ganha se acertar
-           2 (Duque), 3 (Terno), 4 (Quadra) ou 5 (Quina) números. O custo de uma aposta com 5 números é de R$ 2,00 e a 
-           probabilidade de acertar o resultado da Quina com todos os 5 números é de 1 em 24.040.016.</p>
+        <p>A Quina foi lançada em 13 de março de 1994. O volante é composto por 80 números e deve-se marcar de 5 a 15 números. São sorteados 5 números e ganha quem acertar 2, 3, 4 ou 5 números. O valor da aposta mínima, de 5 números, é de R$ 2,00. Os sorteios são realizados nas segundas, terças, quartas, quintas, sextas-feira e sábados, as 20 horas.</p><br>
 
-        <p><strong>No painel abaixo, você confere hoje o resultado da Quina online no último concurso. Os resultados dos sorteios
-           anteriores da Quina você confere nas páginas dos respectivos números dos concursos no menu a esquerda ou utilizando o
-            campo de busca para concursos mais antigos.</strong></p>      
+        <p><strong>Abaixo você confere o resultado da Quina no último concurso. 
+          Os sorteios anteriores você confere nas páginas dos respectivos concursos no menu a esquerda.</strong></p>      
       </div>
       <div class="top_right_quina">
             <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
@@ -361,21 +355,30 @@
             <div class="resultnumbers">
 
               <?php
+                $ordemnum[0] = $d01;
+                $ordemnum[1] = $d02;
+                $ordemnum[2] = $d03;                  
+                $ordemnum[3] = $d04;
+                $ordemnum[4] = $d05;
+                sort($ordemnum);
+              ?>
+
+              <?php
                 foreach($dados as $item){
                   echo "<div class='resultnumber tquina'>";
-                      echo "{$item->quid01}";
+                      echo $ordemnum[0];
                   echo "</div>";
                   echo "<div class='resultnumber tquina'>";
-                      echo "{$item->quid02}";
+                      echo $ordemnum[1];
                   echo "</div>";
                   echo "<div class='resultnumber tquina'>";
-                      echo "{$item->quid03}";
+                      echo $ordemnum[2];
                   echo "</div>";
                   echo "<div class='resultnumber tquina'>";
-                      echo "{$item->quid04}";
+                      echo $ordemnum[3];
                   echo "</div>";
                   echo "<div class='resultnumber tquina'>";
-                      echo "{$item->quid05}";
+                      echo $ordemnum[4];
                   echo "</div>";
                 }
 
@@ -434,92 +437,228 @@
   <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
-<img src="../../img/ads01.png" width="210"> 
-<img src="../../img/ads02.png" width="210">
-<img src="../../img/ads03.png" width="210">
-<img src="../../img/ads01.png" width="210">               
+               
 </div> <!-- end middle_ads -->
 
 <div class="text_info_quina">
-<h2>Como jogar na Quina</h2>
-<p>Para jogar na Quina compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 80 n&uacute;meros de 01 a 80. Em um &uacute;nico jogo voc&ecirc; pode escolher entre 5 e 15 n&uacute;meros com os respectivos custos de aposta por jogo:</p>
-<div class="fl">
-<ul>
-<li><strong>05 n&uacute;meros:</strong>&nbsp;R$ 2,00</li>
-<li><strong>06 n&uacute;meros:</strong>&nbsp;R$ 12,00</li>
-<li><strong>07 n&uacute;meros:</strong>&nbsp;R$ 42,00</li>
-<li><strong>08 n&uacute;meros:</strong>&nbsp;R$ 112,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>09 n&uacute;meros:</strong>&nbsp;R$ 252,00</li>
-<li><strong>10 n&uacute;meros:</strong>&nbsp;R$ 504,00</li>
-<li><strong>11 n&uacute;meros:</strong>&nbsp;R$ 924,00</li>
-<li><strong>12 n&uacute;meros:</strong>&nbsp;R$ 1.584,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>13 n&uacute;meros:</strong>&nbsp;R$ 2.574,00</li>
-<li><strong>14 n&uacute;meros:</strong>&nbsp;R$ 4.004,00</li>
-<li><strong>15 n&uacute;meros:</strong>&nbsp;R$ 6.006,00</li>
-</ul>
-</div>
+  <h2>Como jogar na Quina</h2>
+  <p>Concorra a prêmios grandiosos com a Quina: basta marcar de 5 a 15 números dentre os 80 disponíveis no volante e torcer. Caso prefira o sistema pode escolher os números para você através da Surpresinha.</p>
+  <p>Ganham prêmios os acertadores de 2, 3, 4 ou 5 números. Você ainda pode concorrer com a mesma aposta por 3, 6, 12, 18 ou 24 concursos consecutivos com a Teimosinha.</p>
+<br>
+<h2>Tabela de Preços</h2>
+<div class="bordasimples">
+  <table class="bordasimples">
+    <tr>
+      <td>05 números</td>
+      <td>R$ 2,00</td>
+    </tr>
+    <tr>
+      <td>06 números</td>
+      <td>R$ 12,00</td>
+    </tr>
+    <tr>
+      <td>07 números</td>
+      <td>R$ 42,00</td>
+    </tr>
+    <tr>
+      <td>08 números</td>
+      <td>R$ 112,00</td>
+    </tr>
+    <tr>
+      <td>09 númerose</td>
+      <td>R$ 252,00</td>
+    </tr>
+    <tr>
+      <td>10 números</td>
+      <td>R$ 504,00</td>
+    </tr>
+    <tr>
+      <td>11 números</td>
+      <td>R$ 924,00</td>
+    </tr>
+    <tr>
+      <td>12 números</td>
+      <td>R$ 1.584,00</td>
+    </tr>
+    <tr>
+      <td>13 números</td>
+      <td>R$ 2.574,00</td>
+    </tr>
+    <tr>
+      <td>14 números</td>
+      <td>R$ 4.004,00</td>
+    </tr>
+    <tr>
+      <td>15 números</td>
+      <td>R$ 6.006,00</td>
+    </tr>
+  </table>
+</div> <!-- borda simples -->
+
 <div class="cb">&nbsp;</div>
-<p>As probabilidades de acerto das apostas acima para o pr&ecirc;mio principal s&atilde;o:</p>
+<h2>Probabilidade</h2>
+<p>As probabilidades de acerto das apostas acima para o prêmio principal são:</p>
 <ul>
-<li><strong>5 n&uacute;meros</strong>: 1 em 24.040.016 jogos</li>
-<li><strong>6 n&uacute;meros</strong>: 1 em 4.006.669 jogos</li>
-<li><strong>7 n&uacute;meros</strong>: 1 em 1.144.762 jogos</li>
-<li><strong>8 n&uacute;meros</strong>: 1 em 429.286 jogos</li>
-<li><strong>9 n&uacute;meros</strong>: 1 em 190.794 jogos</li>
-<li><strong>10 n&uacute;meros</strong>: 1 em 95.396 jogos</li>
-<li><strong>11 n&uacute;meros</strong>: 1 em 52.035 jogos</li>
-<li><strong>12 n&uacute;meros</strong>: 1 em 30.354 jogos</li>
-<li><strong>13 n&uacute;meros</strong>: 1 em 18.679 jogos</li>
-<li><strong>14 n&uacute;meros</strong>: 1 em 12.008 jogos</li>
-<li><strong>15 n&uacute;meros</strong>: 1 em 8.005 jogos</li>
+  <li><strong>5 números</strong>: 1 em 24.040.016</li>
+  <li><strong>6 números</strong>: 1 em 4.006.669</li>
+  <li><strong>7 números</strong>: 1 em 1.144.762</li>
+  <li><strong>8 números</strong>: 1 em 429.286</li>
+  <li><strong>9 números</strong>: 1 em 190.794</li>
+  <li><strong>10 números</strong>: 1 em 95.396</li>
+  <li><strong>11 números</strong>: 1 em 52.035</li>
+  <li><strong>12 números</strong>: 1 em 30.354</li>
+  <li><strong>13 números</strong>: 1 em 18.679</li>
+  <li><strong>14 números</strong>: 1 em 12.008</li>
+  <li><strong>15 números</strong>: 1 em 8.005</li>
 </ul>
-<p>Em um &uacute;nico volante de apostas da Quina &eacute; poss&iacute;vel marcar at&eacute; 2 jogos. H&aacute; a op&ccedil;&atilde;o de deixar que o sistema de apostas da Caixa escolha os n&uacute;meros da Quina por voc&ecirc;. Deixe o volante da Quina em branco e marque entre 1 e 8 jogos no campo SURPRESINHA. H&aacute; tamb&eacute;m a op&ccedil;&atilde;o TEIMOSINHA, onde voc&ecirc; pode repetir o mesmo jogo nos pr&oacute;ximos concursos da Quina. Basta marcar 3, 6, 12, 18 ou 24 concursos.</p>
-<p>Se desejar apostar em grupo na Quina voc&ecirc; ainda pode fazer o Bol&atilde;o CAIXA para dividir em cotas por apostador. Assim, cada apostador recebe um bilhete de apostas com todos os jogos da Quina realizados para confer&ecirc;ncia e se ganharem cada um pode retirar a sua parte no pr&ecirc;mio individualmente. A Caixa ir&aacute; garantir que cada apostador receba a parte do pr&ecirc;mio da Quina a que tem direito.<br />O valor m&iacute;nimo do Bol&atilde;o da Quina &eacute; de R$ 10,00, ou seja, 5 jogos de 5 n&uacute;meros, e cada cota n&atilde;o pode ser inferior a R$ 3,00 com o m&iacute;nimo de 2 e m&aacute;ximo de 50 cotas. No volante de apostas da Quina h&aacute; um campo onde se marca o n&uacute;mero de cotas.<br />Voc&ecirc; tamb&eacute;m pode comprar cotas de bol&otilde;es da Quina organizados pelas pr&oacute;prias Casas Lot&eacute;ricas onde poder&aacute; ser cobrada Tarifa de Servi&ccedil;o adicional de at&eacute; 35% do valor de cada cota.</p>
-<h2>Sobre a premia&ccedil;&atilde;o da Quina</h2>
-<p>O pr&ecirc;mio principal para quem acertar os 5 n&uacute;meros da Quina sozinho &eacute; estimado em R$ 600.000,00 se n&atilde;o houver nenhum ac&uacute;mulo de pr&ecirc;mio de concursos anteriores. Se acumular o valor destinado ao pr&ecirc;mio principal da Quina, &eacute; somado ao valor do pr&ecirc;mio principal do concurso seguinte e sucessivamente at&eacute; que haja um ganhador. Quando h&aacute; mais de um ganhador na Quina no mesmo concurso o pr&ecirc;mio &eacute; dividido. A divis&atilde;o ocorre em todas as faixas de premia&ccedil;&atilde;o.</p>
-<p>Do valor arrecadado para cada concurso da Quina somente 43,35% s&atilde;o destinados ao pr&ecirc;mio bruto. Deste percentual ainda s&atilde;o deduzidos imposto de renda. Do pr&ecirc;mio l&iacute;quido 35% s&atilde;o destinados ao pr&ecirc;mio principal de 5 acertos (Quina), 19% para o pr&ecirc;mio de 4 acertos (Quadra), 20% para o pr&ecirc;mio de 3 acertos (Terno) e 11% para o pr&ecirc;mio de 2 acertos (Duque). Os outros 15% do valor restante s&atilde;o acumulados ao pr&ecirc;mio principal do concurso especial da Quina de S&atilde;o Jo&atilde;o.</p>
-<p>Os 56,65% do valor arrecadado que n&atilde;o fazem parte da premia&ccedil;&atilde;o s&atilde;o distribu&iacute;dos da seguinte maneira:</p>
+
+<h2>Premiação</h2>
+<p>Do valor arrecadado para cada concurso da Quina somente 43,35% são destinados ao prêmio bruto. Deste percentual ainda são deduzidos imposto de renda. Do prêmio líquido <strong>35%</strong> são destinados ao prêmio principal de 5 acertos (Quina), <strong>19%</strong> para o prêmio de 4 acertos (Quadra), <strong>20%</strong> para o prêmio de 3 acertos (Terno) e <strong>11%</strong> para o prêmio de 2 acertos (Duque). Os outros <strong>15%</strong> do valor restante são acumulados ao prêmio principal do concurso especial da Quina de São João</p>
+
+<br>
+
+<p><strong>Os prêmios prescrevem 90 dias após a data do sorteio. Após esse prazo, os valores são repassados ao Tesouro Nacional para aplicação no FIES - Fundo de Financiamento Estudantil.</strong></p>
+<p><strong>Os 56,65% do valor arrecadado que não fazem parte da premiação são distribuídos da seguinte maneira:</strong></p>
+<p><br></p>
 <ul>
 <li><strong>2,92%</strong>: Fundo Nacional da Cultura - FNC</li>
-<li><strong>1,73%</strong>: Comit&ecirc; Ol&iacute;mpico Brasileiro - COB</li>
-<li><strong>0,96%</strong>: Comit&ecirc; Paral&iacute;mpico Brasileiro - CPB</li>
-<li><strong>2,46%</strong>: Minist&eacute;rio do Esporte (Minist&eacute;rio da Cidadania)</li>
-<li><strong>1%</strong>: Secretarias de esporte, ou &oacute;rg&atilde;os equivalentes, dos Estados e do Distrito Federal</li>
-<li><strong>0,50%</strong>: Comit&ecirc; Brasileiro de Clubes - CBC</li>
+<li><strong>1,73%</strong>: Comitê Olímpico Brasileiro - COB</li>
+<li><strong>0,96%</strong>: Comitê Paralímpico Brasileiro - CPB</li>
+<li><strong>2,46%</strong>: Ministério do Esporte (Ministério da Cidadania)</li>
+<li><strong>1%</strong>: Secretarias de esporte, ou órgãos equivalentes, dos Estados e do Distrito Federal</li>
+<li><strong>0,50%</strong>: Comitê Brasileiro de Clubes - CBC</li>
 <li><strong>0,04%</strong>: Fenaclubes</li>
-<li><strong>0,22%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Escolar - CBDE</li>
-<li><strong>0,11%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Universit&aacute;rio - CBDU</li>
-<li><strong>9,26%</strong>: Fundo Nacional de Seguran&ccedil;a P&uacute;blica - FNSP</li>
-<li><strong>1%</strong>: Fundo Penitenci&aacute;rio Nacional - FUNPEN</li>
+<li><strong>0,22%</strong>: Confederação Brasileira do Desporto Escolar - CBDE</li>
+<li><strong>0,11%</strong>: Confederação Brasileira do Desporto Universitário - CBDU</li>
+<li><strong>9,26%</strong>: Fundo Nacional de Segurança Pública - FNSP</li>
+<li><strong>1%</strong>: Fundo Penitenciário Nacional - FUNPEN</li>
 <li><strong>17,32%</strong>: Seguridade Social</li>
-<li><strong>19,13%</strong>: Despesas de Custeio e Manuten&ccedil;&atilde;o de Servi&ccedil;os<br />Deste percentual 9,57% s&atilde;o de Despesas Operacionais, 8,61% da Comiss&atilde;o dos Lot&eacute;ricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
+<li><strong>19,13%</strong>: Despesas de Custeio e Manutenção de Serviços<br />Deste percentual 9,57% são de Despesas Operacionais, 8,61% da Comissão dos Lotéricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
 </ul>
-<h2>Quina de S&atilde;o Jo&atilde;o</h2>
-<p>A Quina de S&atilde;o Jo&atilde;o &eacute; um concurso especial da Quina realizado no dia 24 de junho de cada ano. O primeiro sorteio da Quina de S&atilde;o Jo&atilde;o ocorreu no dia 24 de junho de 2011 com o concurso de n&uacute;mero 2627.</p>
-<p>As regras para jogar neste concurso especial s&atilde;o iguais aos outros concursos da Quina. Mas, o percentual da arrecada&ccedil;&atilde;o destinado ao pr&ecirc;mio principal &eacute; maior e se n&atilde;o houver nenhum ganhador com 5 acertos o pr&ecirc;mio principal &eacute; somado e pago aos ganhadores com 4 acertos, ou seja, o pr&ecirc;mio do concurso da Quina de S&atilde;o Jo&atilde;o n&atilde;o acumula.</p>
-<p>O pr&ecirc;mio &eacute; composto pelo ac&uacute;mulo de parte do valor arrecadado nos concursos da Quina realizados durante o ano e somado ao valor arrecadado para o concurso especial. Na semana antecedente &agrave; data do sorteio da Quina de S&atilde;o Jo&atilde;o n&atilde;o s&atilde;o realizados os sorteios normais da Quina.</p>
+
+
+<h2>Quina de São João</h2>
+<p>A Quina de São João é um concurso especial da Quina realizado no dia 24 de junho de cada ano. O primeiro sorteio da Quina de São João ocorreu no dia 24 de junho de 2011 com o concurso de número 2627.</p>
+
+<p>As regras para jogar neste concurso especial são iguais aos outros concursos da Quina. Mas, o percentual da arrecadação destinado ao prêmio principal é maior e se não houver nenhum ganhador com 5 acertos o prêmio principal é somado e pago aos ganhadores com 4 acertos, ou seja, o prêmio do concurso da Quina de São João não acumula.</p>
+
+<p>O prêmio é composto pelo acúmulo de parte do valor arrecadado nos concursos da Quina realizados durante o ano e somado ao valor arrecadado para o concurso especial. Na semana antecedente à data do sorteio da Quina de São João não são realizados os sorteios normais da Quina.
+</p>
+
 <h2>Aos ganhadores da Quina</h2>
-<p>Caso voc&ecirc; seja um dos ganhadores da Quina saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado da Quina na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000,00 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
-<p>O bilhete da Quina &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio da Quina apresentando seu CPF.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio da Quina. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-</div><!-- end text_info_quina -->
+<p>aso você seja um dos ganhadores da Quina saiba que pode receber seu prêmio em qualquer casa Lotérica ou agência da Caixa se o valor do prêmio for igual ou inferior a R$ 1.903,98. Para prêmios acima deste valor somente nas agências da Caixa Econômica Federal. Após apresentar o bilhete premiado da Quina na rede bancária da Caixa, se o valor do prêmio for superior a R$ 10.000,00 (dez mil reais), é necessário aguardar 2(dois) dias para que o prêmio seja pago.</p>
+<p>O bilhete da Quina é a única forma de comprovar sua aposta e receber o prêmio caso seus números sejam sorteados neste concurso, portanto, guarde-o em um local seguro e não se esqueça de colocar seu nome e o número de seu CPF no verso do bilhete para evitar o saque do prêmio por outra pessoa. Somente você poderá retirar o prêmio da Quina apresentando seu CPF.</p>
+
+</div><!-- end text_info_megasena -->
 </div> <!-- end main -->
 
 </div> <!-- end containermain -->
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
+          
 
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div><!-- col-lg-2 col-md-6 footer-links -->
 
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+          </div><!-- col-lg-3 col-md-6 footer-contact -->
+      </div> <!-- row -->
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+
+  </div><!-- #footer-top -->
+</footer><!-- #footer -->    
 
 </body>
 </html>

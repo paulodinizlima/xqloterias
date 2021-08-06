@@ -191,6 +191,7 @@
         overflow: hidden;
         border-radius: 10px;
     }
+
     
     .main {
         width: 80%;
@@ -203,6 +204,69 @@
         box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
         border-radius: 10px;
     }
+
+    .bordasimples {
+    font-size: 16px;
+    line-height: 30px;
+    border-collapse: collapse;
+}
+
+.bordasimples tr td {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.bordasimples2 {
+    font-size: 16px;
+    line-height: 22px;
+    border-collapse: collapse;
+    background-color: #ccc;
+}
+
+.bordasimples2 tr th {
+    font-size: 18px;
+    border: 2px solid #ddd;
+    padding: 3px;
+    background-color: #aaa;
+    color: #fff;
+}
+
+.bordasimples2 tr td {
+    border: 2px solid #ddd;
+    padding: 3px;
+}
+
+.bordasimples3 {
+    font-size: 18px;
+    line-height: 18px;
+    border-collapse: collapse;
+    background-color: #ddd;
+}
+
+.bordasimples3 tr th {
+    font-size: 18px;
+    border: 2px solid #ddd;
+    padding: 3px;
+    background-color: #aaa;
+    color: #fff;
+}
+
+.bordasimples3 tr td {
+    border: 1px solid #fff;
+    padding: 3px;
+    text-align: center;
+}
+
+.bordanoticias {
+    font-size: 14px;
+    line-height: 24px;
+    border-collapse: collapse;
+}
+
+.bordanoticias tr td {
+    border-bottom: 1px solid #ccc;
+    padding: 4px;
+}
     
     .tloterias {
         height: auto;
@@ -216,9 +280,19 @@
         border-bottom: 2px solid #73b17d;
         border-radius: 10px 0 10px 0;
     }
+    .fmegasena {
+        color: rgb(20, 167, 51);
+        border-bottom: 2px solid #73b17d;
+        border-radius: 10px 0 10px 0;
+    }
     
     .tlotofacil {
         background: rgb(133, 20, 167);
+        border-bottom: 2px solid #9777a1;
+        border-radius: 10px 0 10px 0;
+    }
+    .flotofacil {
+        color: rgb(133, 20, 167);
         border-bottom: 2px solid #9777a1;
         border-radius: 10px 0 10px 0;
     }
@@ -228,15 +302,33 @@
         border-bottom: 2px solid #7b77a1;
         border-radius: 10px 0 10px 0;
     }
+
+    .fquina {
+        color: rgb(54, 20, 167);
+        border-bottom: 2px solid #7b77a1;
+        border-radius: 10px 0 10px 0;
+    }
     
     .tlotomania {
         background: rgb(190, 107, 12);
         border-bottom: 2px solid #a18a77;
         border-radius: 10px 0 10px 0;
     }
+
+    .flotomania {
+        color: rgb(190, 107, 12);
+        border-bottom: 2px solid #a18a77;
+        border-radius: 10px 0 10px 0;
+    }
     
     .ttimemania {
         background: rgb(167, 165, 20);
+        border-bottom: 2px solid #9da177;
+        border-radius: 10px 0 10px 0;
+    }
+
+    .ftimemania {
+        color: rgb(167, 165, 20);
         border-bottom: 2px solid #9da177;
         border-radius: 10px 0 10px 0;
     }
@@ -247,8 +339,20 @@
         border-radius: 10px 0 10px 0;
     }
     
+    .fduplasena {
+        color: rgb(167, 49, 20);
+        border-bottom: 2px solid #a17777;
+        border-radius: 10px 0 10px 0;
+    }
+
     .tdiadesorte {
         background: rgb(145, 125, 17);
+        border-bottom: 2px solid #9ea177;
+        border-radius: 10px 0 10px 0;
+    }
+
+    .fdiadesorte {
+        color: rgb(145, 125, 17);
         border-bottom: 2px solid #9ea177;
         border-radius: 10px 0 10px 0;
     }
@@ -258,9 +362,21 @@
         border-bottom: 2px solid #94a177;
         border-radius: 10px 0 10px 0;
     }
+
+    .fsupersete {
+        color: rgb(152, 167, 20);
+        border-bottom: 2px solid #94a177;
+        border-radius: 10px 0 10px 0;
+    }
     
     .tfederal {
         background: rgb(16, 42, 128);
+        border-bottom: 2px solid #777da1;
+        border-radius: 10px 0 10px 0;
+    }
+
+    .ffederal {
+        color: rgb(16, 42, 128);
         border-bottom: 2px solid #777da1;
         border-radius: 10px 0 10px 0;
     }
@@ -357,6 +473,11 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         font-size: small;
     }
+    .left_ads {
+        height: 700px;
+        width: 100%;
+        
+    }
     
     .left_ads img {
         padding-top: 10px;
@@ -365,17 +486,42 @@
     
     .main-right {
         position: relative;
-        width: 78%;
-        /*border: 1px solid grey;*/
+        width: 75%;
+        margin: 5px;
+        margin-top: 40px;
         float: right;
         height: 100%;
         padding: 5px;
     }
 
+    .main-loterias{
+        position: relative;
+        float: left;
+        padding: 20px 20px;
+        margin: 10px;
+    }
+    .main-loterias h2{
+        font-weight: 700;
+    }
+    .main-data-sorteio{
+        position: relative;
+        float: left;        
+        margin: 10px;
+        padding: 20px 20px;
+    }
+    .main-premios{
+        position: relative;
+        float: left;        
+        margin: 10px;
+        padding: 20px 20px;
+    }
+    .main-premios h2{
+        font-weight: 700;
+    }
+
     .right {
         position: relative;
-        width: 80%;
-        /*border: 1px solid grey;*/
+        width: 80%;        
         float: right;
         height: 100%;
         padding: 5px;
@@ -1067,25 +1213,170 @@
     }
     /* #####--- END CARD NUMBERS ---##### */
     
-    .containerfooter {
-        margin-top: 10px;
-        padding: 10px 10px;
-        width: 100%;
-        /*border: 3px solid red;*/
-        position: relative;
-        color: black;
-        z-index: 3;
-        height: 200px;
-    }
-    
-    .footer {
-        width: 70%;
-        margin: 0 auto;
-        border: 1px solid #ccc;
-        height: 100%;
-        position: relative;
-        box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
-    }
+
+    /*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+#footer {
+  background: #036358;
+  padding: 0 0 30px 0;
+  color: #eee;
+  font-size: 14px;
+}
+
+#footer .footer-top {
+  background: #536358;
+  padding: 60px 0 30px 0;
+  margin-top: 25px;
+}
+
+#footer .footer-top .footer-info {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-info h3 {
+  font-size: 34px;
+  margin: 0 0 20px 0;
+  padding: 2px 0 2px 10px;
+  line-height: 1;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-left: 4px solid #FB6400;
+}
+
+#footer .footer-top .footer-info p {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 0;
+  font-family: "Montserrat", sans-serif;
+  color: #eee;
+}
+
+#footer .footer-top .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #333;
+  color: #eee;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#footer .footer-top .social-links a:hover {
+  background: #FB6400;
+  color: #fff;
+}
+
+#footer .footer-top h4 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+#footer .footer-top h4::before,
+#footer .footer-top h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+}
+
+#footer .footer-top h4::before {
+  right: 0;
+  background: #555;
+}
+
+#footer .footer-top h4::after {
+  background: #FB6400;
+  width: 60px;
+}
+
+#footer .footer-top .footer-links {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#footer .footer-top .footer-links ul i {
+  padding-right: 8px;
+  color: #ddd;
+}
+
+#footer .footer-top .footer-links ul li {
+  border-bottom: 1px solid #333;
+  padding: 5px 0;
+}
+
+#footer .footer-top .footer-links ul li:first-child {
+  padding-top: 10px;
+}
+
+#footer .footer-top .footer-links ul a {
+  color: #eee;
+}
+
+#footer .footer-top .footer-links ul a:hover {
+  color: #FB6400;
+}
+
+#footer .footer-top .footer-contact {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-contact p {
+  line-height: 26px;
+}
+
+#footer .footer-top .footer-newsletter {
+  margin-bottom: 30px;
+}
+
+#footer .footer-top .footer-newsletter input[type="email"] {
+  border: 0;
+  padding: 6px 8px;
+  width: 65%;
+}
+
+#footer .footer-top .footer-newsletter input[type="submit"] {
+  background: #FB6400;
+  border: 0;
+  width: 35%;
+  padding: 6px 0;
+  text-align: center;
+  color: #fff;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#footer .footer-top .footer-newsletter input[type="submit"]:hover {
+  background: #13a456;
+}
+
+#footer .copyright {
+  text-align: center;
+  padding-top: 30px;
+}
+
+#footer .credits {
+  text-align: center;
+  font-size: 13px;
+  color: #ddd;
+}
     
     .icone {
         width: 20px;

@@ -80,7 +80,7 @@
       <div class="tloterias tsupersete">
 
       <h4><strong>SUPER SETE</strong></h4>
-        <span class="font14">Confira o resultado, ganhadores e prêmios da Super Sete nos sorteios que 
+        <span class="font14">Confira o resultado, ganhadores e prêmios do Super Sete nos sorteios que 
           são realizados nas segundas-feiras, quartas-feiras e sextas-feiras a partir das 15 horas.</span>
 
       </div> <!-- end tloterias tsupersete -->
@@ -115,6 +115,7 @@
                 if($resultlast->rowCount() > 0){
                   $dadoslast = $resultlast->fetchAll(PDO::FETCH_OBJ);
                 }
+
                 foreach($dadoslast as $itemlast){
                   $conclast = "{$itemlast->spsconc}";
                   $datalast = "{$itemlast->spsdata}";
@@ -124,7 +125,7 @@
                 //define horário para alternar concurso
                 $horafixa = strtotime('14:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
+                $dataatual = date("Y-m-d", strtotime("today"));
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
@@ -132,21 +133,25 @@
                   if("{$item->spsd01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->spsconc}"-1; //mostra o último que foi sorteado
+                      $post1 = $ultimo +1;
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->spsconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->spsconc}"-1;
+                      $post1 = $ultimo +1;
                     }
                   } else { 
                     $ultimo = (int)"{$item->spsconc}";
+                    $post1 = $ultimo +1;
                   }
+                  
                   $sql = "SELECT * FROM tbsupersete WHERE spsconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
                   if($result->rowCount() > 0){
                     $dados = $result->fetchAll(PDO::FETCH_OBJ);
                   }
 
-                  $post1 = $ultimo +1;
                   $sqlpost = "SELECT * FROM tbsupersete WHERE spsconc = $post1";
                   $resultpost = $con->select($sqlpost, $binds);
                   if($resultpost->rowCount() > 0){
@@ -308,29 +313,19 @@
         </div> <!-- end content_left -->
 
         <div class="left_ads">
-          <img src="../../img/ads01.png">
+          
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-
+        
 
       </div> <!-- end left -->
 
       <div class="right">        
       <div class="text_top">
-        <p>A Super Sete foi lançada em 02 de outubro de 2020 pela Caixa Econômica Federal. Com 7 colunas e 10 números de 0 a 9 
-          disponíveis em cada coluna, você pode marcar de 7 a 21 números, com o mínimo de 1 e o máximo de 3 números por coluna. 
-          Ganha se acertar 7, 6, 5, 4 ou 3 números, sendo 1 acerto por coluna. O custo de uma aposta é de R$ 2,50 e a probabilidade
-           de acertar todos os 7 números, um por coluna, é de 1 em 10.000.000.</p>
+        <p>O Super Sete foi lançado em setembro de 2020 e seu primeiro concurso foi realizado em 02 de outubro de 2020. O volante contém 7 colunas com 10 números cada uma. O apostador deve marcar de 01 a 03 números por coluna. São sorteados sete números (um por coluna) e ganha quem acertar 7, 6, 5, 4 ou 3 colunas. O valor da aposta mínima, de 7 números, é de R$ 2,50. Os sorteios são realizados nas segundas, quartas e sextas-feiras, a partir das 15 horas.</p><br>
 
-        <p><strong>No painel de resultados abaixo, você confere hoje o resultado da Super Sete online no último concurso. 
-          Os resultados dos sorteios anteriores você confere nas páginas dos respectivos números dos concursos no menu a 
-          esquerda ou utilizando o campo de busca para concursos mais antigos.</strong></p>      
-      </div>    
+        <p><strong>Abaixo você confere hoje o resultado do Super Sete no último concurso. 
+          Os sorteios anteriores você confere nas páginas dos respectivos concursos no menu a esquerda.</strong></p>      
+      </div>   
           <div class="top_right_supersete">
           <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
               <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
@@ -467,10 +462,10 @@
             <div class="resultnumbers">
 
               <?php
-                foreach($dados as $item){                  
+                foreach($dados as $item){  
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C1</div>";
-                    echo "{$item->spsd01}";
+                    echo $d01;
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C2</div>";
@@ -557,96 +552,244 @@
   <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
-<img src="../../img/ads01.png" width="210"> 
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">               
+             
 </div> <!-- end middle_ads -->
 
 <div class="text_info_supersete">
-<h2>Como jogar na Super Sete</h2>
-<p>Para jogar na Super Sete compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 7 colunas com n&uacute;meros de 0 a 9 em cada coluna. Em um &uacute;nico jogo voc&ecirc; pode escolher entre 7 e 21 n&uacute;meros, com o m&iacute;nimo de 1 e o m&aacute;ximo de 3 n&uacute;meros por coluna, com os respectivos custos de aposta por jogo:</p>
-<div class="fl">
-<ul>
-<li><strong>07 n&uacute;meros:</strong>&nbsp;R$ 2,50</li>
-<li><strong>08 n&uacute;meros:</strong>&nbsp;R$ 5,00</li>
-<li><strong>09 n&uacute;meros:</strong>&nbsp;R$ 10,00</li>
-<li><strong>10 n&uacute;meros:</strong>&nbsp;R$ 20,00</li>
-<li><strong>11 n&uacute;meros:</strong>&nbsp;R$ 40,00</li>
-<li><strong>12 n&uacute;meros:</strong>&nbsp;R$ 80,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>13 n&uacute;meros:</strong>&nbsp;R$ 160,00</li>
-<li><strong>14 n&uacute;meros:</strong>&nbsp;R$ 320,00</li>
-<li><strong>15 n&uacute;meros:</strong>&nbsp;R$ 480,00</li>
-<li><strong>16 n&uacute;meros:</strong>&nbsp;R$ 720,00</li>
-<li><strong>17 n&uacute;meros:</strong>&nbsp;R$ 1.080,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>18 n&uacute;meros:</strong>&nbsp;R$ 1.620,00</li>
-<li><strong>19 n&uacute;meros:</strong>&nbsp;R$ 2.430,00</li>
-<li><strong>20 n&uacute;meros:</strong>&nbsp;R$ 3.645,00</li>
-<li><strong>21 n&uacute;meros:</strong>&nbsp;R$ 5.467,50</li>
-</ul>
-</div>
+  <h2>Como jogar no Super Sete</h2>
+  <p>O Super Sete é a loteria de prognósticos numéricos cujo volante contém 7 colunas com 10 números (de 0 a 9) em cada uma, de forma que o apostador deverá escolher um número por coluna. Caso opte por fazer apostas múltiplas, poderá escolher até mais 14 números (totalizando 21 números no máximo), sendo no mínimo 1 e no máximo 2 números por coluna com 8 a 14 números marcados e no mínimo 2 e no máximo 3 números por coluna com 15 a 21 números marcados. São sorteados sete números (um por coluna). Você pode deixar, ainda, que o sistema escolha os números para você (Surpresinha) e/ou continuar com o seu jogo por 3, 6,  9 ou 12 concursos consecutivos (Teimosinha).</p>
+
+<h2>Tabela de Preços</h2>
+<div class="bordasimples">
+  <table class="bordasimples">
+    <tr>
+      <td>7 números</td>
+      <td>R$ 2,50</td>
+    </tr>
+    <tr>
+      <td>8 números</td>
+      <td>R$ 5,00</td>
+    </tr>
+    <tr>
+      <td>9 números</td>
+      <td>R$ 10,00</td>
+    </tr>
+    <tr>
+      <td>10 números</td>
+      <td>R$ 20,00</td>
+    </tr>
+    <tr>
+      <td>11 números</td>
+      <td>R$ 40,00</td>
+    </tr>
+    <tr>
+      <td>12 números</td>
+      <td>R$ 80,00</td>
+    </tr>
+    <tr>
+      <td>13 números</td>
+      <td>R$ 160,00</td>
+    </tr>
+    <tr>
+      <td>14 números</td>
+      <td>R$ 320,00</td>
+    </tr>
+    <tr>
+      <td>15 números</td>
+      <td>R$ 480,00</td>
+    </tr>
+    <tr>
+      <td>16 números</td>
+      <td>R$ 720,00</td>
+    </tr>
+    <tr>
+      <td>17 números</td>
+      <td>R$ 1.080,00</td>
+    </tr>
+    <tr>
+      <td>18 números</td>
+      <td>R$ 1.620,00</td>
+    </tr>
+    <tr>
+      <td>19 números</td>
+      <td>R$ 2.430,00</td>
+    </tr>
+    <tr>
+      <td>20 números</td>
+      <td>R$ 3.645,00</td>
+    </tr>
+    <tr>
+      <td>21 números</td>
+      <td>R$ 5.467,50</td>
+    </tr>
+  </table>
+</div> <!-- borda simples -->
+
 <div class="cb">&nbsp;</div>
-<p>As probabilidades de acerto das apostas acima para o pr&ecirc;mio principal s&atilde;o:</p>
+<h2>Probabilidade</h2>
 <ul>
-<li><strong>7 n&uacute;meros</strong>: 1 em 10.000.000 jogos</li>
-<li><strong>8 n&uacute;meros</strong>: 1 em 5.000.000 jogos</li>
-<li><strong>9 n&uacute;meros</strong>: 1 em 2.500.000 jogos</li>
-<li><strong>10 n&uacute;meros</strong>: 1 em 1.250.000 jogos</li>
-<li><strong>11 n&uacute;meros</strong>: 1 em 625.000 jogos</li>
-<li><strong>12 n&uacute;meros</strong>: 1 em 312.500 jogos</li>
-<li><strong>13 n&uacute;meros</strong>: 1 em 156.250 jogos</li>
-<li><strong>14 n&uacute;meros</strong>: 1 em 78.125 jogos</li>
-<li><strong>15 n&uacute;meros</strong>: 1 em 52.083 jogos</li>
-<li><strong>16 n&uacute;meros</strong>: 1 em 34.722 jogos</li>
-<li><strong>17 n&uacute;meros</strong>: 1 em 23.148 jogos</li>
-<li><strong>18 n&uacute;meros</strong>: 1 em 15.432 jogos</li>
-<li><strong>19 n&uacute;meros</strong>: 1 em 10.288 jogos</li>
-<li><strong>20 n&uacute;meros</strong>: 1 em 6.859 jogos</li>
-<li><strong>21 n&uacute;meros</strong>: 1 em 4.572 jogos</li>
+<li><strong>07 números</strong>: 1 em 10.000.000</li>
+<li><strong>08 números</strong>: 1 em 5.000.000</li>
+<li><strong>09 números</strong>: 1 em 2.500.000</li>
+<li><strong>10 números</strong>: 1 em 1.250.000</li>
+<li><strong>11 números</strong>: 1 em 625.000</li>
+<li><strong>12 números</strong>: 1 em 312.500</li>
+<li><strong>13 números</strong>: 1 em 156.250</li>
+<li><strong>14 números</strong>: 1 em 78.125</li>
+<li><strong>15 números</strong>: 1 em 52.083</li>
+<li><strong>16 números</strong>: 1 em 34.722</li>
+<li><strong>17 números</strong>: 1 em 23.148</li>
+<li><strong>18 números</strong>: 1 em 15.432</li>
+<li><strong>19 números</strong>: 1 em 10.288</li>
+<li><strong>20 números</strong>: 1 em 6.859</li>
+<li><strong>21 números</strong>: 1 em 4.572</li>
 </ul>
-<p>Em um &uacute;nico volante de apostas da Super Sete &eacute; poss&iacute;vel marcar 1 jogo apenas. H&aacute; a op&ccedil;&atilde;o de deixar que o sistema de apostas da Caixa escolha os n&uacute;meros da Super Sete por voc&ecirc;. Deixe o volante da Super Sete em branco e marque entre 1 e 9 jogos no campo SURPRESINHA. H&aacute; tamb&eacute;m a op&ccedil;&atilde;o TEIMOSINHA, onde voc&ecirc; pode repetir o mesmo jogo nos pr&oacute;ximos concursos da Super Sete. Basta marcar 3, 6, 9 ou 12 concursos.</p>
-<p>Se desejar apostar em grupo na Super Sete voc&ecirc; ainda pode fazer o Bol&atilde;o CAIXA para dividir em cotas por apostador. Assim, cada apostador recebe um bilhete de apostas com todos os jogos da Super Sete realizados para confer&ecirc;ncia e se ganharem cada um pode retirar a sua parte no pr&ecirc;mio individualmente. A Caixa ir&aacute; garantir que cada apostador receba a parte do pr&ecirc;mio da Super Sete a que tem direito.<br />O valor m&iacute;nimo do Bol&atilde;o da Super Sete &eacute; de R$ 10,00, ou seja, 4 jogos de 7 n&uacute;meros, e cada cota n&atilde;o pode ser inferior a R$ 5,00 com o m&iacute;nimo de 2 e m&aacute;ximo de 100 cotas. No volante de apostas da Super Sete h&aacute; um campo onde se marca o n&uacute;mero de cotas.<br />Voc&ecirc; tamb&eacute;m pode comprar cotas de bol&otilde;es da Super Sete organizados pelas pr&oacute;prias Casas Lot&eacute;ricas onde poder&aacute; ser cobrada Tarifa de Servi&ccedil;o adicional de at&eacute; 35% do valor de cada cota.</p>
-<h2>Sobre a premia&ccedil;&atilde;o da Super Sete</h2>
-<p>O pr&ecirc;mio principal para quem acertar os 7 n&uacute;meros sozinho &eacute; estimado em R$ 300.000,00 se n&atilde;o houver nenhum ac&uacute;mulo de pr&ecirc;mio de concursos anteriores. Se acumular o valor destinado ao pr&ecirc;mio principal &eacute; somado ao valor do pr&ecirc;mio principal do concurso seguinte e sucessivamente at&eacute; que haja um ganhador. Quando h&aacute; mais de um ganhador no mesmo concurso o pr&ecirc;mio &eacute; dividido. A divis&atilde;o de pr&ecirc;mio s&oacute; ocorre para as faixas de 7, 6, 5 e 4 acertos. Os valores dos pr&ecirc;mios para quem acertar 3 &eacute; fixo e cada ganhador ganha R$ 5,00.</p>
-<p>Do valor arrecadado para cada concurso da Super Sete somente 43,35% s&atilde;o destinados ao pr&ecirc;mio bruto. Deste percentual ainda s&atilde;o deduzidos imposto de renda. Do pr&ecirc;mio l&iacute;quido &eacute; deduzido o valor total do pr&ecirc;mio fixo e do valor restante 55% s&atilde;o destinados ao pr&ecirc;mio principal de 7 acertos e 15% para os pr&ecirc;mios de 6, 5 e 4 acertos.</p>
-<p>Os 56,65% do valor arrecadado que n&atilde;o fazem parte da premia&ccedil;&atilde;o s&atilde;o distribu&iacute;dos da seguinte maneira:</p>
+
+<h2>Premiação</h2>
+<p>O prêmio bruto corresponde a <strong>43,35%</strong> da arrecadação. Dessa porcentagem, será deduzido o pagamento dos prêmios com valores fixos:</p>
+<p><strong>- R$ 5,00 para as apostas com 3 prognósticos certos entre os 7 sorteados;</strong></p>
+<br>
+
+<p>Após a apuração dos ganhadores dos prêmios com valor fixo, o valor restante do total destinado à premiação será distribuído para as demais faixas de prêmios nos seguintes percentuais:</p>
+<p>- <strong>55%</strong> entre os acertadores de 7 colunas com prognósticos certos;</p>
+<p>- <strong>15%</strong> entre os acertadores de 6 colunas com prognósticos certos entre os 7 sorteados;</p>
+<p>- <strong>15%</strong> entre os acertadores de 5 colunas com prognósticos certos entre os 7 sorteados;</p>
+<p>- <strong>15%</strong> entre os acertadores de 4 colunas com prognósticos certos entre os 7 sorteados.</p>
+
+<br>
+<p><strong>Os prêmios prescrevem 90 dias após a data do sorteio. Após esse prazo, os valores são repassados ao Tesouro Nacional para aplicação no FIES - Fundo de Financiamento Estudantil.</strong></p>
+<p><strong>Os 56,65% do valor arrecadado que não fazem parte da premiação são distribuídos da seguinte maneira:</strong></p>
+<p><br></p>
 <ul>
-<li><strong>17,32%</strong>: Seguridade Social</li>
 <li><strong>2,92%</strong>: Fundo Nacional da Cultura - FNC</li>
-<li><strong>1%</strong>: Fundo Penitenci&aacute;rio Nacional - FUNPEN</li>
-<li><strong>9,26%</strong>: Fundo Nacional de Seguran&ccedil;a P&uacute;blica - FNSP</li>
-<li><strong>2,46%</strong>: Minist&eacute;rio do Esporte (Minist&eacute;rio da Cidadania)</li>
+<li><strong>1,73%</strong>: Comitê Olímpico Brasileiro - COB</li>
+<li><strong>0,96%</strong>: Comitê Paralímpico Brasileiro - CPB</li>
+<li><strong>2,46%</strong>: Ministério do Esporte (Ministério da Cidadania)</li>
+<li><strong>1%</strong>: Secretarias de esporte, ou órgãos equivalentes, dos Estados e do Distrito Federal</li>
+<li><strong>0,50%</strong>: Comitê Brasileiro de Clubes - CBC</li>
 <li><strong>0,04%</strong>: Fenaclubes</li>
-<li><strong>1%</strong>: Secretarias de esporte, ou &oacute;rg&atilde;os equivalentes, dos Estados e do Distrito Federal</li>
-<li><strong>0,50%</strong>: Comit&ecirc; Brasileiro de Clubes - CBC</li>
-<li><strong>0,22%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Escolar - CBDE</li>
-<li><strong>0,11%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Universit&aacute;rio - CBDU</li>
-<li><strong>1,73%</strong>: Comit&ecirc; Ol&iacute;mpico Brasileiro - COB</li>
-<li><strong>0,96%</strong>: Comit&ecirc; Paral&iacute;mpico Brasileiro - CPB</li>
-<li><strong>19,13%</strong>: Despesas de Custeio e Manuten&ccedil;&atilde;o de Servi&ccedil;os<br />Deste percentual 9,57% s&atilde;o de Despesas Operacionais, 8,61% da Comiss&atilde;o dos Lot&eacute;ricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
+<li><strong>0,22%</strong>: Confederação Brasileira do Desporto Escolar - CBDE</li>
+<li><strong>0,11%</strong>: Confederação Brasileira do Desporto Universitário - CBDU</li>
+<li><strong>9,26%</strong>: Fundo Nacional de Segurança Pública - FNSP</li>
+<li><strong>1%</strong>: Fundo Penitenciário Nacional - FUNPEN</li>
+<li><strong>17,32%</strong>: Seguridade Social</li>
+<li><strong>19,13%</strong>: Despesas de Custeio e Manutenção de Serviços<br />Deste percentual 9,57% são de Despesas Operacionais, 8,61% da Comissão dos Lotéricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
 </ul>
-<h2>Aos ganhadores da Super Sete</h2>
-<p>Caso voc&ecirc; seja um dos ganhadores da Super Sete saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000.000 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
-<p>O bilhete da Super Sete &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio apresentando seu CPF.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
+<h2>Aos ganhadores do Super Sete</h2>
+<p>Caso você seja um dos ganhadores do Super Sete saiba que pode receber seu prêmio em qualquer casa Lotérica ou agência da Caixa se o valor do prêmio for igual ou inferior a R$ 1.903,98. Para prêmios acima deste valor somente nas agências da Caixa Econômica Federal. Após apresentar o bilhete premiado na rede bancária da Caixa, se o valor do prêmio for superior a R$ 10.000.000 (dez mil reais), é necessário aguardar 2(dois) dias para que o prêmio seja pago.</p>
+<p>O bilhete do Super Sete é a única forma de comprovar sua aposta e receber o prêmio caso seus números sejam sorteados neste concurso, portanto, guarde-o em um local seguro e não se esqueça de colocar seu nome e o número de seu CPF no verso do bilhete para evitar o saque do prêmio por outra pessoa. Somente você poderá retirar o prêmio apresentando seu CPF.</p>
+
+
 </div><!-- end text_info_megasena -->
 </div> <!-- end main -->
 
 </div> <!-- end containermain -->
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
+          
 
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div><!-- col-lg-2 col-md-6 footer-links -->
 
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+          </div><!-- col-lg-3 col-md-6 footer-contact -->
+      </div> <!-- row -->
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+
+  </div><!-- #footer-top -->
+</footer><!-- #footer -->    
 
 </body>
 </html>

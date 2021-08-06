@@ -124,7 +124,7 @@
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
+                $dataatual = date("Y-m-d", strtotime("today"));
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
@@ -132,13 +132,17 @@
                   if("{$item->tmmd01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->tmmconc}"-1; //mostra o último que foi sorteado
+                      $post1 = $ultimo +1;
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->tmmconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->tmmconc}"-1;
+                      $post1 = $ultimo +1;
                     }
                   } else { 
                     $ultimo = (int)"{$item->tmmconc}";
+                    $post1 = $ultimo +1;
                   }
                   $sql = "SELECT * FROM tbtimemania WHERE tmmconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
@@ -146,12 +150,12 @@
                     $dados = $result->fetchAll(PDO::FETCH_OBJ);
                   }
 
-                  $post1 = $ultimo +1;
                   $sqlpost = "SELECT * FROM tbtimemania WHERE tmmconc = $post1";
                   $resultpost = $con->select($sqlpost, $binds);
                   if($resultpost->rowCount() > 0){
                     $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
                   }
+                  
                   foreach($dadospost as $itempost){
                     //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
                     $concpost = "{$itempost->tmmconc}"; 
@@ -305,28 +309,18 @@
         </div> <!-- end content_left -->
 
         <div class="left_ads">
-          <img src="../../img/ads01.png">
+          
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-
+        
 
       </div> <!-- end left -->
 
       <div class="right">        
       <div class="text_top">
-        <p>A Timemania foi lançada em 01 de março de 2008 pela Caixa Econômica Federal. Com 80 números disponíveis no volante de 
-          apostas, de 01 a 80, você deve marcar 10 números e um time de futebol dentre os 80 clubes disponíveis. Ganha se acertar
-           7, 6, 5, 4 ou 3 números ou o Time do Coração. O custo de uma aposta é de R$ 3,00 e a probabilidade de acertar todos
-            os 7 números é de 1 em 26.472.637.</p>
+        <p>A Timemania foi lançada em 1º de março de 2008. Com 80 números disponíveis no volante de apostas, de 01 a 80, você deve marcar 10 números e um time de futebol dentre os 80 clubes disponíveis. Ganha quem acertar 7, 6, 5, 4 ou 3 números ou o Time do Coração. O custo de uma aposta é de R$ 3,00. Os sorteios são realizados nas terças-feiras, quintas-feiras e sábados.</p><br>
 
-        <p><strong>No painel de resultados abaixo, você confere hoje o resultado da Timemania online no último 
-          concurso. Os resultados dos sorteios anteriores você confere nas páginas dos respectivos números dos concursos no 
-          menu a esquerda ou utilizando o campo de busca para concursos mais antigos.</strong></p>      
+        <p><strong>Abaixo você confere o resultado da Timemania no último concurso. 
+          Os sorteios anteriores você confere nas páginas dos respectivos concursos no menu a esquerda.</strong></p>      
       </div>
           <div class="top_right_timemania">
           <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
@@ -368,27 +362,38 @@
             <div class="resultnumbers">
 
               <?php
+                $ordemnum[0] = $d01;
+                $ordemnum[1] = $d02;
+                $ordemnum[2] = $d03;                  
+                $ordemnum[3] = $d04;
+                $ordemnum[4] = $d05;
+                $ordemnum[5] = $d06;
+                $ordemnum[6] = $d07;
+                sort($ordemnum);
+              ?>
+
+              <?php
                 foreach($dados as $item){
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd01}";
+                      echo $ordemnum[0];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd02}";
+                      echo $ordemnum[1];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd03}";
+                      echo $ordemnum[2];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd04}";
+                      echo $ordemnum[3];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd05}";
+                      echo $ordemnum[4];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd06}";
+                      echo $ordemnum[5];
                   echo "</div>";
                   echo "<div class='resultnumber ttimemania'>";
-                      echo "{$item->tmmd07}";
+                      echo $ordemnum[6];
                   echo "</div>";
                 }
 
@@ -456,57 +461,179 @@
   <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
-<img src="../../img/ads01.png" width="210"> 
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">               
+              
 </div> <!-- end middle_ads -->
 
 <div class="text_info_timemania">
-<h2>Como jogar na Timemania</h2>
-<p>Para jogar na Timemania compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 80 n&uacute;meros de 01 a 80 e 80 Times de Futebol. Em um jogo voc&ecirc; deve escolher 10 n&uacute;meros e um Time de Futebol ao custo de R$ 3,00 a aposta.</p>
-<p>Em um volante de apostas da Timemania voc&ecirc; marca apenas 1 jogo. H&aacute; a op&ccedil;&atilde;o de deixar que o sistema de apostas da Caixa escolha os n&uacute;meros por voc&ecirc;. Deixe o volante da Timemania em branco e marque entre 1 e 9 jogos no campo SURPRESINHA. H&aacute; tamb&eacute;m a op&ccedil;&atilde;o TEIMOSINHA, onde voc&ecirc; pode repetir o mesmo jogo nos pr&oacute;ximos concursos da Timemania. Basta marcar 2 ou 4 concursos. As probabilidades de acerto s&atilde;o:</p>
+  <h2>Como jogar na Timemania</h2>
+  <p>A Timemania foi criada para ajudar os clubes participantes a pagarem as suas dívidas com o governo brasileiro. O Volante de apostas contém 80 números de 01 a 80 e 80 Times de Futebol. Em um jogo você deve escolher 10 números e um Time de Futebol ao custo de R$ 3,00 a aposta.</p>
+
+
+<div class="cb">&nbsp;</div>
+<h2>Probabilidades</h2>
 <ul>
-<li><strong>7 Acertos</strong>: 1 em 26.472.637 jogos</li>
-<li><strong>6 Acertos</strong>: 1 em 216.103 jogos</li>
-<li><strong>5 Acertos</strong>: 1 em 5.220 jogos</li>
-<li><strong>4 Acertos</strong>: 1 em 276 jogos</li>
-<li><strong>3 Acertos</strong>: 1 em 29 jogos</li>
-<li><strong>Time do Cora&ccedil;&atilde;o</strong>: 1 em 80 jogos</li>
+  <li><strong>07 acertos</strong>: 1 em 26.472.637</li>
+  <li><strong>06 acertos</strong>: 1 em 216.103</li>
+  <li><strong>05 acertos</strong>: 1 em 5.220</li>
+  <li><strong>14 acertos</strong>: 1 em 276</li>
+  <li><strong>13 acertos</strong>: 1 em 29</li>
+  <li><strong>Time do Coração</strong>: 1 em 80</li>
 </ul>
-<p>A Timemania n&atilde;o faz parte do sistema de Bol&atilde;o fornecido pela Caixa Econ&ocirc;mica Federal.</p>
-<h2>Sobre a premia&ccedil;&atilde;o da Timemania</h2>
-<p>O pr&ecirc;mio principal para quem acertar os 7 n&uacute;meros sozinho &eacute; estimado em R$ 100.000,00 se n&atilde;o houver nenhum ac&uacute;mulo de pr&ecirc;mio de concursos anteriores. A Timemania &eacute; a loteria que mais acumula. Se acumular o valor destinado ao pr&ecirc;mio principal &eacute; somado ao valor do pr&ecirc;mio principal do concurso seguinte e sucessivamente at&eacute; que haja um ganhador. Quando h&aacute; mais de um ganhador no mesmo concurso o pr&ecirc;mio &eacute; dividido. A divis&atilde;o de pr&ecirc;mio s&oacute; ocorre para as faixas de 7, 6 e 5 acertos. Os valores dos pr&ecirc;mios para quem acertar 3, 4 ou o Time do Cora&ccedil;&atilde;o s&atilde;o fixos para cada ganhador, conforme lista a seguir:</p>
+
+<h2>Premiação</h2>
+<p>Do valor arrecadado para cada concurso da Timemania somente <strong>46%</strong> são destinados ao prêmio bruto. Deste percentual ainda são deduzidos imposto de renda. Do prêmio líquido é deduzido o valor total dos prêmios fixos e do valor restante 50% são destinados ao prêmio principal de 7 acertos, <strong>20%</strong> para o prêmio de 6 acertos e <strong>20%</strong> para o prêmio de 4 acertos. Os outros <strong>10%</strong> do valor restante são acumulados dos concursos de final 1, 2, 3 e 4 para o prêmio principal do concurso de final 5 e o mesmo percentual da premiação dos concursos de final 6, 7, 8 e 9 para o prêmio principal do concurso de final 0.</p>
+<br>
+
+<div class="bordasimples">
+<table class="bordasimples">
+  <tr>
+    <td>3 acertos:</td>
+    <td>R$ 3,00</td>
+  </tr>
+  <tr>
+    <td>4 acertos:</td>
+    <td>R$ 9,00</td>
+  </tr>
+  <tr>
+    <td>Time do Coração:</td>
+    <td>R$ 7,50</td>
+  </tr>
+</table>
+</div>
+<br>
+<p><strong>Os prêmios prescrevem 90 dias após a data do sorteio. Após esse prazo, os valores são repassados ao Tesouro Nacional para aplicação no FIES - Fundo de Financiamento Estudantil.</strong></p>
+<p><strong>Os 54,00% do valor arrecadado que não fazem parte da premiação são distribuídos da seguinte maneira:</strong></p>
+<p><br></p>
 <ul>
-<li><strong>3 acertos:</strong>&nbsp;R$ 3,00</li>
-<li><strong>4 acertos:</strong>&nbsp;R$ 9,00</li>
-<li><strong>Time do Cora&ccedil;&atilde;o:</strong>&nbsp;R$ 7,50</li>
-</ul>
-<p>Do valor arrecadado para cada concurso da Timemania somente 46% s&atilde;o destinados ao pr&ecirc;mio bruto. Deste percentual ainda s&atilde;o deduzidos imposto de renda. Do pr&ecirc;mio l&iacute;tmmdo &eacute; deduzido o valor total dos pr&ecirc;mios fixos e do valor restante 50% s&atilde;o destinados ao pr&ecirc;mio principal de 7 acertos, 20% para o pr&ecirc;mio de 6 acertos e 20% para o pr&ecirc;mio de 4 acertos. Os outros 10% do valor restante s&atilde;o acumulados dos concursos de final 1, 2, 3 e 4 para o pr&ecirc;mio principal do concurso de final 5 e o mesmo percentual da premia&ccedil;&atilde;o dos concursos de final 6, 7, 8 e 9 para o pr&ecirc;mio principal do concurso de final 0.</p>
-<p>Os 54% do valor arrecadado que n&atilde;o fazem parte da premia&ccedil;&atilde;o s&atilde;o distribu&iacute;dos da seguinte maneira:</p>
-<ul>
+
 <li><strong>22%</strong>: Clubes de Futebol</li>
-<li><strong>1,26%</strong>: Comit&ecirc; Ol&iacute;mpico Brasileiro - COB</li>
-<li><strong>0,74%</strong>: Comit&ecirc; Paral&iacute;mpico Brasileiro - CPB</li>
-<li><strong>0,75%</strong>: Minist&eacute;rio do Esporte</li>
-<li><strong>1,75%</strong>: Fundo Nacional de Sa&uacute;de</li>
-<li><strong>0,50%</strong>: Fundo Nacional dos Direitos da Crian&ccedil;a e do Adolescente - FNCA</li>
-<li><strong>5,00%</strong>: Fundo Nacional de Seguran&ccedil;a P&uacute;blica - FNSP</li>
-<li><strong>1%</strong>: Fundo Penitenci&aacute;rio Nacional - FUNPEN</li>
+<li><strong>1,26%</strong>: Comitê Olímpico Brasileiro - COB</li>
+<li><strong>0,74%</strong>: Comitê Paralímpico Brasileiro - CPB</li>
+<li><strong>0,75%</strong>: Ministério do Esporte</li>
+<li><strong>1,75%</strong>: Fundo Nacional de Saúde</li>
+<li><strong>0,50%</strong>: Fundo Nacional dos Direitos da Criança e do Adolescente - FNCA</li>
+<li><strong>5,00%</strong>: Fundo Nacional de Segurança Pública - FNSP</li>
+<li><strong>1%</strong>: Fundo Penitenciário Nacional - FUNPEN</li>
 <li><strong>1%</strong>: Seguridade Social</li>
-<li><strong>20,00%</strong>: Despesas de Custeio e Manuten&ccedil;&atilde;o de Servi&ccedil;os<br />Deste percentual 11,00% s&atilde;o de Despesas Operacionais e 9,00% da Comiss&atilde;o dos Lot&eacute;ricos.</li>
+<li><strong>20,00%</strong>: Despesas de Custeio e Manutenção de Serviços</li>
+Deste percentual 11,00% são de Despesas Operacionais e 9,00% da Comissão dos Lotéricos.
 </ul>
+
 <h2>Aos ganhadores da Timemania</h2>
-<p>Caso voc&ecirc; seja um dos ganhadores da Timemania saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000.000 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
-<p>O bilhete da Timemania &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio apresentando seu CPF.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio da Mega Sena. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-</div><!-- end text_info_timemania -->
+<p>Caso você seja um dos ganhadores da Timemania saiba que pode receber seu prêmio em qualquer casa Lotérica ou agência da Caixa se o valor do prêmio for igual ou inferior a R$ 1.903,98. Para prêmios acima deste valor somente nas agências da Caixa Econômica Federal. Após apresentar o bilhete premiado na rede bancária da Caixa, se o valor do prêmio for superior a R$ 10.000.000 (dez mil reais), é necessário aguardar 2(dois) dias para que o prêmio seja pago.</p>
+<p>O bilhete da Timemania é a única forma de comprovar sua aposta e receber o prêmio caso seus números sejam sorteados neste concurso, portanto, guarde-o em um local seguro e não se esqueça de colocar seu nome e o número de seu CPF no verso do bilhete para evitar o saque do prêmio por outra pessoa. Somente você poderá retirar o prêmio apresentando seu CPF.</p>
+
+
+</div><!-- end text_info_megasena -->
 </div> <!-- end main -->
 
 </div> <!-- end containermain -->
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
+          
 
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div><!-- col-lg-2 col-md-6 footer-links -->
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+          </div><!-- col-lg-3 col-md-6 footer-contact -->
+      </div> <!-- row -->
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+
+  </div><!-- #footer-top -->
+</footer><!-- #footer -->    
 
 </body>
 </html>

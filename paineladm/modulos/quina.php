@@ -8,6 +8,8 @@
 
 <?php
     ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
     require_once "../functions/funcoes.php";
     require_once "../functions/conection.php";
 
@@ -336,8 +338,18 @@
                             $d01proximo = "{$itemmax->quid01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 6){
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } else if($diadasemana != 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
+                        } 
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'quiconc' => $conc+1,
+                                        'quidata' => $proximosorteio,
+                                        'quilocal' => 'SÃO PAULO, SP',
                                         'quid01' => 0,
                                         'quid02' => 0,
                                         'quid03' => 0,
@@ -349,6 +361,8 @@
                                         'quigan02' => 0 ];
                             $sql = "INSERT INTO tbquina SET 
                                             quiconc = :quiconc,
+                                            quidata = :quidata,
+                                            quilocal = :quilocal,
                                             quid01 = :quid01,
                                             quid02 = :quid02,
                                             quid03 = :quid03,

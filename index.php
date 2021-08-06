@@ -19,6 +19,8 @@
 
 	<!-- Main Stylesheet File -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <script data-ad-client="ca-pub-3270290765053134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	
 </head>
 
@@ -108,14 +110,16 @@
                 $sql = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(msconc) FROM tbmegasena)";
                 $sql2 = "SELECT * FROM tbmegasena WHERE msconc = (SELECT max(msconc)-1 FROM tbmegasena)";
                 $result = $con->select($sql, $binds); 
-                $result2= $con->select($sql2, $binds);                 
+                $result2 = $con->select($sql2, $binds);                 
                 if($result->rowCount() > 0){
                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 } 
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $msdata = "{$item->msdata}";   
+            $mspremio = "{$item->mspremioest}";
             echo "<a href='loterias/megasena'>
                   <div class='title_loteria_left tmegasena'>            
                     <h5><span class='icone'><img src='img/icon_megasena.png' width='20'></span> Megasena";
@@ -153,7 +157,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $lfdata = "{$item->lfdata}";   
+            $lfpremio = "{$item->lfpremioest}";   
             echo "<a href='loterias/lotofacil'>
                   <div class='title_loteria_left tlotofacil'>            
                     <h5><span class='icone'><img src='img/icon_lotofacil.png' width='20'></span> Lotofácil";
@@ -191,7 +197,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $quidata = "{$item->quidata}";   
+            $quipremio = "{$item->quipremioest}";   
             echo "<a href='loterias/quina'>
                   <div class='title_loteria_left tquina'>            
                     <h5><span class='icone'><img src='img/icon_quina.png' width='20'></span> Quina";
@@ -229,7 +237,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){   
+            $ltmdata = "{$item->ltmdata}";   
+            $ltmpremio = "{$item->ltmpremioest}"; 
             echo "<a href='loterias/lotomania'>
                   <div class='title_loteria_left tlotomania'>            
                     <h5><span class='icone'><img src='img/icon_lotomania.png' width='20'></span> Lotomania";
@@ -267,7 +277,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){
+            $tmmdata = "{$item->tmmdata}";   
+            $tmmpremio = "{$item->tmmpremioest}";    
             echo "<a href='loterias/timemania'>
                   <div class='title_loteria_left ttimemania'>            
                     <h5><span class='icone'><img src='img/icon_timemania.png' width='20'></span> Timemania";
@@ -305,7 +317,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $dsdata = "{$item->dsdata}";   
+            $dspremio = "{$item->dspremioest}";   
             echo "<a href='loterias/duplasena'>
                   <div class='title_loteria_left tduplasena'>            
                     <h5><span class='icone'><img src='img/icon_duplasena.png' width='20'></span> Dupla Sena";
@@ -343,7 +357,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){
+            $ddsdata = "{$item->ddsdata}";   
+            $ddspremio = "{$item->ddspremioest}";    
             echo "<a href='loterias/diadesorte'>
                   <div class='title_loteria_left tdiadesorte'>            
                     <h5><span class='icone'><img src='img/icon_diadesorte.png' width='20'></span> Dia de Sorte";
@@ -381,7 +397,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $spsdata = "{$item->spsdata}";   
+            $spspremio = "{$item->spspremioest}";   
             echo "<a href='loterias/supersete'>
                   <div class='title_loteria_left tsupersete'>            
                     <h5><span class='icone'><img src='img/icon_supersete.png' width='20'></span> Super Sete";
@@ -419,7 +437,9 @@
                 if($result2->rowCount() > 0){
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
-            foreach($dados as $item){    
+            foreach($dados as $item){ 
+            $feddata = "{$item->feddata}";   
+            $fedpremio = "{$item->fedpremioest}";   
             echo "<a href='loterias/federal'>
                   <div class='title_loteria_left tfederal'>            
                     <h5><span class='icone'><img src='img/icon_federal.png' width='20'></span> Federal";
@@ -446,30 +466,264 @@
 
           </div>  <!-- end content_left -->
           
-          <div class="left_ads">
-            <img src="img/ads01.png">
-          </div> <!-- end left_ads -->
-
       </div> <!-- end left -->
+
+      <!--ads aqui -->
       
       <div class="main-right">
-          right
+
+        <!-- Megasena -->  
+        <div class="row">
+          <div class="main-loterias tmegasena text-white col-md-3">
+          <h2>Megasena</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($msdata)) ?></h3></h6>
+          <h6><?php echo "às ".date('H:i', strtotime($msdata))."h" ?> </h6>
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 fmegasena">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$mspremio ?></h2></h6>
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Lotofácil -->
+        <div class="row"> 
+          <div class="main-loterias tlotofacil text-white col-md-3">
+          <h2>Lotofácil</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($lfdata)) ?></h3></h6>
+          <h6><?php echo "às ".date('H:i', strtotime($lfdata))."h" ?> </h6>
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 flotofacil">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$lfpremio ?></h2></h6>
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Quina --> 
+        <div class="row">
+          <div class="main-loterias tquina text-white col-md-3">
+          <h2>Quina</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($quidata)) ?></h3></h6>  
+          <h6><?php echo "às ".date('H:i', strtotime($quidata))."h" ?> </h6>
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 fquina">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$quipremio ?></h2></h6> 
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Lotomania -->  
+        <div class="row">
+          <div class="main-loterias tlotomania text-white col-md-3">
+          <h2>Lotomania</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($ltmdata)) ?></h3></h6> 
+          <h6><?php echo "às ".date('H:i', strtotime($ltmdata))."h" ?> </h6>
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 flotomania">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$ltmpremio ?></h2></h6>  
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Timemania --> 
+        <div class="row"> 
+          <div class="main-loterias ttimemania text-white col-md-3">
+          <h2>Timemania</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($tmmdata)) ?></h3></h6> 
+          <h6><?php echo "às ".date('H:i', strtotime($tmmdata))."h" ?> </h6> 
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 ftimemania">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$tmmpremio ?></h2></h6>
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Dupla Sena --> 
+        <div class="row"> 
+          <div class="main-loterias tduplasena text-white col-md-3">
+          <h2>Dupla Sena</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($dsdata)) ?></h3></h6>  
+          <h6><?php echo "às ".date('H:i', strtotime($dsdata))."h" ?> </h6>
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 fduplasena">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$dspremio ?></h2></h6>
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Dia de Sorte -->  
+        <div class="row">
+          <div class="main-loterias tdiadesorte text-white col-md-3">
+          <h2>Dia de Sorte</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($ddsdata)) ?></h3></h6> 
+          <h6><?php echo "às ".date('H:i', strtotime($ddsdata))."h" ?> </h6> 
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 fdiadesorte">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$ddspremio ?></h2></h6>
+          </div><!-- end main-premios col-md-8 -->
+        </div>
+
+        <!-- Super Sete -->  
+        <div class="row">
+          <div class="main-loterias tsupersete text-white col-md-3">
+          <h2>Super Sete</h2>
+          </div><!-- end main-loterias col-md-4 -->
+          <div class="main-data-sorteio col-md-2">
+          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($spsdata)) ?></h3></h6> 
+          <h6><?php echo "às ".date('H:i', strtotime($spsdata))."h" ?> </h6> 
+          </div><!-- end main-data-sorteio col-md-2 -->
+          <div class="main-premios col-md-4 fsupersete">
+          <h6>Prêmio Estimado: <h2><?php echo "R$ ".$spspremio ?></h2></h6>  
+          </div><!-- end main-premios col-md-8 -->
+        </div>
 
       </div> <!-- end right -->
 
+
+      
     </div> <!-- end main -->
 
   </div> <!-- end containermain -->
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
-  <div class="containerfooter">
-    <div class="footer">
-      footer
-    </div> <!-- end footer -->
+          
 
-  </div> <!-- end containerfooter -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/federal/">Federal</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="loterias/timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+<!--
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
 
 
+          <div class="col-lg-3 col-md-6 footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Se quiser ficar antenado em nossas novidades e atualizações, informe seu e-mail e clique em Inscrever, você será notificado sempre que tivermos novidades, promoções ou informativos.</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit"  value="Inscrever">
+            </form>
+          </div>
+-->
+        </div>
+      </div>
+    </div>
 
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=BizPage
+        -->
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+    
+    
+  </div>
 
 
 </body>

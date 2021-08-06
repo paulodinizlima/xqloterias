@@ -8,6 +8,8 @@
 
 <?php
     ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
     require_once "../functions/funcoes.php";
     require_once "../functions/conection.php";
 
@@ -143,15 +145,19 @@
                     $ds01gan06 = filter_input(INPUT_POST, 'ds01gan06', FILTER_SANITIZE_STRING);
                     $ds01gan05 = filter_input(INPUT_POST, 'ds01gan05', FILTER_SANITIZE_STRING);
                     $ds01gan04 = filter_input(INPUT_POST, 'ds01gan04', FILTER_SANITIZE_STRING);
+                    $ds01gan03 = filter_input(INPUT_POST, 'ds01gan03', FILTER_SANITIZE_STRING);
                     $ds02gan06 = filter_input(INPUT_POST, 'ds02gan06', FILTER_SANITIZE_STRING);
                     $ds02gan05 = filter_input(INPUT_POST, 'ds02gan05', FILTER_SANITIZE_STRING);
                     $ds02gan04 = filter_input(INPUT_POST, 'ds02gan04', FILTER_SANITIZE_STRING);
+                    $ds02gan03 = filter_input(INPUT_POST, 'ds02gan03', FILTER_SANITIZE_STRING);
                     $ds01pr06 = filter_input(INPUT_POST, 'ds01pr06', FILTER_SANITIZE_STRING);
                     $ds01pr05 = filter_input(INPUT_POST, 'ds01pr05', FILTER_SANITIZE_STRING);
                     $ds01pr04 = filter_input(INPUT_POST, 'ds01pr04', FILTER_SANITIZE_STRING);
+                    $ds01pr03 = filter_input(INPUT_POST, 'ds01pr03', FILTER_SANITIZE_STRING);
                     $ds02pr06 = filter_input(INPUT_POST, 'ds02pr06', FILTER_SANITIZE_STRING);
                     $ds02pr05 = filter_input(INPUT_POST, 'ds02pr05', FILTER_SANITIZE_STRING);
                     $ds02pr04 = filter_input(INPUT_POST, 'ds02pr04', FILTER_SANITIZE_STRING);
+                    $ds02pr03 = filter_input(INPUT_POST, 'ds02pr03', FILTER_SANITIZE_STRING);
                     $dscidadesgan = filter_input(INPUT_POST, 'dscidadesgan', FILTER_SANITIZE_STRING);
                     if(!empty($conc)){
                         $conection = new conection();
@@ -174,15 +180,19 @@
                                     'ds01gan06' => $ds01gan06,
                                     'ds01gan05' => $ds01gan05,
                                     'ds01gan04' => $ds01gan04,
+                                    'ds01gan03' => $ds01gan03,
                                     'ds02gan06' => $ds02gan06,
                                     'ds02gan05' => $ds02gan05,
                                     'ds02gan04' => $ds02gan04,
+                                    'ds02gan03' => $ds02gan03,
                                     'ds01pr06' => $ds01pr06,
                                     'ds01pr05' => $ds01pr05,
                                     'ds01pr04' => $ds01pr04,
+                                    'ds01pr03' => $ds01pr03,
                                     'ds02pr06' => $ds02pr06,
                                     'ds02pr05' => $ds02pr05,
                                     'ds02pr04' => $ds02pr04,
+                                    'ds02pr03' => $ds02pr03,
                                     'dscidadesgan' => $dscidadesgan ];
                         $sql = "INSERT INTO tbduplasena SET 
                                         dsconc = :dsconc,
@@ -204,15 +214,19 @@
                                         ds01gan06 = :ds01gan06,
                                         ds01gan05 = :ds01gan05,
                                         ds01gan04 = :ds01gan04,
+                                        ds01gan03 = :ds01gan03,
                                         ds02gan06 = :ds02gan06,
                                         ds02gan05 = :ds02gan05,
                                         ds02gan04 = :ds02gan04,
+                                        ds02gan03 = :ds02gan03,
                                         ds01pr06 = :ds01pr06,
                                         ds01pr05 = :ds01pr05,
                                         ds01pr04 = :ds01pr04,
+                                        ds01pr03 = :ds01pr03,
                                         ds02pr06 = :ds02pr06,
                                         ds02pr05 = :ds02pr05,
                                         ds02pr04 = :ds02pr04,
+                                        ds02pr03 = :ds02pr03,
                                         dscidadesgan = :dscidadesgan";                
                         $result = $conection->insert($sql,$binds);
 
@@ -353,7 +367,7 @@
                             <input class='form-control' name='ds01gan04' type='text' value='".$item->ds01gan04."' />
                         </div><div class='formlabel'>1gan04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01gan04' type='text' value='".$item->ds01gan03."' />
+                            <input class='form-control' name='ds01gan03' type='text' value='".$item->ds01gan03."' />
                         </div><div class='formlabel'>1gan03</div>
 
                         <div class='form-group'>
@@ -366,7 +380,7 @@
                             <input class='form-control' name='ds02gan04' type='text' value='".$item->ds02gan04."' />
                         </div><div class='formlabel'>2gan04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02gan04' type='text' value='".$item->ds02gan03."' />
+                            <input class='form-control' name='ds02gan03' type='text' value='".$item->ds02gan03."' />
                         </div><div class='formlabel'>2gan03</div>
 
                         <div class='form-group'>
@@ -379,7 +393,7 @@
                             <input class='form-control' name='ds01pr04' type='text' value='".$item->ds01pr04."' />
                         </div><div class='formlabel'>1pr04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01pr04' type='text' value='".$item->ds01pr03."' />
+                            <input class='form-control' name='ds01pr03' type='text' value='".$item->ds01pr03."' />
                         </div><div class='formlabel'>1pr03</div>
 
                         <div class='form-group'>
@@ -392,7 +406,7 @@
                             <input class='form-control' name='ds02pr04' type='text' value='".$item->ds02pr04."' />
                         </div><div class='formlabel'>2pr04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02pr04' type='text' value='".$item->ds02pr03."' />
+                            <input class='form-control' name='ds02pr03' type='text' value='".$item->ds02pr03."' />
                         </div><div class='formlabel'>2pr03</div>
 
                         <div class='form-group'>
@@ -415,12 +429,28 @@
                     $ds01d04 = filter_input(INPUT_POST, 'ds01d04', FILTER_SANITIZE_STRING);
                     $ds01d05 = filter_input(INPUT_POST, 'ds01d05', FILTER_SANITIZE_STRING);
                     $ds01d06 = filter_input(INPUT_POST, 'ds01d06', FILTER_SANITIZE_STRING);
+                    $ds02d01 = filter_input(INPUT_POST, 'ds02d01', FILTER_SANITIZE_STRING);
+                    $ds02d02 = filter_input(INPUT_POST, 'ds02d02', FILTER_SANITIZE_STRING);
+                    $ds02d03 = filter_input(INPUT_POST, 'ds02d03', FILTER_SANITIZE_STRING);
+                    $ds02d04 = filter_input(INPUT_POST, 'ds02d04', FILTER_SANITIZE_STRING);
+                    $ds02d05 = filter_input(INPUT_POST, 'ds02d05', FILTER_SANITIZE_STRING);
+                    $ds02d06 = filter_input(INPUT_POST, 'ds02d06', FILTER_SANITIZE_STRING);
                     $ds01gan06 = filter_input(INPUT_POST, 'ds01gan06', FILTER_SANITIZE_STRING);
                     $ds01gan05 = filter_input(INPUT_POST, 'ds01gan05', FILTER_SANITIZE_STRING);
                     $ds01gan04 = filter_input(INPUT_POST, 'ds01gan04', FILTER_SANITIZE_STRING);
+                    $ds01gan03 = filter_input(INPUT_POST, 'ds01gan03', FILTER_SANITIZE_STRING);
+                    $ds02gan06 = filter_input(INPUT_POST, 'ds02gan06', FILTER_SANITIZE_STRING);
+                    $ds02gan05 = filter_input(INPUT_POST, 'ds02gan05', FILTER_SANITIZE_STRING);
+                    $ds02gan04 = filter_input(INPUT_POST, 'ds02gan04', FILTER_SANITIZE_STRING);
+                    $ds02gan03 = filter_input(INPUT_POST, 'ds02gan03', FILTER_SANITIZE_STRING);
                     $ds01pr06 = filter_input(INPUT_POST, 'ds01pr06', FILTER_SANITIZE_STRING);
                     $ds01pr05 = filter_input(INPUT_POST, 'ds01pr05', FILTER_SANITIZE_STRING);
                     $ds01pr04 = filter_input(INPUT_POST, 'ds01pr04', FILTER_SANITIZE_STRING);
+                    $ds01pr03 = filter_input(INPUT_POST, 'ds01pr03', FILTER_SANITIZE_STRING);
+                    $ds02pr06 = filter_input(INPUT_POST, 'ds02pr06', FILTER_SANITIZE_STRING);
+                    $ds02pr05 = filter_input(INPUT_POST, 'ds02pr05', FILTER_SANITIZE_STRING);
+                    $ds02pr04 = filter_input(INPUT_POST, 'ds02pr04', FILTER_SANITIZE_STRING);
+                    $ds02pr03 = filter_input(INPUT_POST, 'ds02pr03', FILTER_SANITIZE_STRING);
                     $dscidadesgan = filter_input(INPUT_POST, 'dscidadesgan', FILTER_SANITIZE_STRING);
 
                     if(!empty($conc)){
@@ -435,12 +465,28 @@
                                     'ds01d04' => $ds01d04,
                                     'ds01d05' => $ds01d05,
                                     'ds01d06' => $ds01d06,
+                                    'ds02d01' => $ds02d01,
+                                    'ds02d02' => $ds02d02,
+                                    'ds02d03' => $ds02d03,
+                                    'ds02d04' => $ds02d04,
+                                    'ds02d05' => $ds02d05,
+                                    'ds02d06' => $ds02d06,
                                     'ds01gan06' => $ds01gan06,
                                     'ds01gan05' => $ds01gan05,
                                     'ds01gan04' => $ds01gan04,
+                                    'ds01gan03' => $ds01gan03,
+                                    'ds02gan06' => $ds02gan06,
+                                    'ds02gan05' => $ds02gan05,
+                                    'ds02gan04' => $ds02gan04,
+                                    'ds02gan03' => $ds02gan03,
                                     'ds01pr06' => $ds01pr06,
                                     'ds01pr05' => $ds01pr05,
                                     'ds01pr04' => $ds01pr04,
+                                    'ds01pr03' => $ds01pr03,
+                                    'ds02pr06' => $ds02pr06,
+                                    'ds02pr05' => $ds02pr05,
+                                    'ds02pr04' => $ds02pr04,
+                                    'ds02pr03' => $ds02pr03,
                                     'dscidadesgan' => $dscidadesgan ];
                         $sql = "UPDATE tbduplasena SET 
                                         dsconc = :dsconc,
@@ -453,14 +499,31 @@
                                         ds01d04 = :ds01d04,
                                         ds01d05 = :ds01d05,
                                         ds01d06 = :ds01d06,
+                                        ds02d01 = :ds02d01,
+                                        ds02d02 = :ds02d02,
+                                        ds02d03 = :ds02d03,
+                                        ds02d04 = :ds02d04,
+                                        ds02d05 = :ds02d05,
+                                        ds02d06 = :ds02d06,
                                         ds01gan06 = :ds01gan06,
                                         ds01gan05 = :ds01gan05,
                                         ds01gan04 = :ds01gan04,
+                                        ds01gan03 = :ds01gan03,
+                                        ds02gan06 = :ds02gan06,
+                                        ds02gan05 = :ds02gan05,
+                                        ds02gan04 = :ds02gan04,
+                                        ds02gan03 = :ds02gan03,
                                         ds01pr06 = :ds01pr06,
                                         ds01pr05 = :ds01pr05,
                                         ds01pr04 = :ds01pr04,
+                                        ds01pr03 = :ds01pr03,
+                                        ds02pr06 = :ds02pr06,
+                                        ds02pr05 = :ds02pr05,
+                                        ds02pr04 = :ds02pr04,
+                                        ds02pr03 = :ds02pr03,
                                         dscidadesgan = :dscidadesgan WHERE dsconc = $codconc";                
                         $result = $conection->insert($sql,$binds);
+
 
                         //---------------------------------------------------------
                        //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
@@ -472,8 +535,19 @@
                             $d01proximo = "{$itemmax->ds01d01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 6){
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else if($diadasemana != 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } 
+
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'dsconc' => $conc+1,
+                                        'dsdata' => $proximosorteio,
+                                        'dslocal' => 'SÃO PAULO, SP',
                                         'ds01d01' => 0,
                                         'ds01d02' => 0,
                                         'ds01d03' => 0,
@@ -485,17 +559,11 @@
                                         'ds02d03' => 0,
                                         'ds02d04' => 0,
                                         'ds02d05' => 0,
-                                        'ds02d06' => 0,
-                                        'ds01gan06' => 0,
-                                        'ds01gan05' => 0,
-                                        'ds01gan04' => 0,
-                                        'ds01gan03' => 0,
-                                        'ds02gan06' => 0,
-                                        'ds02gan05' => 0,
-                                        'ds02gan04' => 0,
-                                        'ds02gan03' => 0 ];
+                                        'ds02d06' => 0 ];
                             $sql = "INSERT INTO tbduplasena SET 
                                             dsconc = :dsconc,
+                                            dsdata = :dsdata,
+                                            dslocal = :dslocal,
                                             ds01d01 = :ds01d01,
                                             ds01d02 = :ds01d02,
                                             ds01d03 = :ds01d03,
@@ -507,15 +575,7 @@
                                             ds02d03 = :ds02d03,
                                             ds02d04 = :ds02d04,
                                             ds02d05 = :ds02d05,
-                                            ds02d06 = :ds02d06,
-                                            ds01gan06 = :ds01gan06,
-                                            ds01gan05 = :ds01gan05,
-                                            ds01gan04 = :ds01gan04,
-                                            ds01gan03 = :ds01gan03,
-                                            ds02gan06 = :ds02gan06,
-                                            ds02gan05 = :ds02gan05,
-                                            ds02gan04 = :ds02gan04,
-                                            ds02gan03 = :ds02gan03";            
+                                            ds02d06 = :ds02d06";            
                             $result = $conection->insert($sql,$binds);
                         }
                         //------------------------------------------------------------//
@@ -566,6 +626,8 @@
 
                echo "</table>";
            echo "</div>"; //div-right
+
+
         break;
         //--------------------------------------------------------------------------------------------------------------
         

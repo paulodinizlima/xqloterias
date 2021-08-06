@@ -115,6 +115,7 @@
                 if($resultlast->rowCount() > 0){
                   $dadoslast = $resultlast->fetchAll(PDO::FETCH_OBJ);
                 }
+
                 foreach($dadoslast as $itemlast){
                   $conclast = "{$itemlast->ltmconc}";
                   $datalast = "{$itemlast->ltmdata}";
@@ -124,7 +125,7 @@
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
+                $dataatual = date("Y-m-d", strtotime("today"));
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
@@ -132,26 +133,31 @@
                   if("{$item->ltmd01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->ltmconc}"-1; //mostra o último que foi sorteado
+                      $post1 = $ultimo +1;
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->ltmconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->ltmconc}"-1;
+                      $post1 = $ultimo +1;
                     }
                   } else { 
                     $ultimo = (int)"{$item->ltmconc}";
+                    $post1 = $ultimo +1;
                   }
+
                   $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
                   if($result->rowCount() > 0){
                     $dados = $result->fetchAll(PDO::FETCH_OBJ);
                   }
 
-                  $post1 = $ultimo +1;
                   $sqlpost = "SELECT * FROM tblotomania WHERE ltmconc = $post1";
                   $resultpost = $con->select($sqlpost, $binds);
                   if($resultpost->rowCount() > 0){
                     $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
                   }
+                  
                   foreach($dadospost as $itempost){
                     //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
                     $concpost = "{$itempost->ltmconc}"; 
@@ -320,27 +326,17 @@
         </div> <!-- end content_left -->
 
         <div class="left_ads">
-          <img src="../../img/ads01.png">
+          
         </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-
-
+        
       </div> <!-- end left -->
 
       <div class="right">        
       <div class="text_top">
-        <p>A Lotomania foi lançada em 02 de outubro de 1999 pela Caixa Econômica Federal. Com 100 números disponíveis no volante 
-          de apostas, de 01 a 00, você deve marcar 50 números e ganha se acertar 20, 19, 18, 17 ou 16 números e também se não 
-          acertar nenhum. O custo de uma aposta é de R$ 2,50 e a probabilidade de acertar todos os 20 números é de 1 em 11.372.635.</p>
+        <p>A Lotomania foi lançada em 02 de outubro de 1999. Com 100 números disponíveis no volante, você deve marcar 50 números e ganha se acertar 20, 19, 18, 17, 16 ou 0 números. O custo de uma aposta é de R$ 2,50 e a probabilidade de acertar os 20 números é de 1 em 11.372.635.</p><br>
 
-        <p><strong>No painel de resultados abaixo, você confere hoje o resultado da Lotomania online no último
-           concurso. Os resultados dos sorteios anteriores você confere nas páginas dos respectivos números dos concursos no 
-           menu a esquerda ou utilizando o campo de busca para concursos mais antigos.</strong></p>      
+        <p><strong>Abaixo você confere o resultado da Lotomania no último concurso. 
+          Os sorteios anteriores você confere nas páginas dos respectivos concursos no menu a esquerda.</strong></p>      
       </div>
           <div class="top_right_lotomania">
           <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
@@ -384,66 +380,90 @@
             <div class="resultnumbers">
 
               <?php
+                $ordemnum[0] = $d01;
+                $ordemnum[1] = $d02;
+                $ordemnum[2] = $d03;                  
+                $ordemnum[3] = $d04;
+                $ordemnum[4] = $d05;
+                $ordemnum[5] = $d06;
+                $ordemnum[6] = $d07;
+                $ordemnum[7] = $d08;
+                $ordemnum[8] = $d09;
+                $ordemnum[9] = $d10;
+                $ordemnum[10] = $d11;
+                $ordemnum[11] = $d12;
+                $ordemnum[12] = $d13;
+                $ordemnum[13] = $d14;
+                $ordemnum[14] = $d15;
+                $ordemnum[15] = $d16;
+                $ordemnum[16] = $d17;
+                $ordemnum[17] = $d18;
+                $ordemnum[18] = $d19;
+                $ordemnum[19] = $d20;
+                sort($ordemnum);
+              ?>
+
+              <?php
                 foreach($dados as $item){
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd01}";
+                      echo $ordemnum[0];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd02}";
+                      echo $ordemnum[1];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd03}";
+                      echo $ordemnum[2];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd04}";
+                      echo $ordemnum[3];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd05}";
+                      echo $ordemnum[4];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd06}";
+                      echo $ordemnum[5];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd07}";
+                      echo $ordemnum[6];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd08}";
+                      echo $ordemnum[7];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd09}";
+                      echo $ordemnum[8];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd10}";
+                      echo $ordemnum[9];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd11}";
+                      echo $ordemnum[10];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd12}";
+                      echo $ordemnum[11];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd13}";
+                      echo $ordemnum[12];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd14}";
+                      echo $ordemnum[13];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd15}";
+                      echo $ordemnum[14];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd16}";
+                      echo $ordemnum[15];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd17}";
+                      echo $ordemnum[16];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd18}";
+                      echo $ordemnum[17];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd19}";
+                      echo $ordemnum[18];
                   echo "</div>";
                   echo "<div class='resultnumber tlotomania'>";
-                      echo "{$item->ltmd20}";
+                      echo $ordemnum[19];
                   echo "</div>";
                 }
 
@@ -511,63 +531,195 @@
         <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
       </div> <!-- end right_lowmiddle_info --> 
       <div class="middle_ads">
-          <img src="../../img/ads01.png" width="210"> 
-          <img src="../../img/ads01.png" width="210">
-          <img src="../../img/ads01.png" width="210">
-          <img src="../../img/ads01.png" width="210">               
+                       
       </div> <!-- end middle_ads -->
 
-      <div class="text_info_lotomania">
-      <h2>Como jogar na Lotomania</h2>
-<p>Para jogar na Lotomania compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 100 n&uacute;meros de 01 a 00. Em um jogo voc&ecirc; deve escolher 50 n&uacute;meros. As probabilidades de acerto na Lotomania s&atilde;o:</p>
+<div class="text_info_lotomania">
+  <h2>Como jogar na Lotomania</h2>
+  <p>A Lotomania é fácil de jogar e de ganhar: basta escolher 50 números e então concorrer a prêmios para acertos de 20, 19, 18, 17, 16, 15 ou nenhum número. Além da opção de marcar no volante, você ainda pode marcar menos que 50 números e deixar que o sistema complete o jogo para você; não marcar nada e deixar que o sistema escolha todos os números na Surpresinha e/ou concorrer com a mesma aposta por 2, 4 ou 8 concursos consecutivos com a Teimosinha. Outra opção é efetuar uma nova aposta com o sistema selecionando os outros 50 números não registrados no jogo original, através da Aposta-Espelho.</p>
+
+<div class="cb">&nbsp;</div>
+<h2>Probabilidade</h2>
 <ul>
-<li><strong>20 Acertos</strong>: 1 em 11.372.635 jogos</li>
-<li><strong>19 Acertos</strong>: 1 em 352.551 jogos</li>
-<li><strong>18 Acertos</strong>: 1 em 24.235 jogos</li>
-<li><strong>17 Acertos</strong>: 1 em 2.776 jogos</li>
-<li><strong>16 Acertos</strong>: 1 em 472 jogos</li>
-<li><strong>15 Acertos</strong>: 1 em 112 jogos</li>
-<li><strong>0 Acertos</strong>: 1 em 11.372.635 jogos</li>
+<li><strong>20 números</strong>: 1 em 11.372.635</li>
+<li><strong>19 números</strong>: 1 em 352.551</li>
+<li><strong>18 números</strong>: 1 em 24.235</li>
+<li><strong>17 números</strong>: 1 em 2.776</li>
+<li><strong>16 números</strong>: 1 em 472</li>
+<li><strong>15 números</strong>: 1 em 112</li>
+<li><strong>0 números</strong>: 1 em 11.372.635</li>
 </ul>
-<p>Marcando APOSTA ESPELHO o sistema de apostas da Caixa gera um segundo jogo com os outros 50 n&uacute;meros n&atilde;o marcados no volante. H&aacute; a op&ccedil;&atilde;o de deixar que o sistema escolha os n&uacute;meros por voc&ecirc;. Deixe o volante da Lotomania em branco e marque entre 1 ou 2 jogos no campo SURPRESINHA. H&aacute; tamb&eacute;m a op&ccedil;&atilde;o TEIMOSINHA, onde voc&ecirc; pode repetir o mesmo jogo nos pr&oacute;ximos concursos da Lotomania. Basta marcar 2, 4 ou 8 concursos.</p>
-<p>A Lotomania n&atilde;o faz parte do sistema de Bol&atilde;o fornecido pela Caixa Econ&ocirc;mica Federal.</p>
-<h2>Sobre a premia&ccedil;&atilde;o da Lotomania</h2>
-<p>O pr&ecirc;mio principal para quem acertar os 20 n&uacute;meros sozinho &eacute; estimado em R$ 500.000,00 se n&atilde;o houver nenhum ac&uacute;mulo de pr&ecirc;mio de concursos anteriores. A Lotomania &eacute; uma das loterias que mais acumulam. Se acumular o valor destinado ao pr&ecirc;mio principal &eacute; somado ao valor do pr&ecirc;mio principal do concurso seguinte e sucessivamente at&eacute; que haja um ganhador. Quando h&aacute; mais de um ganhador no mesmo concurso o pr&ecirc;mio &eacute; dividido. A divis&atilde;o ocorre em todas as faixas de premia&ccedil;&atilde;o.</p>
-<p>Do valor arrecadado para cada concurso da Lotomania somente 43,35% s&atilde;o destinados ao pr&ecirc;mio bruto. Deste percentual ainda s&atilde;o deduzidos imposto de renda. O pr&ecirc;mio l&iacute;quido &eacute; distribuido da seguinte maneira:</p>
-<ul>
-<li><strong>45%</strong>: 20 acertos</li>
-<li><strong>16%</strong>: 19 acertos</li>
-<li><strong>10%</strong>: 18 acertos</li>
-<li><strong>7%</strong>: 17 acertos</li>
-<li><strong>7%</strong>: 16 acertos</li>
-<li><strong>7%</strong>: 15 acertos</li>
-<li><strong>8%</strong>: 0 acertos</li>
-</ul>
-<p>Os 56,65% do valor arrecadado que n&atilde;o fazem parte da premia&ccedil;&atilde;o s&atilde;o distribu&iacute;dos da seguinte maneira:</p>
+
+<h2>Premiação</h2>
+<p>O apostador escolhe 50 números e ganha se acertar 15, 16, 17, 18, 19, 20 ou nenhum dos números sorteados. O preço da aposta é único e custa apenas R$ 2,50. O prêmio bruto corresponde a <strong>45,3%</strong> da arrecadação, já computado o adicional destinado ao Ministério do Esporte. Dessa porcentagem são distribuídos:</p>
+<br>
+
+<div class="bordasimples">
+<table class="bordasimples">
+  <tr>
+    <td>20 acertos:</td>
+    <td>45%</td>
+  </tr>
+  <tr>
+    <td>19 acertos:</td>
+    <td>16%</td>
+  </tr>
+  <tr>
+    <td>18 acertos:</td>
+    <td>10%</td>
+  </tr>
+  <tr>
+    <td>17 acertos:</td>
+    <td>7%</td>
+  </tr>
+  <tr>
+    <td>16 acertos:</td>
+    <td>7%</td>
+  </tr>
+  <tr>
+    <td>15 acertos:</td>
+    <td>7%</td>
+  </tr>
+  <tr>
+    <td>0 acertos:</td>
+    <td>8%</td>
+  </tr>
+</table>
+</div>
+<br>
+<p><strong>Os prêmios prescrevem 90 dias após a data do sorteio. Após esse prazo, os valores são repassados ao Tesouro Nacional para aplicação no FIES - Fundo de Financiamento Estudantil.</strong></p>
+<p><strong>Os 56,65% do valor arrecadado que não fazem parte da premiação são distribuídos da seguinte maneira:</strong></p>
+<p><br></p>
 <ul>
 <li><strong>2,92%</strong>: Fundo Nacional da Cultura - FNC</li>
-<li><strong>1,73%</strong>: Comit&ecirc; Ol&iacute;mpico Brasileiro - COB</li>
-<li><strong>0,96%</strong>: Comit&ecirc; Paral&iacute;mpico Brasileiro - CPB</li>
-<li><strong>2,46%</strong>: Minist&eacute;rio do Esporte (Minist&eacute;rio da Cidadania)</li>
-<li><strong>1%</strong>: Secretarias de esporte, ou &oacute;rg&atilde;os equivalentes, dos Estados e do Distrito Federal</li>
-<li><strong>0,50%</strong>: Comit&ecirc; Brasileiro de Clubes - CBC</li>
+<li><strong>1,73%</strong>: Comitê Olímpico Brasileiro - COB</li>
+<li><strong>0,96%</strong>: Comitê Paralímpico Brasileiro - CPB</li>
+<li><strong>2,46%</strong>: Ministério do Esporte (Ministério da Cidadania)</li>
+<li><strong>1%</strong>: Secretarias de esporte, ou órgãos equivalentes, dos Estados e do Distrito Federal</li>
+<li><strong>0,50%</strong>: Comitê Brasileiro de Clubes - CBC</li>
 <li><strong>0,04%</strong>: Fenaclubes</li>
-<li><strong>0,22%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Escolar - CBDE</li>
-<li><strong>0,11%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Universit&aacute;rio - CBDU</li>
-<li><strong>9,26%</strong>: Fundo Nacional de Seguran&ccedil;a P&uacute;blica - FNSP</li>
-<li><strong>1%</strong>: Fundo Penitenci&aacute;rio Nacional - FUNPEN</li>
+<li><strong>0,22%</strong>: Confederação Brasileira do Desporto Escolar - CBDE</li>
+<li><strong>0,11%</strong>: Confederação Brasileira do Desporto Universitário - CBDU</li>
+<li><strong>9,26%</strong>: Fundo Nacional de Segurança Pública - FNSP</li>
+<li><strong>1%</strong>: Fundo Penitenciário Nacional - FUNPEN</li>
 <li><strong>17,32%</strong>: Seguridade Social</li>
-<li><strong>19,13%</strong>: Despesas de Custeio e Manuten&ccedil;&atilde;o de Servi&ccedil;os<br />Deste percentual 9,57% s&atilde;o de Despesas Operacionais, 8,61% da Comiss&atilde;o dos Lot&eacute;ricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
+<li><strong>19,13%</strong>: Despesas de Custeio e Manutenção de Serviços<br />Deste percentual 9,57% são de Despesas Operacionais, 8,61% da Comissão dos Lotéricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
 </ul>
 <h2>Aos ganhadores da Lotomania</h2>
-<p>Caso voc&ecirc; seja um dos ganhadores da Lotomania saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000,00 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
-<p>O bilhete da Lotomania &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio apresentando seu CPF.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-      </div><!-- end text_info_lotomania -->
-    </div> <!-- end main -->
+<p>Caso você seja um dos ganhadores da Lotomania saiba que pode receber seu prêmio em qualquer casa Lotérica ou agência da Caixa se o valor do prêmio for igual ou inferior a R$ 1.903,98. Para prêmios acima deste valor somente nas agências da Caixa Econômica Federal. Após apresentar o bilhete premiado na rede bancária da Caixa, se o valor do prêmio for superior a R$ 10.000.000 (dez mil reais), é necessário aguardar 2(dois) dias para que o prêmio seja pago.</p>
+<p>O bilhete da Lotomania é a única forma de comprovar sua aposta e receber o prêmio caso seus números sejam sorteados neste concurso, portanto, guarde-o em um local seguro e não se esqueça de colocar seu nome e o número de seu CPF no verso do bilhete para evitar o saque do prêmio por outra pessoa. Somente você poderá retirar o prêmio apresentando seu CPF.</p>
 
-  </div> <!-- end containermain -->
 
+</div><!-- end text_info_megasena -->
+</div> <!-- end main -->
+
+</div> <!-- end containermain -->
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div><!-- col-lg-2 col-md-6 footer-links -->
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+          </div><!-- col-lg-3 col-md-6 footer-contact -->
+      </div> <!-- row -->
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+
+  </div><!-- #footer-top -->
+</footer><!-- #footer -->    
 
 </body>
 </html>

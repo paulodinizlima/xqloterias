@@ -124,7 +124,7 @@
                 //define horário para alternar concurso
                 $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
-                $dataatual = strtotime(date('Y-m-d'));
+                $dataatual = date("Y-m-d", strtotime("today"));
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
@@ -132,26 +132,31 @@
                   if("{$item->ds01d01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->dsconc}"-1; //mostra o último que foi sorteado
+                      $post1 = $ultimo +1;
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->dsconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->dsconc}"-1;
+                      $post1 = $ultimo +1;
                     }
-                  } else { 
+                  } else { //foi sorteado
                     $ultimo = (int)"{$item->dsconc}";
+                    $post1 = $ultimo +1;
                   }
+
                   $sql = "SELECT * FROM tbduplasena WHERE dsconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
                   if($result->rowCount() > 0){
                     $dados = $result->fetchAll(PDO::FETCH_OBJ);
                   }
 
-                  $post1 = $ultimo +1;
                   $sqlpost = "SELECT * FROM tbduplasena WHERE dsconc = $post1";
                   $resultpost = $con->select($sqlpost, $binds);
                   if($resultpost->rowCount() > 0){
                     $dadospost = $resultpost->fetchAll(PDO::FETCH_OBJ);
                   }
+
                   foreach($dadospost as $itempost){
                     //grava informações do último concurso gravado no bd, ainda não sorteado (dados do próximo sorteio)
                     $concpost = "{$itempost->dsconc}"; 
@@ -313,31 +318,21 @@
 
         </div> <!-- end content_left -->
 
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
-        <div class="left_ads">
-          <img src="../../img/ads01.png">
-        </div> <!-- end left_ads -->
+        <!--ads aqui -->
 
-
+      <div class="left_ads">
+        <!--ads aqui -->
+      </div> <!-- end left_ads -->
+          
       </div> <!-- end left -->
 
       <div class="right">        
       <div class="text_top">
-        <p>A loteria Dupla Sena foi lançada em 06 de novembro de 2001 pela Caixa Econômica Federal e é uma versão da Mega Sena com 
-          mais chances de acertar. Com 50 números disponíveis no volante de apostas, de 01 a 50, você pode marcar de 6 a 15 
-          números e ganha se acertar 3 (Terno), 4 (Quadra), 5 (Quina) ou 6 (Sena) números. O custo de uma aposta com 6 números 
-          é de R$ 2,50 e sua aposta participa de 2 sorteios no mesmo concurso. A probabilidade de acertar todos os 6 números é 
-          de 1 em 15.890.700.</p>
+        <p>A Dupla Sena foi lançada em 06 de novembro de 2001. O volante é composto por 50 números e você pode marcar de 6 a 15 números. São sorteados 6 números e ganha quem acertar 3, 4, 5 ou 6 números. O valor da aposta mínima, de 6 números, é de R$ 2,50. A Dupla Sena é sorteada às terças, quintas e sábados, sempre às 20h.</p><br>
 
-        <p><strong>No painel de resultados abaixo, você confere hoje o resultado da Dupla Sena online no último 
-          concurso. Os resultados anteriores você confere nas páginas dos respectivos números dos concursos no menu a esquerda 
-          ou utilizando o campo de busca para concursos mais antigos.</strong></p>      
-      </div> 
+        <p><strong>Abaixo você confere hoje o resultado da Dupla Sena no último concurso. 
+          Os sorteios anteriores você confere nas páginas dos respectivos concursos no menu a esquerda.</strong></p>      
+      </div>
           <div class="top_right_duplasena">
           <strong><span class="text-grey">CONCURSO</span>&nbsp;&nbsp;&nbsp;
               <span class="text-white"><a href='index.php?conc=<?php echo $ant1 ?>'><i class='fas fa-angle-left'></i></a>&nbsp;&nbsp;<?php echo $ultimo."&nbsp;&nbsp;<a href='index.php?conc=".$post1."'><i class='fas fa-angle-right'>&nbsp;&nbsp;</i></a></span>
@@ -399,26 +394,36 @@
             <div class="resultnumbers">
 
               <?php
+                $ordemnum1[0] = $ds01d01;
+                $ordemnum1[1] = $ds01d02;
+                $ordemnum1[2] = $ds01d03;                  
+                $ordemnum1[3] = $ds01d04;
+                $ordemnum1[4] = $ds01d05;
+                $ordemnum1[5] = $ds01d06;
+                sort($ordemnum1);
+              ?>
+
+              <?php
 
                 foreach($dados as $item){
 
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d01}";
+                      echo $ordemnum1[0];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d02}";
+                      echo $ordemnum1[1];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d03}";
+                      echo $ordemnum1[2];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d04}";
+                      echo $ordemnum1[3];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d05}";
+                      echo $ordemnum1[4];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds01d06}";
+                      echo $ordemnum1[5];
                   echo "</div>";
                 }
 
@@ -434,24 +439,34 @@
             <div class="resultnumbers">
 
               <?php
+                $ordemnum2[0] = $ds02d01;
+                $ordemnum2[1] = $ds02d02;
+                $ordemnum2[2] = $ds02d03;                  
+                $ordemnum2[3] = $ds02d04;
+                $ordemnum2[4] = $ds02d05;
+                $ordemnum2[5] = $ds02d06;
+                sort($ordemnum2);
+              ?>
+
+              <?php
                 foreach($dados as $item){
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d01}";
+                      echo $ordemnum2[0];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d02}";
+                      echo $ordemnum2[1];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d03}";
+                      echo $ordemnum2[2];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d04}";
+                      echo $ordemnum2[3];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d05}";
+                      echo $ordemnum2[4];
                   echo "</div>";
                   echo "<div class='resultnumber tduplasena'>";
-                      echo "{$item->ds02d06}";
+                      echo $ordemnum2[5];
                   echo "</div>";
                 }
 
@@ -525,101 +540,304 @@
   <h5>Prêmio estimado: <strong><?php echo "R$ ".$premiolast ?></strong></h5>
 </div> <!-- end right_lowmiddle_info --> 
 <div class="middle_ads">
-<img src="../../img/ads01.png" width="210"> 
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">
-<img src="../../img/ads01.png" width="210">               
+<!--ads aqui -->            
 </div> <!-- end middle_ads -->
 
 <div class="text_info_duplasena">
-<h2>Como jogar na Dupla Sena</h2>
-<p>Para jogar na Dupla Sena compare&ccedil;a a uma Casa Lot&eacute;rica ou jogue online pelo site da Caixa Loterias e preencha seu jogo no volante de apostas que cont&eacute;m 50 n&uacute;meros de 01 a 50. Com um &uacute;nico jogo voc&ecirc; concorre aos dois sorteios do concurso e pode escolher entre 6 e 15 n&uacute;meros com os respectivos custos de aposta por jogo:</p>
-<div class="fl">
-<ul>
-<li><strong>06 n&uacute;meros:</strong>&nbsp;R$ 2,50</li>
-<li><strong>07 n&uacute;meros:</strong>&nbsp;R$ 17,50</li>
-<li><strong>08 n&uacute;meros:</strong>&nbsp;R$ 70,00</li>
-<li><strong>09 n&uacute;meros:</strong>&nbsp;R$ 210,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>10 n&uacute;meros:</strong>&nbsp;R$ 525,00</li>
-<li><strong>11 n&uacute;meros:</strong>&nbsp;R$ 1.155,00</li>
-<li><strong>12 n&uacute;meros:</strong>&nbsp;R$ 2.310,00</li>
-</ul>
-</div>
-<div class="fl">
-<ul>
-<li><strong>13 n&uacute;meros:</strong>&nbsp;R$ 4.290,00</li>
-<li><strong>14 n&uacute;meros:</strong>&nbsp;R$ 7.507,50</li>
-<li><strong>15 n&uacute;meros:</strong>&nbsp;R$ 12.512,50</li>
-</ul>
-</div>
+  <h2>Como jogar na Dupla Sena</h2>
+  <p>Com apenas um bilhete da Dupla Sena, você tem o dobro de chances de ganhar: são dois sorteios por concurso e ganha acertando 3, 4, 5 ou 6 números no primeiro e/ou segundo sorteios.</p>
+  <p>Basta escolher de 6 a 15 números dentre os 50 disponíveis e torcer. Você pode deixar, ainda, que o sistema escolha os números para você (Surpresinha) e/ou concorrer com a mesma aposta por 2, 4 ou 8, 3, 6, 9 ou 12 concursos consecutivos (Teimosinha).</p>
+
+<h2>Tabela de Preços</h2>
+<div class="bordasimples">
+  <table class="bordasimples">
+    <tr>
+      <td>6 números</td>
+      <td>R$ 2,50</td>
+    </tr>
+    <tr>
+      <td>7 números</td>
+      <td>R$ 17,50</td>
+    </tr>
+    <tr>
+      <td>8 números</td>
+      <td>R$ 70,00</td>
+    </tr>
+    <tr>
+      <td>9 números</td>
+      <td>R$ 210,00</td>
+    </tr>
+    <tr>
+      <td>10 números</td>
+      <td>R$ 525,00</td>
+    </tr>
+    <tr>
+      <td>11 números</td>
+      <td>R$ 1.155,00</td>
+    </tr>
+    <tr>
+      <td>12 números</td>
+      <td>R$ 2.310,00</td>
+    </tr>
+    <tr>
+      <td>13 números</td>
+      <td>R$ 4.290,00</td>
+    </tr>
+    <tr>
+      <td>14 números</td>
+      <td>R$ 7.507,50</td>
+    </tr>
+    <tr>
+      <td>15 números</td>
+      <td>R$ 12.512,50</td>
+    </tr>
+  </table>
+</div> <!-- borda simples -->
+
 <div class="cb">&nbsp;</div>
-<p>As probabilidades de acerto das apostas acima para o pr&ecirc;mio principal s&atilde;o:</p>
+<h2>Probabilidade</h2>
 <ul>
-<li><strong>06 n&uacute;meros</strong>: 1 em 15.890.700 jogos</li>
-<li><strong>07 n&uacute;meros</strong>: 1 em 2.270.100 jogos</li>
-<li><strong>08 n&uacute;meros</strong>: 1 em 567.525 jogos</li>
-<li><strong>09 n&uacute;meros</strong>: 1 em 189.175 jogos</li>
-<li><strong>10 n&uacute;meros</strong>: 1 em 75.670 jogos</li>
-<li><strong>11 n&uacute;meros</strong>: 1 em 34.395 jogos</li>
-<li><strong>12 n&uacute;meros</strong>: 1 em 17.197 jogos</li>
-<li><strong>13 n&uacute;meros</strong>: 1 em 9.260 jogos</li>
-<li><strong>14 n&uacute;meros</strong>: 1 em 5.291 jogos</li>
-<li><strong>15 n&uacute;meros</strong>: 1 em 3.174 jogos</li>
+<li><strong>06 números</strong>: 1 em 15.890.700</li>
+<li><strong>07 números</strong>: 1 em 2.270.100</li>
+<li><strong>08 números</strong>: 1 em 567.525</li>
+<li><strong>09 números</strong>: 1 em 189.175</li>
+<li><strong>10 números</strong>: 1 em 75.670</li>
+<li><strong>11 números</strong>: 1 em 34.395</li>
+<li><strong>12 números</strong>: 1 em 17.197</li>
+<li><strong>13 números</strong>: 1 em 9.260</li>
+<li><strong>14 números</strong>: 1 em 5.291</li>
+<li><strong>15 números</strong>: 1 em 3.174</li>
 </ul>
-<p>Em um &uacute;nico volante de apostas da Dupla Sena &eacute; poss&iacute;vel marcar at&eacute; 2 jogos. H&aacute; a op&ccedil;&atilde;o de deixar que o sistema de apostas da Caixa escolha os n&uacute;meros por voc&ecirc;. Deixe o volante da Dupla Sena em branco e marque entre 1 e 8 jogos no campo SURPRESINHA. H&aacute; tamb&eacute;m a op&ccedil;&atilde;o TEIMOSINHA, onde voc&ecirc; pode repetir o mesmo jogo nos pr&oacute;ximos concursos da Dupla Sena. Basta marcar 2, 4 ou 8 concursos.</p>
-<p>Se desejar apostar em grupo na Dupla Sena voc&ecirc; ainda pode fazer o Bol&atilde;o CAIXA para dividir em cotas por apostador. Assim, cada apostador recebe um bilhete de apostas com todos os jogos realizados para confer&ecirc;ncia e se ganharem cada um pode retirar a sua parte no pr&ecirc;mio individualmente. A Caixa ir&aacute; garantir que cada apostador receba a parte do pr&ecirc;mio a que tem direito.<br />O valor m&iacute;nimo do Bol&atilde;o da Dupla Sena &eacute; de R$ 10,00, ou seja, 4 jogos de 6 n&uacute;meros, e cada cota n&atilde;o pode ser inferior a R$ 2,50 com o m&iacute;nimo de 2 e m&aacute;ximo de 50 cotas. No volante de apostas da Dupla Sena h&aacute; um campo onde se marca o n&uacute;mero de cotas.<br />Voc&ecirc; tamb&eacute;m pode comprar cotas de bol&otilde;es organizados pelas pr&oacute;prias Casas Lot&eacute;ricas onde poder&aacute; ser cobrada Tarifa de Servi&ccedil;o adicional de at&eacute; 35% do valor de cada cota.</p>
-<h2>Sobre a premia&ccedil;&atilde;o da Dupla Sena</h2>
-<p>O pr&ecirc;mio principal do primeiro sorteio para quem acertar os 6 n&uacute;meros sozinho &eacute; estimado em R$ 200.000,00 se n&atilde;o houver nenhum ac&uacute;mulo de pr&ecirc;mio de concursos anteriores. A Dupla Sena &eacute; uma das loterias que mais acumulam. Se acumular o valor destinado ao pr&ecirc;mio principal do primeiro sorteio &eacute; somado ao valor do pr&ecirc;mio principal do concurso seguinte e sucessivamente at&eacute; que haja um ganhador. Quando h&aacute; mais de um ganhador no mesmo concurso o pr&ecirc;mio &eacute; dividido. A divis&atilde;o ocorre em todas as faixas de premia&ccedil;&atilde;o.<br />O segundo sorteio da Dupla Sena paga um pr&ecirc;mio menor para 6 acertos que o primeiro sorteio.</p>
-<p>Apostando de 7 a 15 n&uacute;meros e acertando de 4 a 6 n&uacute;meros a premia&ccedil;&atilde;o &eacute; proporcional. Por exemplo, se apostar com 7 n&uacute;meros e acertar 6 n&uacute;meros, al&eacute;m de ganhar o pr&ecirc;mio principal, voc&ecirc; ganha 6 pr&ecirc;mios de 5 acertos.</p>
-<p>Do valor arrecadado para cada concurso da Dupla Sena somente 43,35% s&atilde;o destinados ao pr&ecirc;mio bruto. Deste percentual ainda s&atilde;o deduzidos imposto de renda. O pr&ecirc;mio l&iacute;quido &eacute; distribuido da seguinte maneira:</p>
-<ul>
-<li><strong>30%</strong>: 6 acertos no primeiro sorteio</li>
-<li><strong>10%</strong>: 5 acertos no primeiro sorteio</li>
-<li><strong>8%</strong>: 4 acertos no primeiro sorteio</li>
-<li><strong>4%</strong>: 3 acertos no primeiro sorteio<br /><br /></li>
-<li><strong>11%</strong>: 6 acertos no segundo sorteio</li>
-<li><strong>9%</strong>: 5 acertos no segundo sorteio</li>
-<li><strong>8%</strong>: 4 acertos no segundo sorteio</li>
-<li><strong>4%</strong>: 3 acertos no segundo sorteio</li>
-</ul>
-<p>Os outros 16% do valor restante s&atilde;o acumulados ao pr&ecirc;mio principal do concurso especial da Dupla Sena de P&aacute;scoa. Os 56,65% do valor arrecadado que n&atilde;o fazem parte da premia&ccedil;&atilde;o s&atilde;o distribu&iacute;dos da seguinte maneira:</p>
+
+<h2>Premiação</h2>
+<p>O prêmio bruto corresponde a 43,35% da arrecadação. Desse valor, são distribuídos, para o primeiro sorteio:</p>
+<br>
+
+<div class="bordasimples">
+<table class="bordasimples">
+  <tr>
+    <td>6 acertos:</td>
+    <td>30%</td>
+  </tr>
+  <tr>
+    <td>5 acertos:</td>
+    <td>10%</td>
+  </tr>
+  <tr>
+    <td>4 acertos:</td>
+    <td>8%</td>
+  </tr>
+  <tr>
+    <td>3 acertos:</td>
+    <td>4%</td>
+  </tr>
+</table>
+</div>
+<br>
+<p>E para o segundo sorteio:</p>
+<br>
+
+<div class="bordasimples">
+<table class="bordasimples">
+  <tr>
+    <td>6 acertos:</td>
+    <td>11%</td>
+  </tr>
+  <tr>
+    <td>5 acertos:</td>
+    <td>9%</td>
+  </tr>
+  <tr>
+    <td>4 acertos:</td>
+    <td>8%</td>
+  </tr>
+  <tr>
+    <td>3 acertos:</td>
+    <td>4%</td>
+  </tr>
+</table>
+</div>
+<br>
+<p><strong>16%</strong> ficam acumulados para a 1ª faixa do 1º sorteio (seis acertos) do próximo concurso especial de Páscoa.</p>
+
+<p><strong>Os prêmios prescrevem 90 dias após a data do sorteio. Após esse prazo, os valores são repassados ao Tesouro Nacional para aplicação no FIES - Fundo de Financiamento Estudantil.</strong></p>
+<p><strong>Os 56,65% do valor arrecadado que não fazem parte da premiação são distribuídos da seguinte maneira:</strong></p>
+<p><br></p>
 <ul>
 <li><strong>2,92%</strong>: Fundo Nacional da Cultura - FNC</li>
-<li><strong>1,73%</strong>: Comit&ecirc; Ol&iacute;mpico Brasileiro - COB</li>
-<li><strong>0,96%</strong>: Comit&ecirc; Paral&iacute;mpico Brasileiro - CPB</li>
-<li><strong>2,46%</strong>: Minist&eacute;rio do Esporte (Minist&eacute;rio da Cidadania)</li>
-<li><strong>1%</strong>: Secretarias de esporte, ou &oacute;rg&atilde;os equivalentes, dos Estados e do Distrito Federal</li>
-<li><strong>0,50%</strong>: Comit&ecirc; Brasileiro de Clubes - CBC</li>
+<li><strong>1,73%</strong>: Comitê Olímpico Brasileiro - COB</li>
+<li><strong>0,96%</strong>: Comitê Paralímpico Brasileiro - CPB</li>
+<li><strong>2,46%</strong>: Ministério do Esporte (Ministério da Cidadania)</li>
+<li><strong>1%</strong>: Secretarias de esporte, ou órgãos equivalentes, dos Estados e do Distrito Federal</li>
+<li><strong>0,50%</strong>: Comitê Brasileiro de Clubes - CBC</li>
 <li><strong>0,04%</strong>: Fenaclubes</li>
-<li><strong>0,22%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Escolar - CBDE</li>
-<li><strong>0,11%</strong>: Confedera&ccedil;&atilde;o Brasileira do Desporto Universit&aacute;rio - CBDU</li>
-<li><strong>9,26%</strong>: Fundo Nacional de Seguran&ccedil;a P&uacute;blica - FNSP</li>
-<li><strong>1%</strong>: Fundo Penitenci&aacute;rio Nacional - FUNPEN</li>
+<li><strong>0,22%</strong>: Confederação Brasileira do Desporto Escolar - CBDE</li>
+<li><strong>0,11%</strong>: Confederação Brasileira do Desporto Universitário - CBDU</li>
+<li><strong>9,26%</strong>: Fundo Nacional de Segurança Pública - FNSP</li>
+<li><strong>1%</strong>: Fundo Penitenciário Nacional - FUNPEN</li>
 <li><strong>17,32%</strong>: Seguridade Social</li>
-<li><strong>19,13%</strong>: Despesas de Custeio e Manuten&ccedil;&atilde;o de Servi&ccedil;os<br />Deste percentual 9,57% s&atilde;o de Despesas Operacionais, 8,61% da Comiss&atilde;o dos Lot&eacute;ricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
+<li><strong>19,13%</strong>: Despesas de Custeio e Manutenção de Serviços<br />Deste percentual 9,57% são de Despesas Operacionais, 8,61% da Comissão dos Lotéricos e 0,95% do FDL - Fundo Desenvolvimento das Loterias.</li>
 </ul>
-<h2>Dupla Sena de P&aacute;scoa</h2>
-<p>A Dupla Sena de P&aacute;scoa &eacute; um concurso especial da Dupla Sena realizado no s&aacute;bado que antecede o domingo de p&aacute;scoa de cada ano.</p>
-<p>As regras para jogar neste concurso especial s&atilde;o iguais aos outros concursos da Dupla Sena. Mas, o percentual da arrecada&ccedil;&atilde;o destinado ao pr&ecirc;mio principal &eacute; maior e se n&atilde;o houver nenhum ganhador com 6 acertos o pr&ecirc;mio principal &eacute; somado e pago aos ganhadores com 5 acertos, ou seja, o pr&ecirc;mio do concurso da Dupla Sena de P&aacute;scoa n&atilde;o acumula.</p>
-<p>O pr&ecirc;mio &eacute; composto pelo ac&uacute;mulo de parte do valor arrecadado nos concursos da Dupla Sena realizados durante o ano e somado ao valor arrecadado para o concurso especial. Na semana antecedente &agrave; data do sorteio da Dupla Sena de P&aacute;scoa, com o n&uacute;mero de concurso de final 0 ou 5, n&atilde;o s&atilde;o realizados os sorteios normais da Dupla Sena.</p>
+<br>
+<h2>Dupla de Páscoa</h2>
+<p>O Concurso Especial Dupla de Páscoa acontece todo ano, no sábado que antecede o domingo de páscoa, e obedece às seguintes regras:</p>
+
+<p><strong>Prazo de comercialização:</strong></p>
+<p>Durante 30 dias com captação de apostas independente e concomitante com os demais concursos da modalidade, utilizando-se de volantes específicos (a CAIXA informará com antecedência a data do início das vendas e o número do concurso especial).</p>
+<p><strong>Distribuição do valor destinado ao pagamento dos prêmios:</strong></p>
+
+<p>- 1ª faixa - 46% rateados entre as apostas que contiverem 6 prognósticos certos (sena) do 1º sorteio;</p>
+
+<p>- 2ª faixa - 10% rateados entre as apostas que contiverem 5 prognósticos certos (quina) do 1º sorteio;</p>
+
+<p>- 3ª faixa - 8% rateados entre as apostas que contiverem 4 prognósticos certos (quadra) do 1º sorteio;</p>
+
+<p>- 4ª faixa - 4% rateados entre as apostas que contiverem 3 prognósticos certos (terno) do 1º sorteio;</p>
+
+<p>- 5ª faixa – 11% rateados entre as apostas que contiverem 6 prognósticos certos (sena) do 2º sorteio;</p>
+
+<p>- 6ª faixa - 9% rateados entre as apostas que contiverem 5 prognósticos certos (quina) do 2º sorteio;</p>
+
+<p>- 7ª faixa – 8% rateados entre as apostas que contiverem 4 prognósticos certos (quadra) do 2º sorteio;</p>
+
+<p>- 8ª faixa – 4% rateados entre as apostas que contiverem 3 prognósticos certos (terno) do 2º sorteio.</p>
+
+<p><strong>No concurso especial de Páscoa de cada ano, a 1ª faixa de premiação – seis acertos do 1º sorteio tem a seguinte composição:</strong></p>
+
+<p>- 46% do valor destinado a prêmios;</p>
+
+<p>- total acumulado para o concurso especial de Páscoa;</p>
+
+<p>- total acumulado do concurso anterior, em quaisquer das faixas, quando houver.</p>
+
+<p><strong>Critério de acumulação:</strong></p>
+
+<p>- inexistindo aposta vencedora na primeira faixa de premiação ("sena") do primeiro sorteio, o valor destinado a esta faixa de premiação será adicionado ao valor destinado à segunda faixa de premiação ("quina") do primeiro sorteio e rateado entre os portadores de bilhetes com apostas vencedoras com cinco prognósticos certos;</p>
+
+<p>- inexistindo aposta vencedora na primeira faixa de premiação ("sena") e na segunda faixa de premiação ("quina") do primeiro sorteio, o valor total destinado a estas faixas de premiação será adicionado ao valor destinado à terceira faixa de premiação ("quadra") do primeiro sorteio e rateado entre os portadores de bilhetes com apostas vencedoras com quatro prognósticos certos; e assim sucessivamente;</p>
+
+<p>- inexistindo aposta vencedora nas quatro faixas de premiação ("sena", "quina", "quadra" e "terno") do primeiro sorteio, o valor total destinado a estas faixas de premiação será adicionado ao valor destinado à primeira faixa de premiação ("sena") do segundo sorteio e rateado entre os portadores de bilhetes com apostas vencedoras com seis prognósticos certos;</p>
+
+<p>- inexistindo aposta vencedora nas quatro faixas de premiação ("sena", "quina", "quadra" e "terno") do primeiro sorteio e na primeira faixa de premiação ("sena") do segundo sorteio, o valor total destinado a estas faixas de premiação será adicionado ao valor destinado à segunda faixa de premiação ("quina") do segundo sorteio e rateado entre os portadores de bilhetes com apostas vencedoras com cinco prognósticos certos; e assim sucessivamente; e</p>
+
+<p>- inexistindo aposta vencedora em qualquer uma das quatro faixas de premiação ("sena", "quina", "quadra" e "terno") do primeiro e do segundo sorteios, o valor total destinado a estas faixas de premiação será adicionado ao valor destinado à primeira faixa de premiação ("sena") do primeiro sorteio do concurso da Dupla-Sena imediatamente seguinte ao concurso especial de que se trata e rateado entre os portadores de bilhetes com apostas vencedoras com seis prognósticos certos.</p>
+<br>
+
 <h2>Aos ganhadores da Dupla Sena</h2>
-<p>Caso voc&ecirc; seja um dos ganhadores da Dupla Sena saiba que pode receber seu pr&ecirc;mio em qualquer casa Lot&eacute;rica ou ag&ecirc;ncia da Caixa se o valor do pr&ecirc;mio for igual ou inferior a R$ 1.903,98. Para pr&ecirc;mios acima deste valor somente nas ag&ecirc;ncias da Caixa Econ&ocirc;mica Federal. Ap&oacute;s apresentar o bilhete premiado na rede banc&aacute;ria da Caixa, se o valor do pr&ecirc;mio for superior a R$ 10.000.000 (dez mil reais), &eacute; necess&aacute;rio aguardar 2(dois) dias para que o pr&ecirc;mio seja pago.</p>
-<p>O bilhete da Dupla Sena &eacute; a &uacute;nica forma de comprovar sua aposta e receber o pr&ecirc;mio caso seus n&uacute;meros sejam sorteados neste concurso, portanto, guarde-o em um local seguro e n&atilde;o se esque&ccedil;a de colocar seu nome e o n&uacute;mero de seu CPF no verso do bilhete para evitar o saque do pr&ecirc;mio por outra pessoa. Somente voc&ecirc; poder&aacute; retirar o pr&ecirc;mio apresentando seu CPF.</p>
-<p>Voc&ecirc; tem at&eacute; 90 dias da data do sorteio para resgatar seu pr&ecirc;mio. Ap&oacute;s este prazo o pr&ecirc;mio prescreve e &eacute; repassado ao Tesouro Nacional para aplica&ccedil;&atilde;o no FIES - Fundo de Financiamento ao Estudante do Ensino Superior.</p>
-</div><!-- end text_info_duplasena -->
+<p>Caso você seja um dos ganhadores da Dupla Sena saiba que pode receber seu prêmio em qualquer casa Lotérica ou agência da Caixa se o valor do prêmio for igual ou inferior a R$ 1.903,98. Para prêmios acima deste valor somente nas agências da Caixa Econômica Federal. Após apresentar o bilhete premiado na rede bancária da Caixa, se o valor do prêmio for superior a R$ 10.000.000 (dez mil reais), é necessário aguardar 2(dois) dias para que o prêmio seja pago.</p>
+<p>O bilhete da Dupla Sena é a única forma de comprovar sua aposta e receber o prêmio caso seus números sejam sorteados neste concurso, portanto, guarde-o em um local seguro e não se esqueça de colocar seu nome e o número de seu CPF no verso do bilhete para evitar o saque do prêmio por outra pessoa. Somente você poderá retirar o prêmio apresentando seu CPF.</p>
+
+
+</div><!-- end text_info_megasena -->
 </div> <!-- end main -->
 
 </div> <!-- end containermain -->
+<!--==========================
+    Footer
+  ============================-->
+<footer id="footer">
+  <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
+          
 
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Loterias</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Segunda</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br><br>
+            <h4>Terça</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Quarta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br><br>
+            <h4>Quinta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div>
 
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Sexta</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotomania/">Lotomania</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../supersete/">Super Sete</a></li>
+            </ul>
+            <br>
+            <h4>Sábado</h4>
+            <ul>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../diadesorte/">Dia de Sorte</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../duplasena/">Dupla Sena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../federal/">Federal</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../lotofacil/">Lotofácil</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../megasena/">Megasena</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../quina/">Quina</a></li>
+              <li><i class="ion-ios-arrow-right"></i> <a href="../timemania/">Timemania</a></li>
+            </ul>
+          </div><!-- col-lg-2 col-md-6 footer-links -->
 
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Fale Conosco</h4>
+            <p>
+              São Paulo - Brasil<br>
+              <strong>Email:</strong> xqloterias@xqloterias.com.br<br>
+            </p>
+          </div><!-- col-lg-3 col-md-6 footer-contact -->
+      </div> <!-- row -->
+    </div><!-- container -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>XQ Loterias</strong>. Todos os direitos reservados
+      </div>
+      <div class="credits">
+        Designed by <a href="http://www.mousegraphics.com.br/">Mousegraphics</a>
+      </div>
+    </div>
+
+  </div><!-- #footer-top -->
+</footer><!-- #footer -->    
 
 </body>
 </html>

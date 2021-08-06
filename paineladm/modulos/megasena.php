@@ -8,6 +8,8 @@
 
 <?php
     ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
     require_once "../functions/funcoes.php";
     require_once "../functions/conection.php";
 
@@ -325,8 +327,20 @@
                             $d01proximo = "{$itemmax->msd01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 3){
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else if($diadasemana == 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+4 days')).' 20:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('today')).' 20:00:00';
+                        }
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'msconc' => $conc+1,
+                                        'msdata' => $proximosorteio,
+                                        'mslocal' => 'SÃO PAULO, SP',
                                         'msd01' => 0,
                                         'msd02' => 0,
                                         'msd03' => 0,
@@ -338,6 +352,8 @@
                                         'msgan04' => 0 ];
                             $sql = "INSERT INTO tbmegasena SET 
                                             msconc = :msconc,
+                                            msdata = :msdata,
+                                            mslocal = :mslocal,
                                             msd01 = :msd01,
                                             msd02 = :msd02,
                                             msd03 = :msd03,

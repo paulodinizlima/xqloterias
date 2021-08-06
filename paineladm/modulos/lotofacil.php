@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="../css/style.css">
 
 <?php
+    ini_set('default_charset', 'utf-8');
+    //define fuso horário
+    date_default_timezone_set('America/Sao_Paulo');
     require_once "../functions/funcoes.php";
     require_once "../functions/conection.php";
 
@@ -484,8 +487,18 @@
                             $d01proximo = "{$itemmax->lfd01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 6){
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } else if($diadasemana != 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
+                        } 
+
                         if($conc == $concproximo && $d01proximo != 0){
                         $binds = [  'lfconc' => $conc+1,
+                                    'lfdata' => $proximosorteio,
+                                    'lflocal' => 'SÃO PAULO, SP',
                                     'lfd01' => 0,
                                     'lfd02' => 0,
                                     'lfd03' => 0,
@@ -505,14 +518,11 @@
                                     'lfgan14' => 0,
                                     'lfgan13' => 0,
                                     'lfgan12' => 0,
-                                    'lfgan11' => 0,
-                                    'lfpr15' => 0,
-                                    'lfpr14' => 0,
-                                    'lfpr13' => 0,
-                                    'lfpr12' => 0,
-                                    'lfpr11' => 0,];
+                                    'lfgan11' => 0 ];
                             $sql = "INSERT INTO tblotofacil SET 
                                         lfconc = :lfconc,
+                                        lfdata = :lfdata,
+                                        lflocal = :lflocal, 
                                         lfd01 = :lfd01,
                                         lfd02 = :lfd02,
                                         lfd03 = :lfd03,
@@ -532,20 +542,10 @@
                                         lfgan14 = :lfgan14,
                                         lfgan13 = :lfgan13,
                                         lfgan12 = :lfgan12,
-                                        lfgan11 = :lfgan11,
-                                        lfpr15 = :lfpr15,
-                                        lfpr14 = :lfpr14,
-                                        lfpr13 = :lfpr13,
-                                        lfpr12 = :lfpr12,
-                                        lfpr11 = :lfpr11";            
+                                        lfgan11 = :lfgan11";            
                             $result = $conection->insert($sql,$binds);
                         }
-                        //------------------------------------------------------------//       
-
-
-
-
-
+                        //------------------------------------------------------------//    
 
 
                         if($result){
