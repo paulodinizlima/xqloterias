@@ -399,8 +399,20 @@
                             $d01proximo = "{$itemmax->ddsd01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 2 || $diadasemana == 4 || $diadasemana == 1){
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } else if($diadasemana == 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
+                        }
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'ddsconc' => $conc+1,
+                                        'ddsdata' => $proximosorteio,
+                                        'ddslocal' => 'SÃO PAULO, SP',
                                         'ddsd01' => 0,
                                         'ddsd02' => 0,
                                         'ddsd03' => 0,
@@ -415,6 +427,8 @@
                                         'ddsganmes' => '' ];
                             $sql = "INSERT INTO tbdiadesorte SET 
                                             ddsconc = :ddsconc,
+                                            ddsdata = :ddsdata,
+                                            ddslocal = :ddslocal,
                                             ddsd01 = :ddsd01,
                                             ddsd02 = :ddsd02,
                                             ddsd03 = :ddsd03,

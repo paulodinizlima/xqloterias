@@ -267,6 +267,7 @@
     border-bottom: 1px solid #ccc;
     padding: 4px;
 }
+
     
     .tloterias {
         height: auto;
@@ -280,6 +281,7 @@
         border-bottom: 2px solid #73b17d;
         border-radius: 10px 0 10px 0;
     }
+
     .fmegasena {
         color: rgb(20, 167, 51);
         border-bottom: 2px solid #73b17d;
@@ -500,6 +502,7 @@
         padding: 20px 20px;
         margin: 10px;
     }
+    
     .main-loterias h2{
         font-weight: 700;
     }
@@ -641,6 +644,12 @@
         color: white;
         font-size: 26px !important;
     }
+    .text-premio-estimado{
+        color: white;
+        font-size: 22px;
+        opacity: 0.75;
+    }
+    
     .text-white-federal{
         color: white;
         font-size: 22px !important;

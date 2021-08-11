@@ -329,12 +329,14 @@
 
                         $diadasemana = date('w', strtotime('today'));
 
-                        if($diadasemana == 3){
+                        if($diadasemana == 3 || $diadasemana == 0){
                             $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
                         } else if($diadasemana == 6) {
                             $proximosorteio = date('Y/m/d', strtotime('+4 days')).' 20:00:00';
+                        } else if($diadasemana == 1 $diadasemana == 4) {
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
                         } else {
-                            $proximosorteio = date('Y/m/d', strtotime('today')).' 20:00:00';
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
                         }
 
                         if($conc == $concproximo && $d01proximo != 0){

@@ -422,8 +422,21 @@
                             $d01proximo = "{$itemmax->tmmd01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 2 || $diadasemana == 4 || $diadasemana == 1){
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } else if($diadasemana == 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
+                        }
+
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'tmmconc' => $conc+1,
+                                        'tmmdata' => $proximosorteio,
+                                        'tmmlocal' => 'SÃO PAULO, SP',
                                         'tmmd01' => 0,
                                         'tmmd02' => 0,
                                         'tmmd03' => 0,
@@ -438,6 +451,8 @@
                                         'tmmgan03' => 0 ];
                             $sql = "INSERT INTO tbtimemania SET 
                                             tmmconc = :tmmconc,
+                                            tmmdata = :tmmdata,
+                                            tmmlocal = :tmmlocal,
                                             tmmd01 = :tmmd01,
                                             tmmd02 = :tmmd02,
                                             tmmd03 = :tmmd03,

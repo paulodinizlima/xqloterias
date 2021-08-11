@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>XQ Loterias - Lotomania</title>
+  <meta charset="utf-8">
+  <title>XQ Loterias - Lotomania</title>
     <meta http-equiv="refresh" content="60">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-	<!--Favicon -->
-	<link href="../../img/favicon.png" rel="icon">
+  <!--Favicon -->
+  <link href="../../img/favicon.png" rel="icon">
   <link href="../../img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="../../fontawesome/css/all.css">
 
-	<!-- Google Fonts -->
-  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
 
-  	<!-- Bootstrap CSS File -->
-  	<link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS File -->
+    <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<!-- Main Stylesheet File -->
-	<link rel="stylesheet" type="text/css" href="../../css/style.css">
-	
+  <!-- Main Stylesheet File -->
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  
 </head>
 
 
@@ -129,7 +129,7 @@
 
                 //verifica se o último concurso já foi sorteado
                 foreach($dados as $item){  
-                  $dataproximo = date("Y-m-d", strtotime("{$item->ltmdata}"));                
+                  $dataproximo = date("Y-m-d", strtotime("{$item->ltmdata}"));
                   if("{$item->ltmd01}" == 0){ //não foi sorteado 
                     if($horafixa > $horaatual && $dataproximo == $dataatual){ //ainda não chegou o horario do sorteio (1 hora antes)
                       $ultimo = "{$item->ltmconc}"-1; //mostra o último que foi sorteado
@@ -137,15 +137,17 @@
                     } else if($horafixa < $horaatual && $dataproximo == $dataatual){ //chegou o horario e dia do sorteio (1 hora antes)
                       $ultimo = "{$item->ltmconc}";
                       $post1 = $ultimo;
+                    } else if ($dataproximo < $dataatual){//foi sorteado mas não foi lançado
+                      $ultimo = "{$item->ltmconc}";
+                      $post1 = $ultimo;
                     } else {
                       $ultimo = "{$item->ltmconc}"-1;
                       $post1 = $ultimo +1;
                     }
-                  } else { 
+                  } else if ("{$item->ltmd01}" != 0) { //foi sorteado
                     $ultimo = (int)"{$item->ltmconc}";
                     $post1 = $ultimo +1;
                   }
-
                   $sql = "SELECT * FROM tblotomania WHERE ltmconc = $ultimo";                    
                   $result = $con->select($sql, $binds);
                   if($result->rowCount() > 0){
@@ -344,7 +346,13 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->ltmd01}" == 0){ //não foi sorteado 
-              //echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premioproximo."</span>";
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Prêmio Estimado: R$ ".$premiopost."</em></span>";
+            }
+            
+            if($premiopost == "Aguardando..."){
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Prêmio Estimado: R$ "."{$item->ltmpremioest}"."</em></span>";
+            } else if ($premiopost != "Aguardando..." && "{$item->ltmgan20}" == 0 && "{$item->ltmpr20}" != ""){
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>A C U M U L O U !!!</em></span>";
             }
           ?></strong>
           </div> <!-- end top_right -->

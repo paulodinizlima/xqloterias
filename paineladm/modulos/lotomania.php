@@ -605,8 +605,20 @@
                             $d01proximo = "{$itemmax->ltmd01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 2){
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else if($diadasemana == 5) {
+                            $proximosorteio = date('Y/m/d', strtotime('+4 days')).' 20:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('today')).' 20:00:00';
+                        }
+
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'ltmconc' => $conc+1,
+                                        'ltmdata' => $proximosorteio,
+                                        'ltmlocal' => 'SÃO PAULO, SP',
                                         'ltmd01' => 0,
                                         'ltmd02' => 0,
                                         'ltmd03' => 0,
@@ -636,6 +648,8 @@
                                         'ltmgan00' => 0 ];
                             $sql = "INSERT INTO tblotomania SET 
                                             ltmconc = :ltmconc,
+                                            ltmdata = :ltmdata,
+                                            ltmlocal = :ltmlocal,
                                             ltmd01 = :ltmd01,
                                             ltmd02 = :ltmd02,
                                             ltmd03 = :ltmd03,

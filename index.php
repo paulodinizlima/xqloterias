@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>XQ Loterias</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 	<!--Favicon -->
 	<link href="img/favicon.png" rel="icon">
 	<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="fontawesome/css/all.css">
 
 	<!-- Google Fonts -->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
@@ -87,6 +89,7 @@
     $horaatual = strtotime(date('H:i'));
     $dataatual = date('Y-m-d');
 
+
      
   ?>
 
@@ -120,6 +123,7 @@
             foreach($dados as $item){ 
             $msdata = "{$item->msdata}";   
             $mspremio = "{$item->mspremioest}";
+            $msacumulado = "";
             echo "<a href='loterias/megasena'>
                   <div class='title_loteria_left tmegasena'>            
                     <h5><span class='icone'><img src='img/icon_megasena.png' width='20'></span> Megasena";
@@ -142,7 +146,18 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+                
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->msgan06}" == '0'){
+                $msacumulado = "A C U M U L A D O";
+              } else if ("{$item2->msgan06}" == '-'){
+                $msacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->msgan06}" > 0){
+                $msacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Lotofácil -->
             <?php
@@ -150,7 +165,8 @@
                 $sql = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc) FROM tblotofacil)";
                 $sql2 = "SELECT * FROM tblotofacil WHERE lfconc = (SELECT max(lfconc)-1 FROM tblotofacil)";
                 $result = $con->select($sql, $binds); 
-                $result2= $con->select($sql2, $binds);                 
+                $result2= $con->select($sql2, $binds);
+                $lfacumulado = "";                 
                 if($result->rowCount() > 0){
                   $dados = $result->fetchAll(PDO::FETCH_OBJ);
                 } 
@@ -158,31 +174,41 @@
                   $dados2 = $result2->fetchAll(PDO::FETCH_OBJ);
                 }           
             foreach($dados as $item){ 
-            $lfdata = "{$item->lfdata}";   
-            $lfpremio = "{$item->lfpremioest}";   
-            echo "<a href='loterias/lotofacil'>
-                  <div class='title_loteria_left tlotofacil'>            
-                    <h5><span class='icone'><img src='img/icon_lotofacil.png' width='20'></span> Lotofácil";
-                      $datajogo = date("Y-m-d", strtotime("{$item->lfdata}"));
-                      if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
-                        echo "<span class='concurso_left'>&nbsp;{$item->lfconc}</span></h5>";
-                      } else if("{$item->lfd01}" == 0 && "{$item->lfdata}" != $dataatual){
-                        foreach($dados2 as $item2){
-                          echo "<span class='concurso_left'>&nbsp;{$item2->lfconc}</span></h5>";
+              $lfdata = "{$item->lfdata}";   
+              $lfpremio = "{$item->lfpremioest}"; 
+              echo "<a href='loterias/lotofacil'>
+                    <div class='title_loteria_left tlotofacil'>            
+                      <h5><span class='icone'><img src='img/icon_lotofacil.png' width='20'></span> Lotofácil";
+                        $datajogo = date("Y-m-d", strtotime("{$item->lfdata}"));
+                        if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
+                          echo "<span class='concurso_left'>&nbsp;{$item->lfconc}</span></h5>";
+                        } else if("{$item->lfd01}" == 0 && "{$item->lfdata}" != $dataatual){
+                          foreach($dados2 as $item2){
+                            echo "<span class='concurso_left'>&nbsp;{$item2->lfconc}</span></h5>";
+                          }
                         }
+              echo "</div>    
+                    <div class='content_loteria_left'>";
+                    if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
+                      echo date('d/m/Y', strtotime("{$item->lfdata}"))."&nbsp;- Aguardando Sorteio";
+                    } else {
+                      foreach($dados2 as $item2){
+                        echo date('d/m/Y', strtotime("{$item2->lfdata}"));
                       }
-            echo "</div>    
-                  <div class='content_loteria_left'>";
-                  if("{$item->lfd01}" == 0 && $datajogo == $dataatual){
-                    echo date('d/m/Y', strtotime("{$item->lfdata}"))."&nbsp;- Aguardando Sorteio";
-                  } else {
-                    foreach($dados2 as $item2){
-                      echo date('d/m/Y', strtotime("{$item2->lfdata}"));
                     }
-                  }
-            echo  "</div>
-                  </a>";
-            }?>
+              echo  "</div>
+                    </a>";            
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->lfgan15}" == '0'){
+                $lfacumulado = "A C U M U L A D O";
+              } else if ("{$item2->lfgan15}" == '-'){
+                $lfacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->lfgan15}" > 0){
+                $lfacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Quina -->  
             <?php
@@ -200,6 +226,7 @@
             foreach($dados as $item){ 
             $quidata = "{$item->quidata}";   
             $quipremio = "{$item->quipremioest}";   
+            $quiacumulado = "";
             echo "<a href='loterias/quina'>
                   <div class='title_loteria_left tquina'>            
                     <h5><span class='icone'><img src='img/icon_quina.png' width='20'></span> Quina";
@@ -222,7 +249,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->quigan05}" == '0'){
+                $quiacumulado = "A C U M U L A D O";
+              } else if ("{$item2->quigan05}" == '-'){
+                $quiacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->quigan05}" > 0){
+                $quiacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Lotomania -->
             <?php
@@ -240,6 +277,7 @@
             foreach($dados as $item){   
             $ltmdata = "{$item->ltmdata}";   
             $ltmpremio = "{$item->ltmpremioest}"; 
+            $ltmacumulado = "";
             echo "<a href='loterias/lotomania'>
                   <div class='title_loteria_left tlotomania'>            
                     <h5><span class='icone'><img src='img/icon_lotomania.png' width='20'></span> Lotomania";
@@ -262,7 +300,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->ltmgan20}" == '0'){
+                $ltmacumulado = "A C U M U L A D O";
+              } else if ("{$item2->ltmgan20}" == '-'){
+                $ltmacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->ltmgan20}" > 0){
+                $ltmacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Timemania -->
             <?php
@@ -279,7 +327,8 @@
                 }           
             foreach($dados as $item){
             $tmmdata = "{$item->tmmdata}";   
-            $tmmpremio = "{$item->tmmpremioest}";    
+            $tmmpremio = "{$item->tmmpremioest}";  
+            $tmmacumulado = "";  
             echo "<a href='loterias/timemania'>
                   <div class='title_loteria_left ttimemania'>            
                     <h5><span class='icone'><img src='img/icon_timemania.png' width='20'></span> Timemania";
@@ -302,7 +351,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->tmmgan07}" == '0'){
+                $tmmacumulado = "A C U M U L A D O";
+              } else if ("{$item2->tmmgan07}" == '-'){
+                $tmmacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->tmmgan07}" > 0){
+                $tmmacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Dupla Sena -->
             <?php
@@ -319,7 +378,8 @@
                 }           
             foreach($dados as $item){ 
             $dsdata = "{$item->dsdata}";   
-            $dspremio = "{$item->dspremioest}";   
+            $dspremio = "{$item->dspremioest}";  
+            $dsacumulado = ""; 
             echo "<a href='loterias/duplasena'>
                   <div class='title_loteria_left tduplasena'>            
                     <h5><span class='icone'><img src='img/icon_duplasena.png' width='20'></span> Dupla Sena";
@@ -342,7 +402,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->ds01gan06}" == '0'){
+                $dsacumulado = "A C U M U L A D O";
+              } else if ("{$item2->ds01gan06}" == '-'){
+                $dsacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->ds01gan06}" > 0){
+                $dsacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Dia de Sorte -->
             <?php
@@ -359,7 +429,8 @@
                 }           
             foreach($dados as $item){
             $ddsdata = "{$item->ddsdata}";   
-            $ddspremio = "{$item->ddspremioest}";    
+            $ddspremio = "{$item->ddspremioest}";   
+            $ddsacumulado = ""; 
             echo "<a href='loterias/diadesorte'>
                   <div class='title_loteria_left tdiadesorte'>            
                     <h5><span class='icone'><img src='img/icon_diadesorte.png' width='20'></span> Dia de Sorte";
@@ -382,7 +453,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+             } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->ddsgan07}" == '0'){
+                $ddsacumulado = "A C U M U L A D O";
+              } else if ("{$item2->ddsgan07}" == '-'){
+                $ddsacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->ddsgan07}" > 0){
+                $ddsacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Super Sete -->
             <?php
@@ -399,7 +480,8 @@
                 }           
             foreach($dados as $item){ 
             $spsdata = "{$item->spsdata}";   
-            $spspremio = "{$item->spspremioest}";   
+            $spspremio = "{$item->spspremioest}"; 
+            $spsacumulado = "";  
             echo "<a href='loterias/supersete'>
                   <div class='title_loteria_left tsupersete'>            
                     <h5><span class='icone'><img src='img/icon_supersete.png' width='20'></span> Super Sete";
@@ -422,7 +504,17 @@
                   }
             echo  "</div>
                   </a>";
-            }?>
+            } //end foreach
+            foreach($dados2 as $item2){
+              if("{$item2->spsgan07}" == '0'){
+                $spsacumulado = "A C U M U L A D O";
+              } else if ("{$item2->spsgan07}" == '-'){
+                $spsacumulado = "A G U A R D A N D O";
+              } else if ((int)"{$item2->spsgan07}" > 0){
+                $spsacumulado = "";
+              }  
+            } //end foreach
+            ?>
 
             <!-- Federal -->
             <?php
@@ -475,10 +567,22 @@
         <!-- Megasena -->  
         <div class="row">
           <div class="main-loterias tmegasena text-white col-md-3">
-          <h2>Megasena</h2>
+          <h2><a href='loterias/megasena'>Megasena</a></h2>
+          <?php echo "<span class='text-grey'>".$msacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
-          <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($msdata)) ?></h3></h6>
+          <h6>Próximo Sorteio:
+          <?php 
+          $datajogo = date("Y-m-d", strtotime($msdata));
+          if($dataatual == $datajogo){
+            //echo "<strong>";
+            echo "<h3>".date('d/m/Y', strtotime($msdata))."</h3>";
+            //echo "</strong>";
+          } else {
+            echo "<h3>".date('d/m/Y', strtotime($msdata))."</h3>";
+          }
+          ?>
+          </h6>
           <h6><?php echo "às ".date('H:i', strtotime($msdata))."h" ?> </h6>
           </div><!-- end main-data-sorteio col-md-2 -->
           <div class="main-premios col-md-4 fmegasena">
@@ -489,7 +593,8 @@
         <!-- Lotofácil -->
         <div class="row"> 
           <div class="main-loterias tlotofacil text-white col-md-3">
-          <h2>Lotofácil</h2>
+          <h2><a href='loterias/lotofacil'>Lotofácil</a></h2>
+          <?php echo "<span class='text-grey'>".$lfacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($lfdata)) ?></h3></h6>
@@ -503,7 +608,8 @@
         <!-- Quina --> 
         <div class="row">
           <div class="main-loterias tquina text-white col-md-3">
-          <h2>Quina</h2>
+          <h2><a href='loterias/quina'>Quina</a></h2>
+          <?php echo "<span class='text-grey'>".$quiacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($quidata)) ?></h3></h6>  
@@ -517,7 +623,8 @@
         <!-- Lotomania -->  
         <div class="row">
           <div class="main-loterias tlotomania text-white col-md-3">
-          <h2>Lotomania</h2>
+          <h2><a href='loterias/lotomania'>Lotomania</a></h2>
+          <?php echo "<span class='text-grey'>".$ltmacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($ltmdata)) ?></h3></h6> 
@@ -531,7 +638,8 @@
         <!-- Timemania --> 
         <div class="row"> 
           <div class="main-loterias ttimemania text-white col-md-3">
-          <h2>Timemania</h2>
+          <h2><a href='loterias/timemania'>Timemania</a></h2>
+          <?php echo "<span class='text-grey'>".$tmmacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($tmmdata)) ?></h3></h6> 
@@ -545,7 +653,8 @@
         <!-- Dupla Sena --> 
         <div class="row"> 
           <div class="main-loterias tduplasena text-white col-md-3">
-          <h2>Dupla Sena</h2>
+          <h2><a href='loterias/duplasena'>Dupla Sena</a></h2>
+          <?php echo "<span class='text-grey'>".$dsacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($dsdata)) ?></h3></h6>  
@@ -559,7 +668,8 @@
         <!-- Dia de Sorte -->  
         <div class="row">
           <div class="main-loterias tdiadesorte text-white col-md-3">
-          <h2>Dia de Sorte</h2>
+          <h2><a href='loterias/diadesorte'>Dia de Sorte</a></h2>
+          <?php echo "<span class='text-grey'>".$ddsacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($ddsdata)) ?></h3></h6> 
@@ -573,7 +683,8 @@
         <!-- Super Sete -->  
         <div class="row">
           <div class="main-loterias tsupersete text-white col-md-3">
-          <h2>Super Sete</h2>
+          <h2><a href='loterias/supersete'>Super Sete</a></h2>
+          <?php echo "<span class='text-grey'>".$spsacumulado."</span>"; ?>
           </div><!-- end main-loterias col-md-4 -->
           <div class="main-data-sorteio col-md-2">
           <h6>Próximo Sorteio: <h3><?php echo date('d/m/Y', strtotime($spsdata)) ?></h3></h6> 

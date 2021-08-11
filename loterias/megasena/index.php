@@ -122,7 +122,7 @@
                 } 
 
                 //define horário para alternar concurso
-                $horafixa = strtotime('19:00');
+                $horafixa = strtotime('14:00');
                 $horaatual = strtotime(date('H:i'));
                 $dataatual = date("Y-m-d", strtotime("today"));
 
@@ -321,7 +321,13 @@
               <span class='text-grey'><i class='far fa-calendar-alt'></i>&nbsp;".date("d/m/Y", strtotime($dtatual))."</span> &nbsp;&nbsp;
               <span class='text-hour'><i class='far fa-clock'></i>&nbsp;".date("H:i", strtotime($dtatual))."h</span>"; 
             if("{$item->msd01}" == 0){ //não foi sorteado 
-              //echo " - <span class='text-white'>Prêmio Estimado: R$ ".$premiopost."</span>";
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Prêmio Estimado: R$ ".$premiopost."</em></span>";
+            }
+            
+            if($premiopost == "Aguardando..."){
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Prêmio Estimado: R$ "."{$item->mspremioest}"."</em></span>";
+            } else if ($premiopost != "Aguardando..." && "{$item->msgan06}" == 0 && "{$item->mspr06}" != ""){
+              echo "<span class='text-premio-estimado'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>A C U M U L O U !!!</em></span>";
             }
           ?></strong>
           </div> <!-- end top_right_megasena -->
