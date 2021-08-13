@@ -347,15 +347,31 @@
                             $s01proximo = "{$itemmax->feds01}";
                         }
 
+                        $diadasemana = date('w', strtotime('today'));
+
+                        if($diadasemana == 3 || $diadasemana == 0){
+                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                        } else if($diadasemana == 6) {
+                            $proximosorteio = date('Y/m/d', strtotime('+4 days')).' 20:00:00';
+                        } else if($diadasemana == 1 || $diadasemana == 4) {
+                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                        } else {
+                            $proximosorteio = date('Y/m/d', strtotime('+1 days')).' 20:00:00';
+                        }
+
                         if($conc == $concproximo && $s01proximo != 0){
                             $binds = [  'fedconc' => $conc+1,
-                                        'feds01' => 0,
-                                        'feds02' => 0,
-                                        'feds03' => 0,
-                                        'feds04' => 0,
-                                        'feds05' => 0 ];
+                                        'feddata' => $proximosorteio,
+                                        'fedlocal' => 'SÃO PAULO, SP',    
+                                        'feds01' => '00.000',
+                                        'feds02' => '00.000',
+                                        'feds03' => '00.000',
+                                        'feds04' => '00.000',
+                                        'feds05' => '00.000' ];
                             $sql = "INSERT INTO tbfederal SET 
                                             fedconc = :fedconc,
+                                            feddata = :feddata,
+                                            fedlocal = :fedlocal,
                                             feds01 = :feds01,
                                             feds02 = :feds02,
                                             feds03 = :feds03,

@@ -1478,11 +1478,17 @@
             z-index: 0;
         }
         .main div {
-            display: block;
+            /*display: none;*/
             width: 100%;
             height: auto;
             margin-left: 0;
             margin-right: 0;
+        }
+
+        .text-premio-estimado{
+            color: white;
+            font-size: 16px !important;
+            opacity: 0.75;
         }
         .left {
             display: none;
@@ -1767,6 +1773,11 @@
         .main {
             width: 100%;
             margin: 0;
+        }
+        .text-premio-estimado em{
+            color: white;
+            font-size: 16px !important;
+            opacity: 0.75;
         }
         .text_top{
             display: none;

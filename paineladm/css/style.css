@@ -1163,7 +1163,8 @@ p {
 }
 
 .forminput {
-    width: 420px;
+    position: relative;
+    width: 520px;
     float: left;
     padding: 3px;
 }
