@@ -473,31 +473,87 @@
                 foreach($dados as $item){  
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C1</div>";
-                    echo $d01;
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo $d01;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C2</div>";
-                    echo "{$item->spsd02}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd02}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C3</div>";
-                    echo "{$item->spsd03}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd03}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C4</div>";
-                    echo "{$item->spsd04}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd04}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C5</div>";
-                    echo "{$item->spsd05}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd05}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C6</div>";
-                    echo "{$item->spsd06}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd06}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   echo "<div class='resultnumber tsupersete'>";
                   echo "<div class='title_ns7'>C7</div>";
-                    echo "{$item->spsd07}";
+                    if(isset($conc)){
+                      if($conc == $conclast){
+                        echo "-";
+                      } else {
+                        echo "{$item->spsd07}";;
+                      }
+                    } else {
+                      echo "-";
+                    }
                   echo "</div>";
                   
                 }

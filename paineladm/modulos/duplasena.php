@@ -1,10 +1,10 @@
-<meta charset=utf-8 />
 <script>
     function inserir(modulo, tipo){
         location.href='admpainel.php?m='+modulo+'&t='+tipo;
     }
 </script>
 <link rel="stylesheet" href="../css/style.css">
+<meta http-equiv="refresh" content="60">
 
 <?php
     ini_set('default_charset', 'utf-8');
@@ -15,6 +15,21 @@
 
     $funcoes = new funcoes();
     $con = "../functions/conection.php";
+
+    if(isset($_GET['idconc'])){
+        $codconc = $_GET['idconc'];
+        $json = file_get_contents("https://apiloterias.com.br/app/resultado?loteria=duplasena&token=DNqXJmcth70uxIy&concurso=".$codconc);
+    } else {
+        $json = file_get_contents("https://apiloterias.com.br/app/resultado?loteria=duplasena&token=DNqXJmcth70uxIy&concurso=0");
+    }
+    
+    $dat = json_decode($json);
+    //print_r($dat);
+    $qtdcidades = count($dat->local_ganhadores);
+    $cidades = "";
+    if(isset($dat->local_ganhadores[0]->local)){
+        $cidades = $dat->local_ganhadores[0]->local."(".$dat->local_ganhadores[0]->quantidade_ganhadores.")";
+    }
 
     switch($tela){
         //--------------------------------------------------------------------------------------------------------------
@@ -159,6 +174,7 @@
                     $ds02pr04 = filter_input(INPUT_POST, 'ds02pr04', FILTER_SANITIZE_STRING);
                     $ds02pr03 = filter_input(INPUT_POST, 'ds02pr03', FILTER_SANITIZE_STRING);
                     $dscidadesgan = filter_input(INPUT_POST, 'dscidadesgan', FILTER_SANITIZE_STRING);
+
                     if(!empty($conc)){
                         $conection = new conection();
                         $binds = [  'dsconc' => $conc,
@@ -228,17 +244,13 @@
                                         ds02pr04 = :ds02pr04,
                                         ds02pr03 = :ds02pr03,
                                         dscidadesgan = :dscidadesgan";                
-                        $result = $conection->insert($sql,$binds);
-
-                        
-
+                        $result = $conection->insert($sql,$binds);                       
                         if($result){
                             echo "<div class='success'>Cadastro foi realizado</div>";
                         } else {
                             echo "Ops, houve um erro no cadastro";
                         }
                     } 
-
                       
         echo "</div>"; //div-left
 
@@ -307,7 +319,7 @@
                     <div class='painel-titulo-duplasena'>duplasena - Atualização</div>
                     <form class='formcadloterias' id='formcadastro' method='POST' enctype='multipart/form-data' action=''>
                         <div class='form-group'>
-                            <input class='form-control' name='conc' type='text' value=".$item->idduplasena." />
+                            <input class='form-control' name='conc' type='text' value=".$dat->numero_concurso." />
                         </div><div class='formlabel'>conc</div>
                         <div class='form-group'>
                             <input class='form-control' name='data' type='text' value='".date('Y/m/d', strtotime($item->dsdata)).' 20:00:00'."' />
@@ -317,108 +329,117 @@
                         </div><div class='formlabel'>local</div>                        
                         <div class='form-group'>
                             <input class='form-control' name='premioest' type='text' value='".$item->dspremioest."' />
-                        </div><div class='formlabel'>prest</div>
+                        </div><div class='formlabel'>prest</div>";
 
-                        <div class='form-group'>
-                            <input class='form-control' name='ds01d01' type='text' value='".$item->ds01d01."'/>
+                  echo "<div class='form-group'>
+                            <input class='form-control' name='ds01d01' type='text' value='".$dat->dezenas[0]."'/>
                         </div><div class='formlabel'>1d01</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01d02' type='text' value='".$item->ds01d02."' />
+                            <input class='form-control' name='ds01d02' type='text' value='".$dat->dezenas[1]."'/>
                         </div><div class='formlabel'>1d02</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01d03' type='text' value='".$item->ds01d03."' />
+                            <input class='form-control' name='ds01d03' type='text' value='".$dat->dezenas[2]."'/>
                         </div><div class='formlabel'>1d03</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01d04' type='text' value='".$item->ds01d04."' />
+                            <input class='form-control' name='ds01d04' type='text' value='".$dat->dezenas[3]."'/>
                         </div><div class='formlabel'>1d04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01d05' type='text' value='".$item->ds01d05."' />
+                            <input class='form-control' name='ds01d05' type='text' value='".$dat->dezenas[4]."'/>
                         </div><div class='formlabel'>1d05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01d06' type='text' value='".$item->ds01d06."' />
-                        </div><div class='formlabel'>1d06</div>
+                            <input class='form-control' name='ds01d06' type='text' value='".$dat->dezenas[5]."'/>
+                        </div><div class='formlabel'>1d06</div>";
 
-                        <div class='form-group'>
-                            <input class='form-control' name='ds02d01' type='text' value='".$item->ds02d01."'/>
+                  echo "<div class='form-group'>
+                            <input class='form-control' name='ds02d01' type='text' value='".$dat->dezenas_2[0]."'/>
                         </div><div class='formlabel'>2d01</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02d02' type='text' value='".$item->ds02d02."' />
+                            <input class='form-control' name='ds02d02' type='text' value='".$dat->dezenas_2[1]."'/>
                         </div><div class='formlabel'>2d02</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02d03' type='text' value='".$item->ds02d03."' />
+                            <input class='form-control' name='ds02d03' type='text' value='".$dat->dezenas_2[2]."'/>
                         </div><div class='formlabel'>2d03</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02d04' type='text' value='".$item->ds02d04."' />
+                            <input class='form-control' name='ds02d04' type='text' value='".$dat->dezenas_2[3]."'/>
                         </div><div class='formlabel'>2d04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02d05' type='text' value='".$item->ds02d05."' />
+                            <input class='form-control' name='ds02d05' type='text' value='".$dat->dezenas_2[4]."'/>
                         </div><div class='formlabel'>2d05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02d06' type='text' value='".$item->ds02d06."' />
-                        </div><div class='formlabel'>2d06</div>
+                            <input class='form-control' name='ds02d06' type='text' value='".$dat->dezenas_2[5]."'/>
+                        </div><div class='formlabel'>2d06</div>";
 
-                        <div class='form-group'>
-                            <input class='form-control' name='ds01gan06' type='text' value='".$item->ds01gan06."' />
+                  echo "<div class='form-group'>
+                            <input class='form-control' name='ds01gan06' type='text' value='".number_format($dat->premiacao[0]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>1gan06</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01gan05' type='text' value='".$item->ds01gan05."' />
+                            <input class='form-control' name='ds01gan05' type='text' value='".number_format($dat->premiacao[1]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>1gan05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01gan04' type='text' value='".$item->ds01gan04."' />
+                            <input class='form-control' name='ds01gan04' type='text' value='".number_format($dat->premiacao[2]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>1gan04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01gan03' type='text' value='".$item->ds01gan03."' />
+                            <input class='form-control' name='ds01gan03' type='text' value='".number_format($dat->premiacao[3]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>1gan03</div>
 
                         <div class='form-group'>
-                            <input class='form-control' name='ds02gan06' type='text' value='".$item->ds02gan06."' />
+                            <input class='form-control' name='ds02gan06' type='text' value='".number_format($dat->premiacao_2[0]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>2gan06</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02gan05' type='text' value='".$item->ds02gan05."' />
+                            <input class='form-control' name='ds02gan05' type='text' value='".number_format($dat->premiacao_2[1]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>2gan05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02gan04' type='text' value='".$item->ds02gan04."' />
+                            <input class='form-control' name='ds02gan04' type='text' value='".number_format($dat->premiacao_2[2]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>2gan04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02gan03' type='text' value='".$item->ds02gan03."' />
+                            <input class='form-control' name='ds02gan03' type='text' value='".number_format($dat->premiacao_2[3]->quantidade_ganhadores, 0,",",".")."' />
                         </div><div class='formlabel'>2gan03</div>
 
                         <div class='form-group'>
-                            <input class='form-control' name='ds01pr06' type='text' value='".$item->ds01pr06."' />
+                            <input class='form-control' name='ds01pr06' type='text' value='".number_format($dat->premiacao[0]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>1pr06</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01pr05' type='text' value='".$item->ds01pr05."' />
+                            <input class='form-control' name='ds01pr05' type='text' value='".number_format($dat->premiacao[1]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>1pr05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01pr04' type='text' value='".$item->ds01pr04."' />
+                            <input class='form-control' name='ds01pr04' type='text' value='".number_format($dat->premiacao[2]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>1pr04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds01pr03' type='text' value='".$item->ds01pr03."' />
+                            <input class='form-control' name='ds01pr03' type='text' value='".number_format($dat->premiacao[3]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>1pr03</div>
 
                         <div class='form-group'>
-                            <input class='form-control' name='ds02pr06' type='text' value='".$item->ds02pr06."' />
+                            <input class='form-control' name='ds02pr06' type='text' value='".number_format($dat->premiacao_2[0]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>2pr06</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02pr05' type='text' value='".$item->ds02pr05."' />
+                            <input class='form-control' name='ds02pr05' type='text' value='".number_format($dat->premiacao_2[1]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>2pr05</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02pr04' type='text' value='".$item->ds02pr04."' />
+                            <input class='form-control' name='ds02pr04' type='text' value='".number_format($dat->premiacao_2[2]->valor_total, 2,",",".")."' />
                         </div><div class='formlabel'>2pr04</div>
                         <div class='form-group'>
-                            <input class='form-control' name='ds02pr03' type='text' value='".$item->ds02pr03."' />
-                        </div><div class='formlabel'>2pr03</div>
+                            <input class='form-control' name='ds02pr03' type='text' value='".number_format($dat->premiacao_2[3]->valor_total, 2,",",".")."' />
+                        </div><div class='formlabel'>2pr03</div>";
 
-                        <div class='form-group'>
-                            <input class='form-control' name='dscidadesgan' type='text' value='".$item->dscidadesgan."' />
-                        </div><div class='formlabel'>cidgan</div>
+                        for ($i=1; $i < $qtdcidades; $i++) { 
+                            $cidades.=", ".$dat->local_ganhadores[$i]->local."(".$dat->local_ganhadores[$i]->quantidade_ganhadores.")";
+                        }
+                        
+                        if(isset($dat->local_ganhadores[0]->local)){
+                            echo "<div class='form-group'>
+                                    <input class='form-control' name='dscidadesgan' type='text' value='".$cidades."' />
+                                  </div><div class='formlabel'>Cidades</div>";
+                        } else {
+                            echo "<div class='form-group'>
+                                    <input class='form-control' name='dscidadesgan' type='text' value='".$item->dscidadesgan."' />
+                                  </div><div class='formlabel'>Cidades</div>";                
+                        }
 
-                        <div class='form-group'>   
-                            <button type='submit' id='btnduplasena'><span>Atualizar</span></button>    
-                        </div>
-
-                    </form>";
-                }
+                        echo "<div class='form-group'>   
+                                <button type='submit' id='btnduplasena'><span>Atualizar</span></button>    
+                              </div>
+                        </form>";
+                        }
                     $conc = filter_input(INPUT_POST, 'conc', FILTER_SANITIZE_STRING);
                     $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
                     $dslocal = filter_input(INPUT_POST, 'dslocal', FILTER_SANITIZE_STRING);
@@ -436,13 +457,21 @@
                     $ds02d05 = filter_input(INPUT_POST, 'ds02d05', FILTER_SANITIZE_STRING);
                     $ds02d06 = filter_input(INPUT_POST, 'ds02d06', FILTER_SANITIZE_STRING);
                     $ds01gan06 = filter_input(INPUT_POST, 'ds01gan06', FILTER_SANITIZE_STRING);
+                    if($ds01gan06 == "0"){$ds01gan06 = "-";}
                     $ds01gan05 = filter_input(INPUT_POST, 'ds01gan05', FILTER_SANITIZE_STRING);
+                    if($ds01gan05 == "0"){$ds01gan05 = "-";}
                     $ds01gan04 = filter_input(INPUT_POST, 'ds01gan04', FILTER_SANITIZE_STRING);
+                    if($ds01gan04 == "0"){$ds01gan04 = "-";}
                     $ds01gan03 = filter_input(INPUT_POST, 'ds01gan03', FILTER_SANITIZE_STRING);
+                    if($ds01gan03 == "0"){$ds01gan03 = "-";}
                     $ds02gan06 = filter_input(INPUT_POST, 'ds02gan06', FILTER_SANITIZE_STRING);
+                    if($ds02gan06 == "0"){$ds02gan06 = "-";}
                     $ds02gan05 = filter_input(INPUT_POST, 'ds02gan05', FILTER_SANITIZE_STRING);
+                    if($ds02gan05 == "0"){$ds02gan05 = "-";}
                     $ds02gan04 = filter_input(INPUT_POST, 'ds02gan04', FILTER_SANITIZE_STRING);
+                    if($ds02gan04 == "0"){$ds02gan04 = "-";}
                     $ds02gan03 = filter_input(INPUT_POST, 'ds02gan03', FILTER_SANITIZE_STRING);
+                    if($ds02gan03 == "0"){$ds02gan03 = "-";}
                     $ds01pr06 = filter_input(INPUT_POST, 'ds01pr06', FILTER_SANITIZE_STRING);
                     $ds01pr05 = filter_input(INPUT_POST, 'ds01pr05', FILTER_SANITIZE_STRING);
                     $ds01pr04 = filter_input(INPUT_POST, 'ds01pr04', FILTER_SANITIZE_STRING);
@@ -524,9 +553,8 @@
                                         dscidadesgan = :dscidadesgan WHERE dsconc = $codconc";                
                         $result = $conection->insert($sql,$binds);
 
-
                         //---------------------------------------------------------
-                       //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
+                        //**pegar o último concurso cadastrado no banco de dados, armazena em $concproximo
                         $sql2 = "SELECT * FROM tbduplasena WHERE dsconc = (SELECT max(dsconc) FROM tbduplasena)";
                         $resultmax = $conection->select($sql2,$binds);
                         $dadosmax = $resultmax->fetchAll(PDO::FETCH_OBJ);
@@ -535,19 +563,28 @@
                             $d01proximo = "{$itemmax->ds01d01}";
                         }
 
-                        $diadasemana = date('w', strtotime('today'));
+                        if (isset($dat->data_proximo_concurso)) {
+                            $proximosorteio = substr($dat->data_proximo_concurso, 0,10).' 20:00:00';
+                        } else {
+                            $diadasemana = date('w', strtotime('today'));
+                            if($diadasemana == 6){
+                                $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
+                            } else if($diadasemana != 6) {
+                                $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
+                            } 
+                        }
 
-                        if($diadasemana == 6){
-                            $proximosorteio = date('Y/m/d', strtotime('+3 days')).' 20:00:00';
-                        } else if($diadasemana != 6) {
-                            $proximosorteio = date('Y/m/d', strtotime('+2 days')).' 20:00:00';
-                        } 
-
+                        if($dat->valor_estimado_proximo_concurso != 0){
+                            $premioestimadoprox = number_format($dat->valor_estimado_proximo_concurso, 2,",",".");
+                        } else {
+                            $premioestimadoprox = "Aguardando...";
+                        }
 
                         if($conc == $concproximo && $d01proximo != 0){
                             $binds = [  'dsconc' => $conc+1,
                                         'dsdata' => $proximosorteio,
                                         'dslocal' => 'SÃO PAULO, SP',
+                                        'dspremioest' => $premioestimadoprox,
                                         'ds01d01' => 0,
                                         'ds01d02' => 0,
                                         'ds01d03' => 0,
@@ -564,6 +601,7 @@
                                             dsconc = :dsconc,
                                             dsdata = :dsdata,
                                             dslocal = :dslocal,
+                                            dspremioest = :dspremioest, 
                                             ds01d01 = :ds01d01,
                                             ds01d02 = :ds01d02,
                                             ds01d03 = :ds01d03,
@@ -577,16 +615,21 @@
                                             ds02d05 = :ds02d05,
                                             ds02d06 = :ds02d06";            
                             $result = $conection->insert($sql,$binds);
+                        //atualizar premio estimado
+                        } else if($conc != $concproximo && $d01proximo == 0){ 
+                            $codconclast = $conc+1;
+                            $binds = [  'dspremioest' => $premioestimadoprox ];
+                            $sql = "UPDATE tbduplasena SET
+                                        dspremioest = :dspremioest WHERE dsconc = $codconclast"; 
+                            $result = $conection->insert($sql,$binds);           
                         }
-                        //------------------------------------------------------------//
-
+                        //------------------------------------------------------------//    
                         if($result){
                             echo "<div class='success'>Cadastro foi realizado</div>";
                         } else {
                             echo "Ops, houve um erro no cadastro";
                         }
-                    }  
-
+                    }            
         echo "</div>"; //div-left
 
         echo "<div class='div-right'>";

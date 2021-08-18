@@ -122,7 +122,7 @@
                 } 
 
                 //define horário para alternar concurso
-                $horafixa = strtotime('14:00');
+                $horafixa = strtotime('19:00');
                 $horaatual = strtotime(date('H:i'));
                 $dataatual = date("Y-m-d", strtotime("today"));
 
